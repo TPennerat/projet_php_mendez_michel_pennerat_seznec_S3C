@@ -1,0 +1,16 @@
+{
+	"name": "mywishlist.app",
+    "type": "project",
+    "author": "TMZ",
+	"require":{
+		"illuminate/database": "5.5.*",
+		"php": ">=7.0",
+		"slim/slim": "2.*"
+	},
+
+	"autoload":{
+		"psr-4": {
+			"mywishlist\\" : "src/"
+		}
+	}
+}
