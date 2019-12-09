@@ -8,7 +8,7 @@ RewriteBase /www/mendezpo1u/mywishlist
 #
 # Pour interdire l'accès aux répertoires contenant du code
 RewriteRule ^sql(/.*|)$ - [NC,F]
-#RewriteRule ^src(/.*|)$ - [NC,F]
+RewriteRule ^src(/.*|)$ - [NC,F]
 RewriteRule ^vendor(/.*|)$ - [NC,F]
 
 #
