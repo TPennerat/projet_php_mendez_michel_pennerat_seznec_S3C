@@ -9,7 +9,8 @@ class ControleurAdminListe {
   }
 
   public function afficherFormulaire(){
-      $vue = new VueFormulaire(null);
+      $iteml = \mywishlist\models\Item::all();
+      $vue = new VueFormulaire($iteml->toArray());
       $vue->render(1);
 
       // $app=\Slim\Slim::getInstance();

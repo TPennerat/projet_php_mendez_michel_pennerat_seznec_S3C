@@ -52,6 +52,7 @@ END;
     $app = \Slim\Slim::getInstance();
     $html = "<h2>Racine</h2>" ;
     $html .= 'Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a><br>';
+    $html .= 'Ajout d\'une liste : <a href="'.$app->urlFor('creerListe').'">liste</a><br>';
 
     return $html;
   }

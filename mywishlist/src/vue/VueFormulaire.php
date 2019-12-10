@@ -10,15 +10,16 @@ class VueFormulaire {
 
   private function formulaireListe(){
     $html="<h2>Création d'une liste</h2>";
+    $html .='<form id="f1" method="get" action="creerListe.php">'; //méthode post à faire DEBUG
     $html .= '<input type="text" placeholder="nom de la liste">';
     $html .= '<input type="text" placeholder="description">';
 
     $app = \Slim\Slim::getInstance();
-    $items = \mywishlist\models\Item::all(); //peut etre à mettre dans le ocntroleur puis dans arr
-    foreach($items as $i){
-      $html .= '<label>'.$i->nom.'<input type="radio" name="groupe-radio1" value='.$i->id;
+    foreach($this->arr as $i){
+      $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['nom'].'" id="'.$i['id'].'"></p>';
     }
-    $html .= '<button type="submit">valider</button>';
+    $html .= '<button type=submit name="valider">valider</button>';
+    $html .='</form>';
 
     return $html;
   }
