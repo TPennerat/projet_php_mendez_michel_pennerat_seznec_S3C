@@ -1,6 +1,7 @@
 <?php
 
 namespace mywishlist\vue;
+
 class VueParticipant {
   public $arr;
 

@@ -10,7 +10,7 @@ body {
 h1 {
  font-size: 200%;
  color: navy;
- text-align: center;
+ padding-left: 20px;
 }
 h2 {
  font-size: 150%;
