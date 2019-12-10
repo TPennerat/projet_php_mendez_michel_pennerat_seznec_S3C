@@ -4,6 +4,7 @@
 
 use \Illuminate\Database\Capsule\Manager as DB;
 use \mywishlist\controleur\ControleurAffichage;
+use \mywishlist\controleur\ControleurAdminListe;
 
 require_once('vendor/autoload.php');
 
@@ -37,5 +38,16 @@ $app->get('/afficherItem/token/:id', function ($id) {
   $c = new ControleurAffichage();
   $c->afficherItem($id);
 })->name('getItem');
+
+//ajout d'une liste
+$app->get('/creerListe', function () {
+  $c = new ControleurAdminListe();
+  $c->afficherFormulaire();
+})->name('creerListe');
+
+// $app->post('/creerListe', function () {
+//   $c = new ControleurAdminListe();
+//   $c->afficherFormulaire();
+// })->name('creerListe');
 
 $app->run();
