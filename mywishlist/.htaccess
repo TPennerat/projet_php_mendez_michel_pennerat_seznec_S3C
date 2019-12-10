@@ -2,7 +2,7 @@ RewriteEngine On
 #
 # RewriteBase indispensable sur webetu :
 
-RewriteBase /www/mendezpo1u/mywishlist
+# RewriteBase /www/mendezpo1u/mywishlist
 
 
 #
