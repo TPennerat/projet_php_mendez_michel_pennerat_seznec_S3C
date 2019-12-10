@@ -1,3 +1,8 @@
+@font-face {
+font-family: "Sunflower";
+src: url("Sunflower.otf");
+}
+
 html, body {
  margin: 0;
  padding: 0;
@@ -8,8 +13,10 @@ body {
  font-size: 80%;
 }
 h1 {
+ font-family: 'Sunflower';
+ margin-top: 0px;
  font-size: 200%;
- color: navy;
+ color: #e6dfdf;
  padding-left: 20px;
 }
 h2 {
@@ -21,4 +28,8 @@ h2 {
 hr {
   border-top: 15px solid black;
   border-radius: 1000px 1000px 1000px 1000px;
+}
+
+.header {
+	background-color: grey;
 }

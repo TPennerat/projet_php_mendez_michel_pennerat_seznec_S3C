@@ -87,7 +87,9 @@ END;
   <link rel="stylesheet" type="text/css" href="$urlCSS">
 </head>
 <body>
-  <h1>MyWishList</h1>
+  <div class="header">
+    <h1>MyWishList</h1>
+  </div>
   <div class="content">
    $content
   </div>
