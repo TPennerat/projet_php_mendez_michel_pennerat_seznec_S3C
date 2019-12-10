@@ -11,13 +11,14 @@ class VueParticipant {
   private function formulaireListe(){
     $html="<h2>Création d'une liste</h2>";
     $html .= '<input type="text" placeholder="nom de la liste">';
+    $html .= '<input type="text" placeholder="description">';
 
     $app = \Slim\Slim::getInstance();
     $items = \mywishlist\models\Item::all; //peut etre à mettre dans le ocntroleur puis dans arr
     foreach($items as $i){
       $html .= '<label>'.$i->nom.'<input type="radio" name="groupe-radio1" value='.$i>id;
     }
-
+    $html .= '<button type="submit">valider</button>';
 
     return $html;
   }
