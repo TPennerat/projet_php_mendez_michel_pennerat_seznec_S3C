@@ -9,7 +9,6 @@ html, body {
 }
 
 body {
- background-color: white;
  font-family: cursive;
  font-size: 80%;
  color: white;
@@ -37,7 +36,7 @@ hr {
 }
 
 .header {
-	background-color: #3d4859;
+	background-color: grey;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
