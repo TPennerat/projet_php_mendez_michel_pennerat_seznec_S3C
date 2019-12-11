@@ -19,7 +19,15 @@ class ControleurAdminItem {
           $item=new Item();
           $item->nom=filter_var($nom,FILTER_SANITIZE_STRING);
           $item->descr=filter_var($app->request()->post('descr'),FILTER_SANITIZE_STRING);
-          $item->img=filter_var($app->request()->post('image'),FILTER_SANITIZE_STRING);   // NE MARCHE PAS DEBUG
+
+          $nomImage=(array_reverse(explode('/',$_POST['image'])))[0];
+          if (0==0) { //DEBUG
+            move_uploaded_file($_POST['image'], $app->request->getRootURI().'/web/img/'.$nomImage); //A tester
+            $item->img=$nomImage; //Marche sauf pour le premier affichage
+          }else{
+            $item->img="default.jpg"; //ne marche pas
+          }
+
           $item->liste_id = 1; //DEBUG
           $item->save();
           $i = Item::select('id')->where('nom','=',$nom)->get();
