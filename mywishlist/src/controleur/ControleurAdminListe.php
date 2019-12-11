@@ -26,9 +26,8 @@ class ControleurAdminListe {
           $liste->titre=filter_var($nom,FILTER_SANITIZE_STRING);
           $liste->description=filter_var($app->request()->post('descr'),FILTER_SANITIZE_STRING);
           $liste->save();
-          $liste = \mywishlist\models\Liste::select('no')->where('titre','=',$nom)->get();
-          var_dump($liste->toArray());
-          $vue = new VueParticipant([$liste]);
+          $l = Liste::select('no')->where('titre','=',$nom)->get();
+          $vue = new VueParticipant($l->toArray());
           $vue->render(2);
       }
   }
