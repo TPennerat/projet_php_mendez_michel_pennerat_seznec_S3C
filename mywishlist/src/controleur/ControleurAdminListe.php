@@ -3,6 +3,7 @@ namespace mywishlist\controleur;
 use mywishlist\models\Liste;
 use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
+use const mywishlist\vue\FORMUALIRE_LISTE_INCORRECT;
 use const mywishlist\vue\FORMULAIRE_LISTE;
 
 class ControleurAdminListe {
@@ -24,6 +25,11 @@ class ControleurAdminListe {
               $liste->save();
               $l = Liste::select('no')->where('titre', '=', $nom)->get();
               $app->redirect($app->request->getRootUri()."/afficherListe/token/" . $l['0']['no']);
+          }
+          else {
+              $iteml = \mywishlist\models\Item::all();
+              $vue = new VueFormulaire($iteml->toArray());
+              $vue->render(FORMUALIRE_LISTE_INCORRECT);
           }
       }
   }
