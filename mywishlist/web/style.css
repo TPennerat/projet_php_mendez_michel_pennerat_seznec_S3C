@@ -6,13 +6,15 @@ src: url("Sunflower.otf");
 html, body {
  margin: 0;
  padding: 0;
- color: white;
 }
+
 body {
  background-color: white;
  font-family: cursive;
  font-size: 80%;
+ color: white;
 }
+
 h1 {
  font-family: 'Sunflower';
  margin-top: 0px;
@@ -20,6 +22,7 @@ h1 {
  color: #e6dfdf;
  padding-left: 20px;
 }
+
 h2 {
  font-family: 'Sunflower';
  font-size: 150%;
@@ -27,6 +30,7 @@ h2 {
  padding-left: 15px;
  text-align: center;
 }
+
 hr {
   border-top: 15px solid black;
   border-radius: 1000px 1000px 1000px 1000px;
