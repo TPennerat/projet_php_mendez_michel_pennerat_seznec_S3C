@@ -3,13 +3,14 @@ namespace mywishlist\controleur;
 use mywishlist\models\Liste;
 use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
+use const mywishlist\vue\FORMULAIRE_LISTE;
 
 class ControleurAdminListe {
 
   public function afficherFormulaire(){
       $iteml = \mywishlist\models\Item::all();
       $vue = new VueFormulaire($iteml->toArray());
-      $vue->render(1);
+      $vue->render(FORMULAIRE_LISTE);
   }
 
   public function ajouterListeBD(){

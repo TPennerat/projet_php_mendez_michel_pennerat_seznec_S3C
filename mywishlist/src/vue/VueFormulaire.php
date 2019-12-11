@@ -1,6 +1,10 @@
 <?php
 
 namespace mywishlist\vue;
+
+const FORMULAIRE_LISTE = 1;
+const FORMULAIRE_ITEM = 2;
+
 class VueFormulaire {
   public $arr;
 
@@ -39,11 +43,11 @@ class VueFormulaire {
   public function render($selecteur){
     $app = \Slim\Slim::getInstance();
     switch ($selecteur) {
-      case 1: {
+      case FORMULAIRE_LISTE: {
         $content = $this->formulaireListe();
         break;
       }
-      case 2: {
+      case FORMULAIRE_ITEM: {
         $content = $this->formulaireItem();
         break;
       }
