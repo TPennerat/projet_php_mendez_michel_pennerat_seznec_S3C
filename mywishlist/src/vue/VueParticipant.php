@@ -26,6 +26,8 @@ END;
     $app = \Slim\Slim::getInstance();
     $html = "<h2>Liste</h2>";
     $l = \mywishlist\models\Liste::find($liste["no"]);
+    $html .= "<h3>".$l->titre."</h3>";
+    $html .= "<p>".$l->description."<p>";
     $items=$l->items()->get();
     foreach ($items as $item) {
       $html .= '<li>';
