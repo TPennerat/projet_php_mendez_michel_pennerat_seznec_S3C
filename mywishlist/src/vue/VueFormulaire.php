@@ -10,15 +10,15 @@ class VueFormulaire {
 
   private function formulaireListe(){
     $html="<h2>Création d'une liste</h2>";
-    $html .='<form id="f1" method="get" action="creerListe.php">'; //méthode post à faire DEBUG
-    $html .= '<input type="text" placeholder="nom de la liste">';
-    $html .= '<input type="text" placeholder="description">';
+    $html .='<form id="f1" method="post" action="creerListe">';
+    $html .= '<input type="text" name="nomListe" placeholder="Nom de la liste">';
+    $html .= '<input type="text" name="descr" placeholder="Description">';
 
     $app = \Slim\Slim::getInstance();
     foreach($this->arr as $i){
       $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['nom'].'" id="'.$i['id'].'"></p>';
     }
-    $html .= '<button type=submit name="valider">valider</button>';
+    $html .= '<button type=submit name="valider">Valider</button>';
     $html .='</form>';
 
     return $html;
