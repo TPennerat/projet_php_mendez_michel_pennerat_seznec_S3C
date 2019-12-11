@@ -21,6 +21,7 @@ h1 {
  font-size: 200%;
  color: #e6dfdf;
  padding-left: 20px;
+ padding-top: 10px;
 }
 
 h2 {
@@ -37,8 +38,7 @@ hr {
 }
 
 .header {
-	background-color: grey;
-	padding-top: 10px;
+	background-color: #151b24;
 	padding-bottom: 10px;
 }
 

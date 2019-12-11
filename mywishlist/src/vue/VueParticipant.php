@@ -2,6 +2,12 @@
 
 namespace mywishlist\vue;
 
+const AFFICHER_LISTES = 1;
+const AFFICHER_LISTE = 2;
+const AFFICHER_ITEM = 3;
+const AFFICHER_RACINE = 4;
+
+
 class VueParticipant {
   public $arr;
 
@@ -63,20 +69,20 @@ END;
   public function render($selecteur){
     $app = \Slim\Slim::getInstance();
     switch ($selecteur) {
-      case 1: {
+      case AFFICHER_LISTES: {
         $content = $this->afficherLesListes();
         break;
       }
-      case 2 : {
+      case AFFICHER_LISTE : {
         $content = $this->afficherListe($this->arr[0]);
         break;
       }
-      case 3: {
+      case AFFICHER_ITEM: {
         $content = $this->afficherItem($this->arr[0]);
         break;
       }
 
-      case 4 : {
+      case AFFICHER_RACINE : {
         $content = $this->racine();
         break;
       }
