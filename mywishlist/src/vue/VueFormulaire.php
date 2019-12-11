@@ -2,6 +2,7 @@
 
 namespace mywishlist\vue;
 
+use Slim\Slim;
 const FORMULAIRE_LISTE = 1;
 const FORMULAIRE_ITEM = 2;
 const FORMUALIRE_LISTE_INCORRECT = 3;
@@ -19,8 +20,6 @@ class VueFormulaire {
         $html .='<form id="f1" method="post" action="creerListe">';
         $html .= '<input type="text" name="nomListe" placeholder="Nom de la liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
-
-        $app = \Slim\Slim::getInstance();
         foreach($this->arr as $i){
             $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['nom'].'" id="'.$i['id'].'"></p>';
         }
@@ -35,8 +34,6 @@ class VueFormulaire {
         $html .='<form id="f1" method="post" action="creerListe">';
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
-
-        $app = \Slim\Slim::getInstance();
         foreach($this->arr as $i){
             $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['nom'].'" id="'.$i['id'].'"></p>';
         }
@@ -49,8 +46,13 @@ class VueFormulaire {
     private function formulaireItem(){
         $html="<h2>Création d'un item</h2>";
         $html .='<form id="f2" method="post" action="creerItem" enctypr="multipart/form-data">';
-        $html .= '<input type="text" name="nomItem" placeholder="Nom de l\'item">';
+        $html .= '<input type="text" name="nomItem" required placeholder="Nom de l\'item">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
+        $html .= '<select name="select">';
+        foreach($this->arr as $i){
+            $html .= '<option value="'.$i['no'].'">'.$i['titre'].'</option>';
+        }
+        $html.='</select><br>';
         $html .= '<input type="file" name ="image" accept="application.jpg">';
         $html .= '<button type=submit name="valider">Valider</button>';
         $html .='</form>';
@@ -59,7 +61,7 @@ class VueFormulaire {
     }
 
     public function render($selecteur){
-        $app = \Slim\Slim::getInstance();
+        $app = Slim::getInstance();
         switch ($selecteur) {
             case FORMULAIRE_LISTE: {
                 $content = $this->formulaireListe();
