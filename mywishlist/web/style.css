@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
- background-color: #3d4859;
+ background-color: #343a45;
  font-family: cursive;
  font-size: 80%;
  color: white;
@@ -43,5 +43,5 @@ hr {
 }
 
 .content {
-	background-color: #3d4859;
+	background-color: #343a45;
 }
