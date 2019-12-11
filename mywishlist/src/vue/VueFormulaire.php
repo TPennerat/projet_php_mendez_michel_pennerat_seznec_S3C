@@ -24,7 +24,17 @@ class VueFormulaire {
     return $html;
   }
 
+  private function formulaireItem(){
+    $html="<h2>Création d'un item</h2>";
+    $html .='<form id="f2" method="post" action="creerItem" enctypr="multipart/form-data">';
+    $html .= '<input type="text" name="nomItem" placeholder="Nom de l\'item">';
+    $html .= '<input type="text" name="descr" placeholder="Description">';
+    $html .= '<input type="file" name ="image" accept="application.jpg">';
+    $html .= '<button type=submit name="valider">Valider</button>';
+    $html .='</form>';
 
+    return $html;
+  }
 
   public function render($selecteur){
     $app = \Slim\Slim::getInstance();
@@ -33,7 +43,10 @@ class VueFormulaire {
         $content = $this->formulaireListe();
         break;
       }
-
+      case 2: {
+        $content = $this->formulaireItem();
+        break;
+      }
     }
     $urlRacine=$app->urlFor('racine');
     $urlCSS=$app->request->getRootURI().'/web/style.css';

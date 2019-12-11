@@ -5,6 +5,7 @@
 use \Illuminate\Database\Capsule\Manager as DB;
 use \mywishlist\controleur\ControleurAffichage;
 use \mywishlist\controleur\ControleurAdminListe;
+use \mywishlist\controleur\ControleurAdminItem;
 use Slim\Slim;
 
 require_once('vendor/autoload.php');
@@ -51,5 +52,17 @@ $app->post('/creerListe', function () {
     $c = new ControleurAdminListe();
     $c->ajouterListeBD();
 })->name('listeCree');
+
+//ajout d'un item
+$app->get('/creerItem', function () {
+  $c = new ControleurAdminItem();
+  $c->afficherFormulaire();
+})->name('creerItem');
+
+//creation de la liste avec post
+$app->post('/creerItem', function () {
+    $c = new ControleurAdminItem();
+    $c->ajouterItemBD();
+})->name('itemCree');
 
 $app->run();

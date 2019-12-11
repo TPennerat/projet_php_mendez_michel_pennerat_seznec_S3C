@@ -55,6 +55,7 @@ END;
     $html = "<h2>Racine</h2>" ;
     $html .= 'Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a><br>';
     $html .= 'Ajout d\'une liste : <a href="'.$app->urlFor('creerListe').'">liste</a><br>';
+    $html .= 'Ajout d\'un item : <a href="'.$app->urlFor('creerItem').'">item</a><br>';
 
     return $html;
   }
