@@ -2,15 +2,9 @@
 namespace mywishlist\controleur;
 use mywishlist\models\Liste;
 use \mywishlist\vue\VueFormulaire;
-use mywishlist\vue\VueParticipant;
 use Slim\Slim;
 
 class ControleurAdminListe {
-
-  //methode potentielle
-  public function getListe($no){
-
-  }
 
   public function afficherFormulaire(){
       $iteml = \mywishlist\models\Item::all();
@@ -21,14 +15,15 @@ class ControleurAdminListe {
   public function ajouterListeBD(){
       $app= Slim::getInstance();
       if (isset($_POST['nomListe']) && isset($_POST['descr'])) {
-          $nom = $app->request()->post('nomListe');
-          $liste=new Liste();
-          $liste->titre=filter_var($nom,FILTER_SANITIZE_STRING);
-          $liste->description=filter_var($app->request()->post('descr'),FILTER_SANITIZE_STRING);
-          $liste->save();
-          $l = Liste::select('no')->where('titre','=',$nom)->get();
-          $vue = new VueParticipant($l->toArray());
-          $vue->render(2);
+          $nom = filter_var($app->request()->post('nomListe'),FILTER_SANITIZE_STRING);
+          if (count((Liste::select('*')->where('titre','=',$nom)->get())->toArray())==0) {
+              $liste = new Liste();
+              $liste->titre = $nom;
+              $liste->description = filter_var($app->request()->post('descr'), FILTER_SANITIZE_STRING);
+              $liste->save();
+              $l = Liste::select('no')->where('titre', '=', $nom)->get();
+              $app->redirect($app->request->getRootUri()."/afficherListe/token/" . $l['0']['no']);
+          }
       }
   }
 }
