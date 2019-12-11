@@ -3,6 +3,11 @@ font-family: "Sunflower";
 src: url("Sunflower.otf");
 }
 
+@font-face {
+font-family: "Roboto";
+src: url("Roboto.ttf");
+}
+
 html, body {
  margin: 0;
  padding: 0;
@@ -10,14 +15,14 @@ html, body {
 
 body {
  background-color: #343a45;
- font-family: cursive;
- font-size: 80%;
+ font-family: 'Roboto';
+ font-size: 90%;
  color: white;
 }
 
 h1 {
- font-family: 'Sunflower';
  margin-top: 0px;
+ margin-bottom: 0px;
  font-size: 200%;
  color: #e6dfdf;
  padding-left: 20px;
@@ -25,8 +30,8 @@ h1 {
 }
 
 h2 {
- font-family: 'Sunflower';
- font-size: 150%;
+ font-family: 'Roboto';
+ font-size: 170%;
  color: white;
  padding-left: 15px;
  text-align: center;
@@ -37,9 +42,15 @@ hr {
   border-radius: 1000px 1000px 1000px 1000px;
 }
 
+a {
+	color : white;
+}
+
 .header {
-	background-color: #151b24;
-	padding-bottom: 10px;
+	font-family: 'Sunflower';
+ 	padding-top : 5px;
+ 	padding-bottom : 5px;
+	background-color: #222b38;
 }
 
 .content {
