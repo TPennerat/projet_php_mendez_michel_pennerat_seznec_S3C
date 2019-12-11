@@ -46,6 +46,18 @@ a {
 	color : white;
 }
 
+a:hover {
+   color : aqua;
+}
+
+a:visited {
+    color : dimgrey;
+}
+
+a:visited:hover{
+    color : aqua;
+}
+
 .header {
 	font-family: 'Sunflower';
  	padding-top : 5px;
