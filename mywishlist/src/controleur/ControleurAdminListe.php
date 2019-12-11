@@ -1,5 +1,6 @@
 <?php
 namespace mywishlist\controleur;
+use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
@@ -9,7 +10,7 @@ use const mywishlist\vue\FORMULAIRE_LISTE;
 class ControleurAdminListe {
 
   public function afficherFormulaire(){
-      $iteml = \mywishlist\models\Item::all();
+      $iteml = Item::all();
       $vue = new VueFormulaire($iteml->toArray());
       $vue->render(FORMULAIRE_LISTE);
   }
@@ -24,10 +25,14 @@ class ControleurAdminListe {
               $liste->description = filter_var($app->request()->post('descr'), FILTER_SANITIZE_STRING);
               $liste->save();
               $l = Liste::select('no')->where('titre', '=', $nom)->get();
+              $liste->user_id=$l['0']['no'];
+              //$liste->expiration=0;
+              $liste->token="nosecure".$l['0']['no'];
+              $liste->save();
               $app->redirect($app->request->getRootUri()."/afficherListe/token/" . $l['0']['no']);
           }
           else {
-              $iteml = \mywishlist\models\Item::all();
+              $iteml = Item::all();
               $vue = new VueFormulaire($iteml->toArray());
               $vue->render(FORMUALIRE_LISTE_INCORRECT);
           }
