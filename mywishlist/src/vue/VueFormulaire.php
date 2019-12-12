@@ -31,6 +31,7 @@ class VueFormulaire {
 
     private function formulaireListe(){
         $html="<h2>Création d'une liste</h2>";
+        $html.='<div align="center">';
         $html .='<form id="f1" method="post" action="creerListe">';
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
@@ -39,6 +40,7 @@ class VueFormulaire {
         }
         $html .= '<button type=submit name="valider">Valider</button>';
         $html .='</form>';
+        $html.='</div>';
 
         return $html;
     }
@@ -87,12 +89,11 @@ class VueFormulaire {
 </head>
 <body>
   <div class="header">
-    <h1>MyWishList</h1>
+    <h1><a id="mywishlist" href="$urlRacine">MyWishList</a></h1>
   </div>
   <div class="content">
    $content
   </div>
-  <footer><p>URL de la racine : <a href="$urlRacine">racine</a><p></footer>
 </body>
 <html>
 END;

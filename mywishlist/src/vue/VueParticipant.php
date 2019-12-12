@@ -81,7 +81,6 @@ END;
         $content = $this->afficherItem($this->arr[0]);
         break;
       }
-
       case AFFICHER_RACINE : {
         $content = $this->racine();
         break;
@@ -89,6 +88,7 @@ END;
     }
     $urlRacine=$app->urlFor('racine');
     $urlCSS=$app->request->getRootURI().'/web/style.css';
+    $urlConnexion=$app->urlFor('connexion');
     $html = <<<END
 <!DOCTYPE html>
 <html>
@@ -98,12 +98,12 @@ END;
 </head>
 <body>
   <div class="header">
-    <h1>MyWishList</h1>
+    <h1><a id="mywishlist" href="$urlRacine">MyWishList</a></h1>
+    <p align="right"><a href="$urlConnexion">Connexion</a></p>
   </div>
   <div class="content">
    $content
   </div>
-  <footer><p>URL de la racine : <a href="$urlRacine">racine</a><p></footer>
 </body>
 <html>
 END;

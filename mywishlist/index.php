@@ -6,6 +6,7 @@ use \Illuminate\Database\Capsule\Manager as DB;
 use \mywishlist\controleur\ControleurAffichage;
 use \mywishlist\controleur\ControleurAdminListe;
 use \mywishlist\controleur\ControleurAdminItem;
+use mywishlist\controleur\ControleurConnexion;
 use Slim\Slim;
 
 require_once('vendor/autoload.php');
@@ -64,5 +65,10 @@ $app->post('/creerItem', function () {
     $c = new ControleurAdminItem();
     $c->ajouterItemBD();
 })->name('itemCree');
+
+$app->get('/connexion', function (){
+    $c = new ControleurConnexion();
+    $c->afficherInterfaceConnexion();
+})->name('connexion');
 
 $app->run();
