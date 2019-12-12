@@ -15,10 +15,10 @@ class VueConnexion {
         $app = \Slim\Slim::getInstance();
         $html=<<<END
 <div align="center" class="connect">
-    <form id="f2" method="post" action="seConnecter" enctypr="multipart/form-data">
+    <form id="f2" method="post" action="connexion" enctypr="multipart/form-data">
         <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
         <br>
-        <p>Mot de passe</p><input type="text" name="mdp" required placeholder="Mot de passe">
+        <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
         <br>
         <br>
         <button type=submit name="valider">Se Connecter</button>

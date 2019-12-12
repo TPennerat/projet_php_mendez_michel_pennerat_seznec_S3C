@@ -71,4 +71,9 @@ $app->get('/connexion', function (){
     $c->afficherInterfaceConnexion();
 })->name('connexion');
 
+$app->post('/connexion', function (){
+    $c = new ControleurConnexion();
+    $c->seConnecter();
+})->name('connecte');
+
 $app->run();
