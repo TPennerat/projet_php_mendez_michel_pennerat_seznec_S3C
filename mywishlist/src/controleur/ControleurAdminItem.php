@@ -17,16 +17,19 @@ class ControleurAdminItem {
   public function ajouterItemBD(){
       $app= Slim::getInstance();
       if (isset($_POST['nomItem']) && isset($_POST['descr']) && isset($_POST['select'])) {
-          $nom = filter_var($app->request()->post('nomItem'),FILTER_SANITIZE_STRING);
           $item=new Item();
-          $item->nom=filter_var($nom,FILTER_SANITIZE_STRING);
+          $nom=filter_var($app->request()->post('nomItem'),FILTER_SANITIZE_STRING);
+          $item->nom=$nom;
           $item->descr=filter_var($app->request()->post('descr'),FILTER_SANITIZE_STRING);
-          $nomImage=(array_reverse(explode('/',$_POST['image'])))[0];
-          if (0==0) { //DEBUG
-            move_uploaded_file($_POST['image'], $app->request->getRootURI().'/web/img/'.$nomImage); //A tester
-            $item->img=$nomImage; //Marche sauf pour le premier affichage
+          if(0==0){//tester si le champ est renseigné et OK
+            $nomImage=(array_reverse(explode('\\',$_POST['image'])))[0];
+            if(!file_exists('/web/img/'.$nomImage)){
+              //A DEBUG ER surement avec $_FILES
+              move_uploaded_file($_POST['image'], $app->request->getRootURI().'/web/img/'.$nomImage); //A tester
+            }
+            $item->img=$nomImage;
           }else{
-            $item->img="default.jpg"; //ne marche pas
+            $item->img='default.jpg';
           }
 
           $item->liste_id=filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT);
