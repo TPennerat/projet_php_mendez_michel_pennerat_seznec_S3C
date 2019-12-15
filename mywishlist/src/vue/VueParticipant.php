@@ -2,6 +2,8 @@
 
 namespace mywishlist\vue;
 
+use mywishlist\models\Liste;
+use Slim\Slim;
 const AFFICHER_LISTES = 1;
 const AFFICHER_LISTE = 2;
 const AFFICHER_ITEM = 3;
@@ -16,7 +18,7 @@ class VueParticipant {
   }
 
   private function afficherLesListes(){
-    $app=\Slim\Slim::getInstance();
+    $app= Slim::getInstance();
     $content="<h2>Listes</h2>";
     foreach($this->arr as $l){
       $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
@@ -29,15 +31,15 @@ END;
   }
 
   private function afficherListe($liste){
-    $app = \Slim\Slim::getInstance();
+    $app = Slim::getInstance();
     $html = "<h2>Liste</h2>";
-    $l = \mywishlist\models\Liste::find($liste["no"]);
+    $l = Liste::find($liste["no"]);
     $html .= "<h3>".$l->titre."</h3>";
     $html .= "<p>".$l->description."<p>";
     $items=$l->items()->get();
     foreach ($items as $item) {
       $html .= '<li>';
-      $URI = \Slim\Slim::getInstance()->request->getRootURI();
+      $URI = Slim::getInstance()->request->getRootURI();
       $html .= "<img src=\"$URI/web/img/{$item->img}\" width=\"60\" height=\"60\">";
       $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
       $html .= '</li>';
@@ -48,7 +50,7 @@ END;
   private function afficherItem($item){
     $html="<h2>Item</h2>";
     $nomitem=$item["img"];
-    $URI = \Slim\Slim::getInstance()->request->getRootURI();
+    $URI = Slim::getInstance()->request->getRootURI();
     $html .= "<img src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\">";
     $html .= $item["nom"].' - ';
     $html .= $item["descr"];
@@ -57,7 +59,7 @@ END;
   }
 
   private function racine(){
-    $app = \Slim\Slim::getInstance();
+    $app = Slim::getInstance();
     $html = "<h2>Accueil</h2>" ;
     $html .= '<p>Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a></p>';
     $html .= '<p>Ajout d\'une liste : <a href="'.$app->urlFor('creerListe').'">liste</a></p>';
@@ -67,7 +69,7 @@ END;
   }
 
   public function render($selecteur){
-    $app = \Slim\Slim::getInstance();
+    $app = Slim::getInstance();
     switch ($selecteur) {
       case AFFICHER_LISTES: {
         $content = $this->afficherLesListes();
@@ -91,7 +93,7 @@ END;
     $urlConnexion=$app->urlFor('connexion');
     $html = <<<END
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <title>MyWishList</title>
   <link rel="stylesheet" type="text/css" href="$urlCSS">
@@ -107,7 +109,7 @@ END;
    $content
   </div>
 </body>
-<html>
+</html>
 END;
   echo $html;
   }

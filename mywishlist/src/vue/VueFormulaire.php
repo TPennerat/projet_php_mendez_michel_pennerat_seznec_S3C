@@ -82,7 +82,7 @@ class VueFormulaire {
         $urlCSS=$app->request->getRootURI().'/web/style.css';
         $html = <<<END
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <title>MyWishList</title>
   <link rel="stylesheet" type="text/css" href="$urlCSS">
@@ -95,7 +95,7 @@ class VueFormulaire {
    $content
   </div>
 </body>
-<html>
+</html>
 END;
         echo $html;
     }
