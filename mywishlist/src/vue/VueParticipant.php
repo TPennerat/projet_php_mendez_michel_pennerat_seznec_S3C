@@ -60,10 +60,10 @@ END;
 
   private function racine(){
     $app = Slim::getInstance();
-    $html = "<h2>Accueil</h2>" ;
-    $html .= '<p>Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a></p>';
+    $html = "<div id=\"mainpage\"><h2>Bienvenue sur MyWishList !</h2></div>" ;
+    $html .= '<div id="reste"><p>Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a></p>';
     $html .= '<p>Ajout d\'une liste : <a href="'.$app->urlFor('creerListe').'">liste</a></p>';
-    $html .= '<p>Ajout d\'un item : <a href="'.$app->urlFor('creerItem').'">item</a></p>';
+    $html .= '<p>Ajout d\'un item : <a href="'.$app->urlFor('creerItem').'">item</a></p></div>';
 
     return $html;
   }

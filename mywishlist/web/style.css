@@ -16,7 +16,7 @@ html, body {
 body {
  font-family: 'Roboto', serif;
  font-size: 90%;
- color: white;
+ color: #ab7933;
  background-image: url('bg.jpg');
  background-repeat: no-repeat;
  background-attachment: fixed;
@@ -77,6 +77,33 @@ a:visited:hover{
 	float : right;
 	padding-top: 15px;
 	padding-right: 20px;	
+}
+
+#mainpage {
+	border-top: 2px solid #91672c;
+	border-bottom: 2px solid #91672c;
+
+}
+
+#mainpage h2 {
+	color : #ab7933;
+	border: 2px solid #ab7933;
+	background-color: white;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 0px;
+	padding-top: 7px;
+	width : 30%;
+	height: 40px;
+}
+
+#reste {
+	position: absolute;
+	background-color: white;
+	width: 100%;
+	height: 80%;
 }
 
 .content p {
