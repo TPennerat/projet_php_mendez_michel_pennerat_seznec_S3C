@@ -59,9 +59,9 @@ END;
   private function racine(){
     $app = \Slim\Slim::getInstance();
     $html = "<h2>Accueil</h2>" ;
-    $html .= 'Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a><br>';
-    $html .= 'Ajout d\'une liste : <a href="'.$app->urlFor('creerListe').'">liste</a><br>';
-    $html .= 'Ajout d\'un item : <a href="'.$app->urlFor('creerItem').'">item</a><br>';
+    $html .= '<p>Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a></p>';
+    $html .= '<p>Ajout d\'une liste : <a href="'.$app->urlFor('creerListe').'">liste</a></p>';
+    $html .= '<p>Ajout d\'un item : <a href="'.$app->urlFor('creerItem').'">item</a></p>';
 
     return $html;
   }
@@ -99,7 +99,9 @@ END;
 <body>
   <div class="header">
     <h1><a id="mywishlist" href="$urlRacine">MyWishList</a></h1>
-    <p align="right"><a href="$urlConnexion">Connexion</a></p>
+    <span>
+    <a id="conn" href="$urlConnexion">Connexion</a>
+    </span>
   </div>
   <div class="content">
    $content

@@ -14,10 +14,13 @@ html, body {
 }
 
 body {
- background-color: #343a45;
-    font-family: 'Roboto', serif;
+ font-family: 'Roboto', serif;
  font-size: 90%;
  color: white;
+ background-image: url('bg.jpg');
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+ background-size: cover;
 }
 
 h1 {
@@ -25,12 +28,10 @@ h1 {
  margin-bottom: 0;
  font-size: 200%;
  color: #e6dfdf;
- padding-left: 20px;
- padding-top: 10px;
 }
 
 h2 {
-    font-family: 'Roboto', serif;
+ font-family: 'Roboto', serif;
  font-size: 170%;
  color: white;
  padding-left: 15px;
@@ -62,17 +63,31 @@ a:visited:hover{
     font-family: 'Sunflower', serif;
  	padding-top : 5px;
  	padding-bottom : 5px;
-	background-color: #222b38;
+	background-color: #ab7933;
+	text-align: left;
 }
 
-.content {
-	background-color: #343a45;
+.header h1 {
+ padding-left: 20px;
+ padding-top: 10px;
+ display: inline-block;	
+}
+
+.header span {
+	float : right;
+	padding-top: 15px;
+	padding-right: 20px;	
+}
+
+.content p {
+	padding-left: 2%;
 }
 
 .connect {
     margin: 5%;
     border: 2px solid #222b38;
     padding: 5%;
+    background-color: #ab7933;
 }
 
 #mywishlist{
@@ -82,4 +97,13 @@ a:visited:hover{
 #mywishlist:visited{
     text-decoration: none;
     color: #e6dfdf;
+}
+
+#conn {
+	text-decoration: none;
+	color: #e6dfdf;
+}
+
+#conn:visited{
+	text-decoration: none;
 }
