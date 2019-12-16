@@ -2,7 +2,7 @@
 
 namespace mywishlist\controleur;
 
-use mywishlist\models\Compte;
+use mywishlist\models\Account;
 use mywishlist\vue\VueConnexion;
 use mywishlist\vue\VueFormulaire;
 use Slim\Slim;
@@ -29,7 +29,7 @@ class ControleurConnexion{
         if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
             $id=filter_var($_POST['identifiant'],FILTER_SANITIZE_STRING);
             $mdp=filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
-            $login=Compte::select("login")->where('login','=',"$id")->count();
+            $login=Account::select("login")->where('login','=',"$id")->count();
             if($login==0){
                 if ($mdp==filter_var($_POST['mdpconf'],FILTER_SANITIZE_STRING)) {
                     $this->creerUser($id,$mdp);
@@ -51,8 +51,8 @@ class ControleurConnexion{
         if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
             $id=filter_var($_POST['identifiant'],FILTER_SANITIZE_STRING);
             $mdp=filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
-            $login=Compte::select("login")->where('login','=',"$id")->count();
-            if($login==1 and password_verify($mdp,Compte::select("password")->where('login','=',"$id")->get()->toArray()[0]["password"])){
+            $login=Account::select("login")->where('login','=',"$id")->count();
+            if($login==1 and password_verify($mdp,Account::select("password")->where('login','=',"$id")->get()->toArray()[0]["password"])){
                 $app->redirect($app->request->getRootUri());
             } else {
                 $vue = new VueConnexion(null);
@@ -63,7 +63,7 @@ class ControleurConnexion{
     }
 
     private function creerUser($login,$mdp){
-        $compte = new Compte();
+        $compte = new Account();
         $compte->login = $login;
         $hash = password_hash($mdp, PASSWORD_DEFAULT, ['cost' => 12]);
         $compte->password = $hash;

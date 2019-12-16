@@ -2,8 +2,8 @@
 namespace mywishlist\models;
 use Illuminate\Database\Eloquent\Model;
 
-class Compte extends Model{
-    protected $table = 'compte';
+class Account extends Model{
+    protected $table = 'account';
     protected $primaryKey = 'login' ;
     public $timestamps = false ;
 
