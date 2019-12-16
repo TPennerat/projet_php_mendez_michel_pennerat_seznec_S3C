@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  lun. 16 déc. 2019 à 11:27
+-- Généré le :  lun. 16 déc. 2019 à 11:44
 -- Version du serveur :  5.5.64-MariaDB
 -- Version de PHP :  7.0.33
 
@@ -35,6 +35,31 @@ CREATE TABLE `appartient` (
   `loginReserv` varchar(30) DEFAULT 'null'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `appartient`
+--
+
+INSERT INTO `appartient` (`id`, `no`, `reserve`, `loginReserv`) VALUES
+(1, 2, 0, 'null'),
+(2, 2, 0, 'null'),
+(3, 2, 0, 'null'),
+(4, 3, 0, 'null'),
+(5, 3, 0, 'null'),
+(6, 2, 0, 'null'),
+(7, 2, 0, 'null'),
+(8, 3, 0, 'null'),
+(9, 3, 0, 'null'),
+(10, 2, 0, 'null'),
+(11, 0, 0, 'null'),
+(12, 2, 0, 'null'),
+(19, 0, 0, 'null'),
+(22, 0, 0, 'null'),
+(23, 1, 0, 'null'),
+(24, 2, 0, 'null'),
+(25, 1, 0, 'null'),
+(26, 1, 0, 'null'),
+(27, 1, 0, 'null');
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +70,14 @@ CREATE TABLE `Compte` (
   `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `Compte`
+--
+
+INSERT INTO `Compte` (`login`, `password`) VALUES
+('pennerat7u', 'pinpinbranloss'),
+('seznec1u', 'senznecleboss');
 
 -- --------------------------------------------------------
 
@@ -61,6 +94,31 @@ CREATE TABLE `Item` (
   `tarif` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `Item`
+--
+
+INSERT INTO `Item` (`id`, `nom`, `descr`, `img`, `url`, `tarif`) VALUES
+(1, 'Champagne', 'Bouteille de champagne + flutes + jeux à gratter', 'champagne.jpg', '', '20.00'),
+(2, 'Musique', 'Partitions de piano à 4 mains', 'musique.jpg', '', '25.00'),
+(3, 'Exposition', 'Visite guidée de l’exposition ‘REGARDER’ à la galerie Poirel', 'poirelregarder.jpg', '', '14.00'),
+(4, 'Goûter', 'Goûter au FIFNL', 'gouter.jpg', '', '20.00'),
+(5, 'Projection', 'Projection courts-métrages au FIFNL', 'film.jpg', '', '10.00'),
+(6, 'Bouquet', 'Bouquet de roses et Mots de Marion Renaud', 'rose.jpg', '', '16.00'),
+(7, 'Diner Stanislas', 'Diner à La Table du Bon Roi Stanislas (Apéritif /Entrée / Plat / Vin / Dessert / Café / Digestif)', 'bonroi.jpg', '', '60.00'),
+(8, 'Origami', 'Baguettes magiques en Origami en buvant un thé', 'origami.jpg', '', '12.00'),
+(9, 'Livres', 'Livre bricolage avec petits-enfants + Roman', 'bricolage.jpg', '', '24.00'),
+(10, 'Diner  Grand Rue ', 'Diner au Grand’Ru(e) (Apéritif / Entrée / Plat / Vin / Dessert / Café)', 'grandrue.jpg', '', '59.00'),
+(11, 'Visite guidée', 'Visite guidée personnalisée de Saint-Epvre jusqu’à Stanislas', 'place.jpg', '', '11.00'),
+(12, 'Bijoux', 'Bijoux de manteau + Sous-verre pochette de disque + Lait après-soleil', 'bijoux.jpg', '', '29.00'),
+(19, 'Jeu contacts', 'Jeu pour échange de contacts', 'contact.png', '', '5.00'),
+(22, 'Concert', 'Un concert à Nancy', 'concert.jpg', '', '17.00'),
+(23, 'Appart Hotel', 'Appart’hôtel Coeur de Ville, en plein centre-ville', 'apparthotel.jpg', '', '56.00'),
+(24, 'Hôtel d\'Haussonville', 'Hôtel d\'Haussonville, au coeur de la Vieille ville à deux pas de la place Stanislas', 'hotel_haussonville_logo.jpg', '', '169.00'),
+(25, 'Boite de nuit', 'Discothèque, Boîte tendance avec des soirées à thème & DJ invités', 'boitedenuit.jpg', '', '32.00'),
+(26, 'Planètes Laser', 'Laser game : Gilet électronique et pistolet laser comme matériel, vous voilà équipé.', 'laser.jpg', '', '15.00'),
+(27, 'Fort Aventure', 'Découvrez Fort Aventure à Bainville-sur-Madon, un site Accropierre unique en Lorraine ! Des Parcours Acrobatiques pour petits et grands, Jeu Mission Aventure, Crypte de Crapahute, Tyrolienne, Saut à l\'élastique inversé, Toboggan géant... et bien plus encore.', 'fort.jpg', '', '25.00');
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +133,15 @@ CREATE TABLE `Liste` (
   `token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Déchargement des données de la table `Liste`
+--
+
+INSERT INTO `Liste` (`no`, `titre`, `description`, `expiration`, `token`) VALUES
+(1, 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1'),
+(2, 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2'),
+(3, 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3');
+
 -- --------------------------------------------------------
 
 --
@@ -84,8 +151,16 @@ CREATE TABLE `Liste` (
 CREATE TABLE `message` (
   `id` int(11) NOT NULL,
   `no` int(11) NOT NULL,
-  `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+  `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `message` varchar(200) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`id`, `no`, `login`, `message`) VALUES
+(1, 2, 'pennerat7u', 'Ce champagne est super excellent');
 
 --
 -- Index pour les tables déchargées
@@ -125,13 +200,13 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT pour la table `Item`
 --
 ALTER TABLE `Item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT pour la table `Liste`
 --
 ALTER TABLE `Liste`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Contraintes pour les tables déchargées
@@ -141,8 +216,8 @@ ALTER TABLE `Liste`
 -- Contraintes pour la table `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `FK_login_Compte` FOREIGN KEY (`login`) REFERENCES `Compte` (`login`),
   ADD CONSTRAINT `FK_id_Item` FOREIGN KEY (`id`) REFERENCES `Item` (`id`),
+  ADD CONSTRAINT `FK_login_Compte` FOREIGN KEY (`login`) REFERENCES `Compte` (`login`),
   ADD CONSTRAINT `FK_no_Liste` FOREIGN KEY (`no`) REFERENCES `Liste` (`no`);
 COMMIT;
 
