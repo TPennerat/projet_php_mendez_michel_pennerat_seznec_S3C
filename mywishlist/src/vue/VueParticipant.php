@@ -19,7 +19,7 @@ class VueParticipant {
 
   private function afficherLesListes(){
     $app= Slim::getInstance();
-    $content="<h2>Listes</h2>";
+    $content="<div id=\"mainpage\"><h2>Listes</h2></div>";
     foreach($this->arr as $l){
       $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
     }
@@ -32,7 +32,7 @@ END;
 
   private function afficherListe($liste){
     $app = Slim::getInstance();
-    $html = "<h2>Liste</h2>";
+    $html = "<div id=\"mainpage\"><h2>Liste</h2></div>";
     $l = Liste::find($liste["no"]);
     $html .= "<h3>".$l->titre."</h3>";
     $html .= "<p>".$l->description."<p>";
@@ -48,7 +48,7 @@ END;
   }
 
   private function afficherItem($item){
-    $html="<h2>Item</h2>";
+    $html="<div id=\"mainpage\"><h2>Item</h2></div>";
     $nomitem=$item["img"];
     $URI = Slim::getInstance()->request->getRootURI();
     $html .= "<img src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\">";
