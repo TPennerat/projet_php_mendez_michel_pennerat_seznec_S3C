@@ -16,9 +16,9 @@ class VueConnexion {
     }
 
     private function afficherInterfaceInscription(){
-        $html=<<<END
+        return <<<END
 <div align="center" class="inscription">
-    <form id="f3" method="post" action="inscription" enctypr="multipart/form-data">
+    <form id="f3" method="post" action="inscription" enctype="multipart/form-data">
         <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
         <br>
         <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
@@ -29,15 +29,13 @@ class VueConnexion {
     </form>
 </div>
 END;
-
-        return $html;
     }
 
     private function afficherInterfaceMauvaiseInscription(){
-        $html=<<<END
+        return <<<END
 <div align="center" class="inscription">
     <p style='color : red'>$this->arr</p>
-    <form id="f3" method="post" action="inscription" enctypr="multipart/form-data">
+    <form id="f3" method="post" action="inscription" enctype="multipart/form-data">
         <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
         <br>
         <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
@@ -48,16 +46,14 @@ END;
     </form>
 </div>
 END;
-
-        return $html;
     }
 
     private function afficherInterfaceConnexion(){
         $app=Slim::getInstance();
         $urlInscription = $app->urlFor('inscription');
-        $html=<<<END
+        return <<<END
 <div align="center" class="connect">
-    <form id="f2" method="post" action="connexion" enctypr="multipart/form-data">
+    <form id="f2" method="post" action="connexion" enctype="multipart/form-data">
         <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
         <br>
         <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
@@ -67,16 +63,15 @@ END;
     </form>
 </div>
 END;
-
-        return $html;
     }
 
-    private function afficherInterfaceMauvaiseConnexion(){
-        $app=Slim::getInstance();
+    private function afficherInterfaceMauvaiseConnexion()
+    {
+        $app = Slim::getInstance();
         $urlInscription = $app->urlFor('inscription');
-        $html=<<<END
+        return <<<END
 <div align="center" class="connect">
-    <form id="f2" method="post" action="connexion" enctypr="multipart/form-data">
+    <form id="f2" method="post" action="connexion" enctype="multipart/form-data">
         <p style='color : red'>Mauvais login/mot de passe</p>
         <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
         <br>
@@ -87,22 +82,11 @@ END;
     </form>
 </div>
 END;
-
-        return $html;
-    }
-
-    private function racine(){
-        $app = \Slim\Slim::getInstance();
-        $html = "<h2>Accueil</h2>" ;
-        $html .= 'Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a><br>';
-        $html .= 'Ajout d\'une liste : <a href="'.$app->urlFor('creerListe').'">liste</a><br>';
-        $html .= 'Ajout d\'un item : <a href="'.$app->urlFor('creerItem').'">item</a><br>';
-
-        return $html;
     }
 
     public function render($selecteur){
-        $app = \Slim\Slim::getInstance();
+        $app = Slim::getInstance();
+        $content = "";
         switch ($selecteur) {
             case INTERFACE_CONNEXION:
             {

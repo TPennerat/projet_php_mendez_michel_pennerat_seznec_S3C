@@ -65,6 +65,7 @@ class VueFormulaire {
 
     public function render($selecteur){
         $app = Slim::getInstance();
+        $content = "";
         switch ($selecteur) {
             case FORMULAIRE_LISTE: {
                 $content = $this->formulaireListe();

@@ -2,6 +2,7 @@
 
 namespace mywishlist\controleur;
 use mywishlist\models\Item;
+use mywishlist\models\Liste;
 use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
 use const mywishlist\vue\FORMULAIRE_ITEM;
@@ -9,7 +10,7 @@ use const mywishlist\vue\FORMULAIRE_ITEM;
 class ControleurAdminItem {
 
   public function afficherFormulaire(){
-      $iteml = \mywishlist\models\Liste::all();
+      $iteml = Liste::all();
       $vue = new VueFormulaire($iteml);
       $vue->render(FORMULAIRE_ITEM);
   }

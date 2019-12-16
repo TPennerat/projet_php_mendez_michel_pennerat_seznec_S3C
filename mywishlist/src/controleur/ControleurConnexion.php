@@ -4,9 +4,7 @@ namespace mywishlist\controleur;
 
 use mywishlist\models\Account;
 use mywishlist\vue\VueConnexion;
-use mywishlist\vue\VueFormulaire;
 use Slim\Slim;
-use const mywishlist\vue\FORMUALIRE_LISTE_INCORRECT;
 use const mywishlist\vue\INTERFACE_CONNEXION;
 use const mywishlist\vue\INTERFACE_INSCRIPTION;
 use const mywishlist\vue\INTERFACE_MAUVAISE_COMBINAISON;

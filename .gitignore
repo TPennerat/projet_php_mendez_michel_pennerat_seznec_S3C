@@ -1,4 +1,5 @@
 .idea
 mywishlist/.htaccess
 *.ini
-mywishlist/composer.lock
+*.lock
+mywishlist/vendor/*

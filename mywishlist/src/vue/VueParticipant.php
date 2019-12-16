@@ -24,10 +24,9 @@ class VueParticipant {
       $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
     }
 
-    $html = <<<END
+      return <<<END
     <section>$content</section>
 END;
-    return $html;
   }
 
   private function afficherListe($liste){
@@ -40,7 +39,7 @@ END;
     foreach ($items as $item) {
       $html .= '<li>';
       $URI = Slim::getInstance()->request->getRootURI();
-      $html .= "<img src=\"$URI/web/img/{$item->img}\" width=\"60\" height=\"60\">";
+      $html .= "<img src=\"$URI/web/img/{$item->img}\" width=\"60\" height=\"60\" alt=\"{$item->descr}\">";
       $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
       $html .= '</li>';
     }
@@ -51,7 +50,8 @@ END;
     $html="<div id=\"mainpage\"><h2>Item</h2></div>";
     $nomitem=$item["img"];
     $URI = Slim::getInstance()->request->getRootURI();
-    $html .= "<img src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\">";
+    $descr=$item["descr"];
+    $html .= "<img src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\" alt=\"$descr\">";
     $html .= $item["nom"].' - ';
     $html .= $item["descr"];
 
@@ -70,6 +70,7 @@ END;
 
   public function render($selecteur){
     $app = Slim::getInstance();
+    $content = "";
     switch ($selecteur) {
       case AFFICHER_LISTES: {
         $content = $this->afficherLesListes();
