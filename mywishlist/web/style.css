@@ -82,7 +82,6 @@ a:visited:hover{
 #mainpage {
 	border-top: 2px solid #91672c;
 	border-bottom: 2px solid #91672c;
-
 }
 
 #mainpage h2 {
@@ -108,6 +107,10 @@ a:visited:hover{
 
 .content p {
 	padding-left: 2%;
+}
+
+.content li {
+	list-style-type: none;
 }
 
 .connect {
