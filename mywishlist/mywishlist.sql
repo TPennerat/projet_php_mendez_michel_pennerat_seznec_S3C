@@ -63,19 +63,19 @@ INSERT INTO `appartient` (`id`, `no`, `reserve`, `loginReserv`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Compte`
+-- Structure de la table `Account`
 --
 
-CREATE TABLE `Compte` (
+CREATE TABLE `Account` (
   `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Déchargement des données de la table `Compte`
+-- Déchargement des données de la table `Account`
 --
 
-INSERT INTO `Compte` (`login`, `password`) VALUES
+INSERT INTO `Account` (`login`, `password`) VALUES
 ('pennerat7u', 'pinpinbranloss'),
 ('seznec1u', 'senznecleboss');
 
@@ -167,9 +167,9 @@ INSERT INTO `message` (`id`, `no`, `login`, `message`) VALUES
 --
 
 --
--- Index pour la table `Compte`
+-- Index pour la table `Account`
 --
-ALTER TABLE `Compte`
+ALTER TABLE `Account`
   ADD PRIMARY KEY (`login`);
 
 --
@@ -190,7 +190,7 @@ ALTER TABLE `Liste`
 ALTER TABLE `message`
   ADD PRIMARY KEY (`id`,`no`,`login`),
   ADD KEY `FK_no_Liste` (`no`),
-  ADD KEY `FK_login_Compte` (`login`);
+  ADD KEY `FK_login_Account` (`login`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -217,7 +217,7 @@ ALTER TABLE `Liste`
 --
 ALTER TABLE `message`
   ADD CONSTRAINT `FK_id_Item` FOREIGN KEY (`id`) REFERENCES `Item` (`id`),
-  ADD CONSTRAINT `FK_login_Compte` FOREIGN KEY (`login`) REFERENCES `Compte` (`login`),
+  ADD CONSTRAINT `FK_login_Account` FOREIGN KEY (`login`) REFERENCES `Account` (`login`),
   ADD CONSTRAINT `FK_no_Liste` FOREIGN KEY (`no`) REFERENCES `Liste` (`no`);
 COMMIT;
 
