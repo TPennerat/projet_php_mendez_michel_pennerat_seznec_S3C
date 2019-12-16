@@ -2,8 +2,11 @@
 
 namespace mywishlist\vue;
 
+use Slim\Slim;
 const INTERFACE_CONNEXION = 1;
 const INTERFACE_MAUVAISE_COMBINAISON = 2;
+const INTERFACE_INSCRIPTION = 3;
+const INTERFACE_MAUVAISE_INSCRIPTION = 4;
 
 class VueConnexion {
     public $arr;
@@ -12,15 +15,53 @@ class VueConnexion {
         $this->arr=$a;
     }
 
-    private function afficherIntefaceConnexion(){
-        $app = \Slim\Slim::getInstance();
+    private function afficherInterfaceInscription(){
+        $html=<<<END
+<div align="center" class="inscription">
+    <form id="f3" method="post" action="inscription" enctypr="multipart/form-data">
+        <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
+        <br>
+        <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
+        <p>Confirmer mot de passe</p><input type="password" name="mdpconf" required placeholder="Mot de passe">
+        <br>
+        <br>
+        <button type=submit name="valider">S'inscrire</button>
+    </form>
+</div>
+END;
+
+        return $html;
+    }
+
+    private function afficherInterfaceMauvaiseInscription(){
+        $html=<<<END
+<div align="center" class="inscription">
+    <p style='color : red'>$this->arr</p>
+    <form id="f3" method="post" action="inscription" enctypr="multipart/form-data">
+        <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
+        <br>
+        <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
+        <p>Confirmer mot de passe</p><input type="password" name="mdpconf" required placeholder="Mot de passe">
+        <br>
+        <br>
+        <button type=submit name="valider">S'inscrire</button>
+    </form>
+</div>
+END;
+
+        return $html;
+    }
+
+    private function afficherInterfaceConnexion(){
+        $app=Slim::getInstance();
+        $urlInscription = $app->urlFor('inscription');
         $html=<<<END
 <div align="center" class="connect">
     <form id="f2" method="post" action="connexion" enctypr="multipart/form-data">
         <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
         <br>
         <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
-        <br>
+        <p><a href="$urlInscription">Pas de compte ? S'inscrire</a></p>
         <br>
         <button type=submit name="valider">Se Connecter</button>
     </form>
@@ -30,8 +71,9 @@ END;
         return $html;
     }
 
-    private function afficherIntefaceMauvaiseConnexion(){
-        $app = \Slim\Slim::getInstance();
+    private function afficherInterfaceMauvaiseConnexion(){
+        $app=Slim::getInstance();
+        $urlInscription = $app->urlFor('inscription');
         $html=<<<END
 <div align="center" class="connect">
     <form id="f2" method="post" action="connexion" enctypr="multipart/form-data">
@@ -39,7 +81,7 @@ END;
         <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
         <br>
         <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
-        <br>
+        <p><a href="$urlInscription">Pas de compte ? S'inscrire</a></p>
         <br>
         <button type=submit name="valider">Se Connecter</button>
     </form>
@@ -64,11 +106,19 @@ END;
         switch ($selecteur) {
             case INTERFACE_CONNEXION:
             {
-                $content = $this->afficherIntefaceConnexion();
+                $content = $this->afficherInterfaceConnexion();
                 break;
             }
             case INTERFACE_MAUVAISE_COMBINAISON : {
-                $content = $this->afficherIntefaceMauvaiseConnexion();
+                $content = $this->afficherInterfaceMauvaiseConnexion();
+                break;
+            }
+            case INTERFACE_INSCRIPTION : {
+                $content = $this->afficherInterfaceInscription();
+                break;
+            }
+            case INTERFACE_MAUVAISE_INSCRIPTION : {
+                $content = $this->afficherInterfaceMauvaiseInscription();
                 break;
             }
         }

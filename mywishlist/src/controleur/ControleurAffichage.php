@@ -1,16 +1,13 @@
 <?php
 
 namespace mywishlist\controleur;
-use mywishlist\vue\VueConnexion;
 use \mywishlist\vue\VueParticipant;
-use Slim\Slim;
 use const mywishlist\vue\AFFICHER_ITEM;
 use const mywishlist\vue\AFFICHER_LISTE;
 use const mywishlist\vue\AFFICHER_LISTES;
 use const mywishlist\vue\AFFICHER_RACINE;
 
 class ControleurAffichage{
-
 
     public function afficherLesListes(){
         $listl = \mywishlist\models\Liste::all();
@@ -31,13 +28,6 @@ class ControleurAffichage{
     }
 
     public function racine(){
-        /**if(){
-            $vue= new VueParticipant(null);
-            $vue->render(AFFICHER_RACINE);
-        } else {
-            $app=Slim::getInstance();
-            $app->redirect($app->request->getRootUri().'/connexion');
-        }*/
         $vue= new VueParticipant(null);
         $vue->render(AFFICHER_RACINE);
     }

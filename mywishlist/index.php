@@ -76,4 +76,14 @@ $app->post('/connexion', function (){
     $c->seConnecter();
 })->name('connecte');
 
+$app->get('/inscription', function (){
+    $c = new ControleurConnexion();
+    $c->afficherInterfaceInscription();
+})->name('inscription');
+
+$app->post('/inscription', function (){
+    $c = new ControleurConnexion();
+    $c->sInscrire();
+})->name('inscrit');
+
 $app->run();

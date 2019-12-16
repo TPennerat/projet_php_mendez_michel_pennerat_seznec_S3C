@@ -91,6 +91,7 @@ END;
     $urlRacine=$app->urlFor('racine');
     $urlCSS=$app->request->getRootURI().'/web/style.css';
     $urlConnexion=$app->urlFor('connexion');
+    $urlInscription=$app->urlFor('inscription');
     $html = <<<END
 <!DOCTYPE html>
 <html lang="fr">
@@ -101,6 +102,9 @@ END;
 <body>
   <div class="header">
     <h1><a id="mywishlist" href="$urlRacine">MyWishList</a></h1>
+    <span>
+    <a id="conn" href="$urlInscription">Inscription</a>
+    </span>
     <span>
     <a id="conn" href="$urlConnexion">Connexion</a>
     </span>
