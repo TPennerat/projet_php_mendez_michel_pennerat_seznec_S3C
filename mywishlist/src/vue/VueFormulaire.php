@@ -47,7 +47,7 @@ class VueFormulaire {
 
     private function formulaireItem(){
         $html="<h2>Création d'un item</h2>";
-        $html .='<form id="f2" method="post" action="creerItem" enctypr="multipart/form-data">';
+        $html .='<form id="f2" method="post" action="creerItem" enctype="multipart/form-data">';
         $html .= '<input type="text" name="nomItem" required placeholder="Nom de l\'item">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
         $html .= '<select name="select">';
@@ -55,8 +55,9 @@ class VueFormulaire {
             $html .= '<option value="'.$i['no'].'">'.$i['titre'].'</option>';
         }
         $html.='</select><br>';
-        $html .= '<input type="file" name ="image" accept="application.jpg">';
-        $html .= '<button type=submit name="valider">Valider</button>';
+        $html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000" />';
+        $html .= '<input type="file" name ="image" accept="application.jpg"/>';
+        $html .= '<input type=submit name="valider"/>';
         $html .='</form>';
 
         return $html;

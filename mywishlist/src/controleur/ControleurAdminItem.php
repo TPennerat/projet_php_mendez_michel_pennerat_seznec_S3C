@@ -21,11 +21,15 @@ class ControleurAdminItem {
           $nom=filter_var($app->request()->post('nomItem'),FILTER_SANITIZE_STRING);
           $item->nom=$nom;
           $item->descr=filter_var($app->request()->post('descr'),FILTER_SANITIZE_STRING);
-          if(0==0){//tester si le champ est renseigné et OK
-            $nomImage=(array_reverse(explode('\\',$_POST['image'])))[0];
+          if(0==0){//tester si le champ est renseigné et OK DEBUG
+            $nomImage=$_FILES['image']['name'];
             if(!file_exists('/web/img/'.$nomImage)){
-              //A DEBUG ER surement avec $_FILES
-              move_uploaded_file($_POST['image'], $app->request->getRootURI().'/web/img/'.$nomImage); //A tester
+                echo 'pas d image encore'; //DEBUG DEBUG DEBUG
+                $uploaddir = '/web/img/';
+                $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+                echo $uploadfile;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {echo 'ok';}
+                //move_uploaded_file($nomImage, $app->request->getRootURI().'/web/img/'.$nomImage); //A tester
             }
             $item->img=$nomImage;
           }else{
