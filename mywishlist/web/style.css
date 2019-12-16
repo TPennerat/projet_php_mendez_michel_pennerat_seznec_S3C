@@ -119,6 +119,18 @@ a:visited:hover{
     padding: 5%;
     background-color: #ab7933;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.connect p {
+	width: 200px;
+	padding-left: 0px;
+}
+
+.connect a:visited {
+	color: white;
 }
 
 #mywishlist{
