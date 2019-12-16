@@ -112,9 +112,9 @@ a:visited:hover{
 
 .connect {
     margin: 5%;
-    border: 2px solid #222b38;
+    border: 2px solid #ab7933;
     padding: 5%;
-    background-color: #ab7933;
+    background-color: white; 
 }
 
 #mywishlist{
