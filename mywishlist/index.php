@@ -1,6 +1,7 @@
 <?php
 
 /*https://webetu.iutnc.univ-lorraine.fr/www/mendezpo1u/mywishlist/*/
+session_start();
 
 use \Illuminate\Database\Capsule\Manager as DB;
 use \mywishlist\controleur\ControleurAffichage;

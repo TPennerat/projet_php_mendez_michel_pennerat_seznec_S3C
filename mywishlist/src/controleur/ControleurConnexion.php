@@ -11,7 +11,6 @@ use const mywishlist\vue\INTERFACE_MAUVAISE_COMBINAISON;
 use const mywishlist\vue\INTERFACE_MAUVAISE_INSCRIPTION;
 
 class ControleurConnexion{
-
     public function afficherInterfaceConnexion(){
         $vue= new VueConnexion(null);
         $vue->render(INTERFACE_CONNEXION);
@@ -30,6 +29,7 @@ class ControleurConnexion{
             $login=Account::select("login")->where('login','=',"$id")->count();
             if($login==0){
                 if ($mdp==filter_var($_POST['mdpconf'],FILTER_SANITIZE_STRING)) {
+                    $_SESSION['token']='tokenTest';
                     $this->creerUser($id,$mdp);
                     $app->redirect($app->request->getRootUri());
                 } else {
@@ -51,13 +51,18 @@ class ControleurConnexion{
             $mdp=filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
             $login=Account::select("login")->where('login','=',"$id")->count();
             if($login==1 and password_verify($mdp,Account::select("password")->where('login','=',"$id")->get()->toArray()[0]["password"])){
+                $_SESSION['token']='tokenTest';
                 $app->redirect($app->request->getRootUri());
             } else {
                 $vue = new VueConnexion(null);
                 $vue->render(INTERFACE_MAUVAISE_COMBINAISON);
             }
         }
+    }
 
+    public function seDeconnecter(){
+      $_SESSION['token']=null;
+      //A FAIRE MIEUX
     }
 
     private function creerUser($login,$mdp){

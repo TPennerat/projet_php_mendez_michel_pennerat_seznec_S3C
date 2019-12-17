@@ -9,7 +9,6 @@ const AFFICHER_LISTE = 2;
 const AFFICHER_ITEM = 3;
 const AFFICHER_RACINE = 4;
 
-
 class VueParticipant {
   public $arr;
 
@@ -64,6 +63,7 @@ END;
 
   private function racine(){
     $app = Slim::getInstance();
+
     $html = "<div id=\"mainpage\"><h2>Bienvenue sur MyWishList !</h2></div>" ;
     $html .= '<div id="reste"><p>Accès aux Listes : <a href="'.$app->urlFor('getListes').'">Listes</a></p>';
     $html .= '<p>Ajout d\'une Liste : <a href="'.$app->urlFor('creerListe').'">Liste</a></p>';
@@ -97,6 +97,12 @@ END;
     $urlCSS=$app->request->getRootURI().'/web/style.css';
     $urlConnexion=$app->urlFor('connexion');
     $urlInscription=$app->urlFor('inscription');
+    if(isset($_SESSION['token'])){
+      $hautDroite='<span><a id="conn" >Connecté</a></span>';
+    }else{
+      $hautDroite='<span><a id="conn" href="$urlInscription">Inscription</a></span>';
+      $hautDroite.='<span><a id="conn" href="$urlConnexion">Connexion</a></span>';
+    }
     $html = <<<END
 <!DOCTYPE html>
 <html lang="fr">
@@ -107,12 +113,7 @@ END;
 <body>
   <div class="header">
     <h1><a id="mywishlist" href="$urlRacine">MyWishList</a></h1>
-    <span>
-    <a id="conn" href="$urlInscription">Inscription</a>
-    </span>
-    <span>
-    <a id="conn" href="$urlConnexion">Connexion</a>
-    </span>
+    $hautDroite
   </div>
   <div class="content">
    $content
