@@ -2,7 +2,7 @@
 
 namespace mywishlist\controleur;
 use mywishlist\models\Item;
-use mywishlist\models\List;
+use mywishlist\models\Liste;
 use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
 use const mywishlist\vue\FORMULAIRE_ITEM;
@@ -10,7 +10,7 @@ use const mywishlist\vue\FORMULAIRE_ITEM;
 class ControleurAdminItem {
 
   public function afficherFormulaire(){
-      $iteml = List::all();
+      $iteml = Liste::all();
       $vue = new VueFormulaire($iteml);
       $vue->render(FORMULAIRE_ITEM);
   }
@@ -37,7 +37,7 @@ class ControleurAdminItem {
             $item->img='default.jpg';
           }
 
-          $item->List_id=filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT);
+          $item->Liste_id=filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT);
           $item->save();
           $i = Item::select('id')->where('nom','=',$nom)->get();
           $app->redirect($app->request->getRootURI().'/afficherItem/token/'.$i['0']['id']);

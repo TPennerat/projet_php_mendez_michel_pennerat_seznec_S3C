@@ -31,11 +31,11 @@ class VueFormulaire {
         return $html;
     }
 
-    private function formulaireList(){
-        $html="<h2>Création d'une List</h2>";
+    private function formulaireListe(){
+        $html="<h2>Création d'une Liste</h2>";
         $html.='<div align="center">';
-        $html .='<form id="f1" method="post" action="creerList">';
-        $html .= '<input type="text" name="nomList" required placeholder="Nom de la List">';
+        $html .='<form id="f1" method="post" action="creerListe">';
+        $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
         foreach($this->arr as $i){
             $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['nom'].'" id="'.$i['id'].'"></p>';
@@ -69,16 +69,16 @@ class VueFormulaire {
         $app = Slim::getInstance();
         $content = "";
         switch ($selecteur) {
-            case FORMULAIRE_List: {
-                $content = $this->formulaireList();
+            case FORMULAIRE_Liste: {
+                $content = $this->formulaireListe();
                 break;
             }
             case FORMULAIRE_ITEM: {
                 $content = $this->formulaireItem();
                 break;
             }
-            case FORMUALIRE_List_INCORRECT: {
-                $content = $this->formulaireListIncorrect();
+            case FORMUALIRE_Liste_INCORRECT: {
+                $content = $this->formulaireListeIncorrect();
                 break;
             }
         }

@@ -2,25 +2,25 @@
 
 namespace mywishlist\controleur;
 use mywishlist\models\Item;
-use mywishlist\models\List;
+use mywishlist\models\Liste;
 use mywishlist\vue\VueParticipant;
 use const mywishlist\vue\AFFICHER_ITEM;
-use const mywishlist\vue\AFFICHER_List;
-use const mywishlist\vue\AFFICHER_ListS;
+use const mywishlist\vue\AFFICHER_Liste;
+use const mywishlist\vue\AFFICHER_ListeS;
 use const mywishlist\vue\AFFICHER_RACINE;
 
 class ControleurAffichage{
 
-    public function afficherLesLists(){
-        $listl = List::all();
+    public function afficherLesListes(){
+        $listl = Liste::all();
         $vue= new VueParticipant($listl->toArray());
-        $vue->render(AFFICHER_ListS);
+        $vue->render(AFFICHER_ListeS);
     }
 
-    public function afficherList($no){
-        $List = List::find($no);
-        $vue = new VueParticipant([$List]);
-        $vue->render(AFFICHER_List);
+    public function afficherListe($no){
+        $Liste = Liste::find($no);
+        $vue = new VueParticipant([$Liste]);
+        $vue->render(AFFICHER_Liste);
     }
 
     public function afficherItem($id){
