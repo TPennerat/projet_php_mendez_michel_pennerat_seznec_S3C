@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  mar. 17 déc. 2019 à 08:44
+-- Généré le :  mar. 17 déc. 2019 à 09:21
 -- Version du serveur :  5.5.64-MariaDB
 -- Version de PHP :  7.0.33
 
@@ -32,44 +32,6 @@ CREATE TABLE `Account` (
   `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `appartient`
---
-
-CREATE TABLE `appartient` (
-  `id` int(11) NOT NULL,
-  `no` int(11) NOT NULL,
-  `reserve` tinyint(1) DEFAULT '0',
-  `loginReserv` varchar(30) DEFAULT 'null'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `appartient`
---
-
-INSERT INTO `appartient` (`id`, `no`, `reserve`, `loginReserv`) VALUES
-(1, 2, 0, 'null'),
-(2, 2, 0, 'null'),
-(3, 2, 0, 'null'),
-(4, 3, 0, 'null'),
-(5, 3, 0, 'null'),
-(6, 2, 0, 'null'),
-(7, 2, 0, 'null'),
-(8, 3, 0, 'null'),
-(9, 3, 0, 'null'),
-(10, 2, 0, 'null'),
-(11, 0, 0, 'null'),
-(12, 2, 0, 'null'),
-(19, 0, 0, 'null'),
-(22, 0, 0, 'null'),
-(23, 1, 0, 'null'),
-(24, 2, 0, 'null'),
-(25, 1, 0, 'null'),
-(26, 1, 0, 'null'),
-(27, 1, 0, 'null');
 
 -- --------------------------------------------------------
 
@@ -110,6 +72,44 @@ INSERT INTO `Item` (`id`, `nom`, `descr`, `img`, `url`, `tarif`) VALUES
 (25, 'Boite de nuit', 'Discothèque, Boîte tendance avec des soirées à thème & DJ invités', 'boitedenuit.jpg', '', '32.00'),
 (26, 'Planètes Laser', 'Laser game : Gilet électronique et pistolet laser comme matériel, vous voilà équipé.', 'laser.jpg', '', '15.00'),
 (27, 'Fort Aventure', 'Découvrez Fort Aventure à Bainville-sur-Madon, un site Accropierre unique en Lorraine ! Des Parcours Acrobatiques pour petits et grands, Jeu Mission Aventure, Crypte de Crapahute, Tyrolienne, Saut à l\'élastique inversé, Toboggan géant... et bien plus encore.', 'fort.jpg', '', '25.00');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `item_liste`
+--
+
+CREATE TABLE `item_liste` (
+  `id` int(11) NOT NULL,
+  `no` int(11) NOT NULL,
+  `reserve` tinyint(1) DEFAULT '0',
+  `loginReserv` varchar(30) DEFAULT 'null'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `item_liste`
+--
+
+INSERT INTO `item_liste` (`id`, `no`, `reserve`, `loginReserv`) VALUES
+(1, 2, 0, 'null'),
+(2, 2, 0, 'null'),
+(3, 2, 0, 'null'),
+(4, 3, 0, 'null'),
+(5, 3, 0, 'null'),
+(6, 2, 0, 'null'),
+(7, 2, 0, 'null'),
+(8, 3, 0, 'null'),
+(9, 3, 0, 'null'),
+(10, 2, 0, 'null'),
+(11, 0, 0, 'null'),
+(12, 2, 0, 'null'),
+(19, 0, 0, 'null'),
+(22, 0, 0, 'null'),
+(23, 1, 0, 'null'),
+(24, 2, 0, 'null'),
+(25, 1, 0, 'null'),
+(26, 1, 0, 'null'),
+(27, 1, 0, 'null');
 
 -- --------------------------------------------------------
 
