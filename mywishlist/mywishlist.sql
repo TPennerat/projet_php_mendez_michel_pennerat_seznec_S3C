@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  lun. 16 déc. 2019 à 11:44
+-- Généré le :  mar. 17 déc. 2019 à 08:44
 -- Version du serveur :  5.5.64-MariaDB
 -- Version de PHP :  7.0.33
 
@@ -21,6 +21,17 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `michel412u`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Account`
+--
+
+CREATE TABLE `Account` (
+  `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -59,17 +70,6 @@ INSERT INTO `appartient` (`id`, `no`, `reserve`, `loginReserv`) VALUES
 (25, 1, 0, 'null'),
 (26, 1, 0, 'null'),
 (27, 1, 0, 'null');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Account`
---
-
-CREATE TABLE `Account` (
-  `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -131,7 +131,7 @@ CREATE TABLE `List` (
 
 INSERT INTO `List` (`no`, `titre`, `description`, `expiration`, `token`) VALUES
 (1, 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1'),
-(2, 'List de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2'),
+(2, 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2'),
 (3, 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3');
 
 -- --------------------------------------------------------
@@ -146,13 +146,6 @@ CREATE TABLE `message` (
   `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `message` varchar(200) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `message`
---
-
-INSERT INTO `message` (`id`, `no`, `login`, `message`) VALUES
-(1, 2, 'pennerat7u', 'Ce champagne est super excellent');
 
 --
 -- Index pour les tables déchargées
@@ -181,8 +174,8 @@ ALTER TABLE `List`
 --
 ALTER TABLE `message`
   ADD PRIMARY KEY (`id`,`no`,`login`),
-  ADD KEY `FK_no_List` (`no`),
-  ADD KEY `FK_login_Account` (`login`);
+  ADD KEY `FK_no_Liste` (`no`),
+  ADD KEY `FK_login_Compte` (`login`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -209,8 +202,8 @@ ALTER TABLE `List`
 --
 ALTER TABLE `message`
   ADD CONSTRAINT `FK_id_Item` FOREIGN KEY (`id`) REFERENCES `Item` (`id`),
-  ADD CONSTRAINT `FK_login_Account` FOREIGN KEY (`login`) REFERENCES `Account` (`login`),
-  ADD CONSTRAINT `FK_no_List` FOREIGN KEY (`no`) REFERENCES `List` (`no`);
+  ADD CONSTRAINT `FK_login_Compte` FOREIGN KEY (`login`) REFERENCES `Account` (`login`),
+  ADD CONSTRAINT `FK_no_Liste` FOREIGN KEY (`no`) REFERENCES `List` (`no`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
