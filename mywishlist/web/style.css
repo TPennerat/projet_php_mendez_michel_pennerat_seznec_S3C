@@ -19,7 +19,7 @@ body {
  color: #ab7933;
  background-image: url('bg.jpg');
  background-repeat: no-repeat;
- background-attachment: fixed;
+ /*background-attachment: fixed;*/
  background-size: cover;
 }
 
@@ -27,7 +27,7 @@ h1 {
  margin-top: 0;
  margin-bottom: 0;
  font-size: 200%;
- color: #e6dfdf;
+ color: white;
 }
 
 h2 {
@@ -44,7 +44,7 @@ hr {
 }
 
 a {
-	color : white;
+	color : #ab7933;
 }
 
 a:hover {
@@ -73,6 +73,10 @@ a:visited:hover{
  display: inline-block;	
 }
 
+.header h1:visited {
+	text-decoration: none;
+}
+
 .header span {
 	float : right;
 	padding-top: 15px;
@@ -90,14 +94,16 @@ a:visited:hover{
 	background-color: white;
     margin: 5% auto;
     padding-left: 0;
-	padding-top: 7px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	width : 30%;
-	height: 40px;
+	height: 30%;
+	font-size: 2vw;
 }
 
 #reste {
 	position: absolute;
-	background-color: white;
+	background-color: #fff099;
 	width: 100%;
 	height: 80%;
 }
@@ -114,8 +120,7 @@ a:visited:hover{
     margin: 5%;
     border: 2px solid #91672c;
     padding: 5%;
-    background-color: #ab7933;
-    color: white;
+    background-color: #fff099;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,7 +132,7 @@ a:visited:hover{
 }
 
 .connect a:visited {
-	color: white;
+	color: #ab7933;
 }
 
 #mywishlist{
@@ -136,12 +141,12 @@ a:visited:hover{
 
 #mywishlist:visited{
     text-decoration: none;
-    color: #e6dfdf;
+    color: white;
 }
 
 #conn {
 	text-decoration: none;
-	color: #e6dfdf;
+	color: white;
 }
 
 #conn:visited{
