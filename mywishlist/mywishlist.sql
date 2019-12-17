@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  mar. 17 déc. 2019 à 09:21
+-- Généré le :  mar. 17 déc. 2019 à 09:24
 -- Version du serveur :  5.5.64-MariaDB
 -- Version de PHP :  7.0.33
 

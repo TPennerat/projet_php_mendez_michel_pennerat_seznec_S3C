@@ -16,24 +16,26 @@ class VueFormulaire {
 
     private function formulaireListeIncorrect(){
         $html="<h2>Création d'une liste</h2>";
-        $html.="<p style='color : red'>Impossible de créer votre liste, ce nom existe déjà !</p>";
+        $html.='<div align="center">';
         $html .='<form id="f1" method="post" action="creerListe">';
-        $html .= '<input type="text" name="nomListe" placeholder="Nom de la liste">';
+        $html .= '<p style="color: red">Nom de liste déjà existant</p>';
+        $html .= '<input type="text" name="nomListe" required placeholder="Nom de la liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
         foreach($this->arr as $i){
             $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['nom'].'" id="'.$i['id'].'"></p>';
         }
         $html .= '<button type=submit name="valider">Valider</button>';
         $html .='</form>';
+        $html.='</div>';
 
         return $html;
     }
 
     private function formulaireListe(){
-        $html="<h2>Création d'une liste</h2>";
+        $html="<h2>Création d'une Liste</h2>";
         $html.='<div align="center">';
         $html .='<form id="f1" method="post" action="creerListe">';
-        $html .= '<input type="text" name="nomListe" required placeholder="Nom de la liste">';
+        $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
         foreach($this->arr as $i){
             $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['nom'].'" id="'.$i['id'].'"></p>';
@@ -67,7 +69,7 @@ class VueFormulaire {
         $app = Slim::getInstance();
         $content = "";
         switch ($selecteur) {
-            case FORMULAIRE_LISTE: {
+            case FORMULAIRE_Liste: {
                 $content = $this->formulaireListe();
                 break;
             }
@@ -75,7 +77,7 @@ class VueFormulaire {
                 $content = $this->formulaireItem();
                 break;
             }
-            case FORMUALIRE_LISTE_INCORRECT: {
+            case FORMUALIRE_Liste_INCORRECT: {
                 $content = $this->formulaireListeIncorrect();
                 break;
             }

@@ -4,8 +4,8 @@ namespace mywishlist\vue;
 
 use mywishlist\models\Liste;
 use Slim\Slim;
-const AFFICHER_LISTES = 1;
-const AFFICHER_LISTE = 2;
+const AFFICHER_ListeS = 1;
+const AFFICHER_Liste = 2;
 const AFFICHER_ITEM = 3;
 const AFFICHER_RACINE = 4;
 
@@ -29,10 +29,10 @@ class VueParticipant {
 END;
   }
 
-  private function afficherListe($liste){
+  private function afficherListe($Liste){
     $app = Slim::getInstance();
     $html = "<div id=\"mainpage\"><h2>Liste</h2></div>";
-    $l = Liste::find($liste["no"]);
+    $l = Liste::find($Liste["no"]);
     $html .= "<h3>".$l->titre."</h3>";
     $html .= "<p>".$l->description."<p>";
     $items=$l->items()->get();
@@ -61,8 +61,8 @@ END;
   private function racine(){
     $app = Slim::getInstance();
     $html = "<div id=\"mainpage\"><h2>Bienvenue sur MyWishList !</h2></div>" ;
-    $html .= '<div id="reste"><p>Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a></p>';
-    $html .= '<p>Ajout d\'une liste : <a href="'.$app->urlFor('creerListe').'">liste</a></p>';
+    $html .= '<div id="reste"><p>Accès aux Listes : <a href="'.$app->urlFor('getListes').'">Listes</a></p>';
+    $html .= '<p>Ajout d\'une Liste : <a href="'.$app->urlFor('creerListe').'">Liste</a></p>';
     $html .= '<p>Ajout d\'un item : <a href="'.$app->urlFor('creerItem').'">item</a></p></div>';
 
     return $html;
@@ -72,11 +72,11 @@ END;
     $app = Slim::getInstance();
     $content = "";
     switch ($selecteur) {
-      case AFFICHER_LISTES: {
+      case AFFICHER_ListeS: {
         $content = $this->afficherLesListes();
         break;
       }
-      case AFFICHER_LISTE : {
+      case AFFICHER_Liste : {
         $content = $this->afficherListe($this->arr[0]);
         break;
       }
