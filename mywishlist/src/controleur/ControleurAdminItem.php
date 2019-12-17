@@ -34,10 +34,9 @@ class ControleurAdminItem {
           }else{
             $item->img='default.jpg';
           }
-
-          //$item->Liste_id=filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT);
           $item->save();
           $i = Item::select('id')->where('nom','=',$nom)->get();
+          $item->liste()->attach([filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT)]);
           $app->redirect($app->request->getRootURI().'/afficherItem/token/'.$i['0']['id']);
       }
   }
