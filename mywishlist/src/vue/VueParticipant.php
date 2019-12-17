@@ -97,11 +97,12 @@ END;
     $urlCSS=$app->request->getRootURI().'/web/style.css';
     $urlConnexion=$app->urlFor('connexion');
     $urlInscription=$app->urlFor('inscription');
+    $urlDeco=$app->urlFor('deconnexion');
     if(isset($_SESSION['token'])){
-      $hautDroite='<span><a id="conn" >Connecté</a></span>';
+      $hautDroite='<form id="deco" method="post" action="deconnexion"><button type=submit name="valider">Se deconnecter</button></form>';
     }else{
-      $hautDroite='<span><a id="conn" href="$urlInscription">Inscription</a></span>';
-      $hautDroite.='<span><a id="conn" href="$urlConnexion">Connexion</a></span>';
+      $hautDroite="<span><a id=\"conn\" href=\"$urlInscription\">Inscription</a></span>";
+      $hautDroite.="<span><a id=\"conn\" href=\"$urlConnexion\">Connexion</a></span>";
     }
     $html = <<<END
 <!DOCTYPE html>

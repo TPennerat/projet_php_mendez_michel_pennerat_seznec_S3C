@@ -9,7 +9,6 @@ use const mywishlist\vue\INTERFACE_CONNEXION;
 use const mywishlist\vue\INTERFACE_INSCRIPTION;
 use const mywishlist\vue\INTERFACE_MAUVAISE_COMBINAISON;
 use const mywishlist\vue\INTERFACE_MAUVAISE_INSCRIPTION;
-use const mywishlist\vue\INTERFACE_DECONNEXION;
 
 class ControleurConnexion{
     public function afficherInterfaceConnexion(){
