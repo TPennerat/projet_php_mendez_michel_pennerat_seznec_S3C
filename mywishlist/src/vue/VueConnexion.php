@@ -84,6 +84,17 @@ END;
 END;
     }
 
+    private function afficherInterfaceDeconnexion(){
+      $app = Slim::getInstance();
+      return <<<END
+<div align="center" class="connect">
+  <form id="f3" method="post" action="deconnexion">
+      <button type=submit name="valider">Se deconnecter</button>
+  </form>
+</div>
+END;
+    }
+
     public function render($selecteur){
         $app = Slim::getInstance();
         $content = "";
