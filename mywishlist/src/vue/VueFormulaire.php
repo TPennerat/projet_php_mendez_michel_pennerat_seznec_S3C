@@ -22,7 +22,7 @@ class VueFormulaire {
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
         foreach($this->arr as $i){
-            $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['nom'].'" id="'.$i['id'].'"></p>';
+            $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></p>';
         }
         $html .= '<button type=submit name="valider">Valider</button>';
         $html .='</form>';
@@ -38,7 +38,7 @@ class VueFormulaire {
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
         foreach($this->arr as $i){
-            $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['nom'].'" id="'.$i['id'].'"></p>';
+            $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></p>';
         }
         $html .= '<button type=submit name="valider">Valider</button>';
         $html .='</form>';
