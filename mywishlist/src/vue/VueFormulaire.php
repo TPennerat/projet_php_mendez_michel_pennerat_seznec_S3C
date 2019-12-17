@@ -57,9 +57,9 @@ class VueFormulaire {
             $html .= '<option value="'.$i['no'].'">'.$i['titre'].'</option>';
         }
         $html.='</select><br>';
-        $html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000" />';
-        $html .= '<input type="file" name ="image" accept="application.jpg"/>';
-        $html .= '<input type=submit name="valider"/>';
+        //$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000">';
+        $html .= '<input type="file" name="image">';
+        $html .= '<input type=submit name="valider">';
         $html .='</form>';
 
         return $html;

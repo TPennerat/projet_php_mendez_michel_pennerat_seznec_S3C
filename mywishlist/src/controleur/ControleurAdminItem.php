@@ -22,13 +22,12 @@ class ControleurAdminItem {
           $nom=filter_var($app->request()->post('nomItem'),FILTER_SANITIZE_STRING);
           $item->nom=$nom;
           $item->descr=filter_var($app->request()->post('descr'),FILTER_SANITIZE_STRING);
-          if(!is_uploaded_file($_FILES['image']['tmp_name'])){ //le ! ne devrait pas etre la DEBUG
+          if(is_uploaded_file($_FILES['image']['tmp_name'])){ //A SECURISER DEBUG
             $nomImage=$_FILES['image']['name'];
-            if(!file_exists('/web/img/'.$nomImage)){
-                $uploaddir = '/web/img/';
+            if(!file_exists('web/img/'.$nomImage)){
+                $uploaddir = 'web/img/';
                 $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-                echo $uploadfile;
-                move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile); //Ne marche pas quand on veux ajouter une nouvelle image DEBUG
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
             }
             $item->img=$nomImage;
           }else{
