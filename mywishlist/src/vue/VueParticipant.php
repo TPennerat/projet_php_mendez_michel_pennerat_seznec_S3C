@@ -2,10 +2,10 @@
 
 namespace mywishlist\vue;
 
-use mywishlist\models\Liste;
+use mywishlist\models\List;
 use Slim\Slim;
-const AFFICHER_LISTES = 1;
-const AFFICHER_LISTE = 2;
+const AFFICHER_ListS = 1;
+const AFFICHER_List = 2;
 const AFFICHER_ITEM = 3;
 const AFFICHER_RACINE = 4;
 
@@ -17,11 +17,11 @@ class VueParticipant {
     $this->arr=$a;
   }
 
-  private function afficherLesListes(){
+  private function afficherLesLists(){
     $app= Slim::getInstance();
-    $content="<div id=\"mainpage\"><h2>Listes</h2></div>";
+    $content="<div id=\"mainpage\"><h2>Lists</h2></div>";
     foreach($this->arr as $l){
-      $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+      $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getList', ['id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
     }
 
       return <<<END
@@ -29,10 +29,10 @@ class VueParticipant {
 END;
   }
 
-  private function afficherListe($liste){
+  private function afficherList($List){
     $app = Slim::getInstance();
-    $html = "<div id=\"mainpage\"><h2>Liste</h2></div>";
-    $l = Liste::find($liste["no"]);
+    $html = "<div id=\"mainpage\"><h2>List</h2></div>";
+    $l = List::find($List["no"]);
     $html .= "<h3>".$l->titre."</h3>";
     $html .= "<p>".$l->description."<p>";
     $items=$l->items()->get();
@@ -61,8 +61,8 @@ END;
   private function racine(){
     $app = Slim::getInstance();
     $html = "<div id=\"mainpage\"><h2>Bienvenue sur MyWishList !</h2></div>" ;
-    $html .= '<div id="reste"><p>Accès aux listes : <a href="'.$app->urlFor('getListes').'">listes</a></p>';
-    $html .= '<p>Ajout d\'une liste : <a href="'.$app->urlFor('creerListe').'">liste</a></p>';
+    $html .= '<div id="reste"><p>Accès aux Lists : <a href="'.$app->urlFor('getLists').'">Lists</a></p>';
+    $html .= '<p>Ajout d\'une List : <a href="'.$app->urlFor('creerList').'">List</a></p>';
     $html .= '<p>Ajout d\'un item : <a href="'.$app->urlFor('creerItem').'">item</a></p></div>';
 
     return $html;
@@ -72,12 +72,12 @@ END;
     $app = Slim::getInstance();
     $content = "";
     switch ($selecteur) {
-      case AFFICHER_LISTES: {
-        $content = $this->afficherLesListes();
+      case AFFICHER_ListS: {
+        $content = $this->afficherLesLists();
         break;
       }
-      case AFFICHER_LISTE : {
-        $content = $this->afficherListe($this->arr[0]);
+      case AFFICHER_List : {
+        $content = $this->afficherList($this->arr[0]);
         break;
       }
       case AFFICHER_ITEM: {
