@@ -139,8 +139,7 @@ CREATE TABLE `List` (
 INSERT INTO `List` (`no`, `titre`, `description`, `expiration`, `token`) VALUES
 (1, 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1'),
 (2, 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2'),
-(3, 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3'),
-(4, 'f', 'e', NULL, NULL);
+(3, 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3');
 
 -- --------------------------------------------------------
 
