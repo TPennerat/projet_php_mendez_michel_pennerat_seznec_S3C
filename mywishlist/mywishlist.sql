@@ -71,14 +71,6 @@ CREATE TABLE `Account` (
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Déchargement des données de la table `Account`
---
-
-INSERT INTO `Account` (`login`, `password`) VALUES
-('pennerat7u', 'pinpinbranloss'),
-('seznec1u', 'senznecleboss');
-
 -- --------------------------------------------------------
 
 --
@@ -122,10 +114,10 @@ INSERT INTO `Item` (`id`, `nom`, `descr`, `img`, `url`, `tarif`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Liste`
+-- Structure de la table `List`
 --
 
-CREATE TABLE `Liste` (
+CREATE TABLE `List` (
   `no` int(11) NOT NULL,
   `titre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
@@ -134,12 +126,12 @@ CREATE TABLE `Liste` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Déchargement des données de la table `Liste`
+-- Déchargement des données de la table `List`
 --
 
-INSERT INTO `Liste` (`no`, `titre`, `description`, `expiration`, `token`) VALUES
+INSERT INTO `List` (`no`, `titre`, `description`, `expiration`, `token`) VALUES
 (1, 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1'),
-(2, 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2'),
+(2, 'List de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2'),
 (3, 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3');
 
 -- --------------------------------------------------------
@@ -179,9 +171,9 @@ ALTER TABLE `Item`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `Liste`
+-- Index pour la table `List`
 --
-ALTER TABLE `Liste`
+ALTER TABLE `List`
   ADD PRIMARY KEY (`no`);
 
 --
@@ -189,7 +181,7 @@ ALTER TABLE `Liste`
 --
 ALTER TABLE `message`
   ADD PRIMARY KEY (`id`,`no`,`login`),
-  ADD KEY `FK_no_Liste` (`no`),
+  ADD KEY `FK_no_List` (`no`),
   ADD KEY `FK_login_Account` (`login`);
 
 --
@@ -203,9 +195,9 @@ ALTER TABLE `Item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT pour la table `Liste`
+-- AUTO_INCREMENT pour la table `List`
 --
-ALTER TABLE `Liste`
+ALTER TABLE `List`
   MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -218,7 +210,7 @@ ALTER TABLE `Liste`
 ALTER TABLE `message`
   ADD CONSTRAINT `FK_id_Item` FOREIGN KEY (`id`) REFERENCES `Item` (`id`),
   ADD CONSTRAINT `FK_login_Account` FOREIGN KEY (`login`) REFERENCES `Account` (`login`),
-  ADD CONSTRAINT `FK_no_Liste` FOREIGN KEY (`no`) REFERENCES `Liste` (`no`);
+  ADD CONSTRAINT `FK_no_List` FOREIGN KEY (`no`) REFERENCES `List` (`no`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
