@@ -87,4 +87,14 @@ $app->post('/inscription', function (){
     $c->sInscrire();
 })->name('inscrit');
 
+$app->get('/deconnexion', function (){
+    $c = new ControleurConnexion();
+    $c->afficherInterfaceDeconnexion();
+})->name('deconnexion');
+
+$app->post('/deconnexion', function(){
+  $c = new ControleurConnexion();
+  $c->seDeconnecter();
+})->name('deconnecte');
+
 $app->run();

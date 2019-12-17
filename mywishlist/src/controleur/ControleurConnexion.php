@@ -9,6 +9,7 @@ use const mywishlist\vue\INTERFACE_CONNEXION;
 use const mywishlist\vue\INTERFACE_INSCRIPTION;
 use const mywishlist\vue\INTERFACE_MAUVAISE_COMBINAISON;
 use const mywishlist\vue\INTERFACE_MAUVAISE_INSCRIPTION;
+use const mywishlist\vue\INTERFACE_DECONNEXION;
 
 class ControleurConnexion{
     public function afficherInterfaceConnexion(){
@@ -29,7 +30,7 @@ class ControleurConnexion{
             $login=Account::select("login")->where('login','=',"$id")->count();
             if($login==0){
                 if ($mdp==filter_var($_POST['mdpconf'],FILTER_SANITIZE_STRING)) {
-                    $_SESSION['token']='tokenTest';
+                    $_SESSION['token']=bin2hex(random_bytes(32));
                     $this->creerUser($id,$mdp);
                     $app->redirect($app->request->getRootUri());
                 } else {
@@ -51,7 +52,7 @@ class ControleurConnexion{
             $mdp=filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
             $login=Account::select("login")->where('login','=',"$id")->count();
             if($login==1 and password_verify($mdp,Account::select("password")->where('login','=',"$id")->get()->toArray()[0]["password"])){
-                $_SESSION['token']='tokenTest';
+                $_SESSION['token']=bin2hex(random_bytes(32));
                 $app->redirect($app->request->getRootUri());
             } else {
                 $vue = new VueConnexion(null);
@@ -61,8 +62,10 @@ class ControleurConnexion{
     }
 
     public function seDeconnecter(){
+      $app= Slim::getInstance();
       $_SESSION['token']=null;
-      //A FAIRE MIEUX
+      $vue = new VueConnexion(null);
+      $app->redirect($app->urlFor('racine'));
     }
 
     private function creerUser($login,$mdp){
