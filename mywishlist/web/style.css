@@ -98,7 +98,7 @@ a:hover {
 	position: absolute;
 	background-color: #fff099;
 	width: 100%;
-	min-height: 65%;
+	height: 100%;
 }
 
 #reste a {
@@ -106,14 +106,12 @@ a:hover {
 	display: flex;
     align-items: center;
     justify-content: center;
+    margin: 5%;
 }
 
 #box {
 	display: inline-block;
 	background-color: black;
-	width: 20%;
-	height: 20%;
-	margin: 6%;
 }
 
 .content p {
