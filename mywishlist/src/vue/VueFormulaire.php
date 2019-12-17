@@ -69,7 +69,7 @@ class VueFormulaire {
         $app = Slim::getInstance();
         $content = "";
         switch ($selecteur) {
-            case FORMULAIRE_Liste: {
+            case FORMULAIRE_LISTE: {
                 $content = $this->formulaireListe();
                 break;
             }
@@ -77,7 +77,7 @@ class VueFormulaire {
                 $content = $this->formulaireItem();
                 break;
             }
-            case FORMUALIRE_Liste_INCORRECT: {
+            case FORMUALIRE_LISTE_INCORRECT: {
                 $content = $this->formulaireListeIncorrect();
                 break;
             }

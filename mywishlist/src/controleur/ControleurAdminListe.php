@@ -4,15 +4,15 @@ use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
-use const mywishlist\vue\FORMUALIRE_Liste_INCORRECT;
-use const mywishlist\vue\FORMULAIRE_Liste;
+use const mywishlist\vue\FORMUALIRE_LISTE_INCORRECT;
+use const mywishlist\vue\FORMULAIRE_LISTE;
 
 class ControleurAdminListe {
 
   public function afficherFormulaire(){
       $iteml = Item::all();
       $vue = new VueFormulaire($iteml->toArray());
-      $vue->render(FORMULAIRE_Liste);
+      $vue->render(FORMULAIRE_LISTE);
   }
 
   public function ajouterListeBD(){
@@ -34,7 +34,7 @@ class ControleurAdminListe {
           else {
               $iteml = Item::all();
               $vue = new VueFormulaire($iteml->toArray());
-              $vue->render(FORMUALIRE_Liste_INCORRECT);
+              $vue->render(FORMUALIRE_LISTE_INCORRECT);
           }
       }
   }

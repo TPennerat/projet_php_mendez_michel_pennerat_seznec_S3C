@@ -8,6 +8,6 @@ class Item extends Model{
   public $timestamps = false ;
 
   public function liste() {
-    return $this->belongsToMany('\mywishlist\models\Liste') ;
+    return $this->belongsToMany('\mywishlist\models\Liste','item_liste','item_id') ;
   }
 }

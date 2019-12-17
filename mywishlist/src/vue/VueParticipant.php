@@ -4,8 +4,8 @@ namespace mywishlist\vue;
 
 use mywishlist\models\Liste;
 use Slim\Slim;
-const AFFICHER_ListeS = 1;
-const AFFICHER_Liste = 2;
+const AFFICHER_LISTES = 1;
+const AFFICHER_LISTE = 2;
 const AFFICHER_ITEM = 3;
 const AFFICHER_RACINE = 4;
 
@@ -72,11 +72,11 @@ END;
     $app = Slim::getInstance();
     $content = "";
     switch ($selecteur) {
-      case AFFICHER_ListeS: {
+      case AFFICHER_LISTES: {
         $content = $this->afficherLesListes();
         break;
       }
-      case AFFICHER_Liste : {
+      case AFFICHER_LISTE : {
         $content = $this->afficherListe($this->arr[0]);
         break;
       }
