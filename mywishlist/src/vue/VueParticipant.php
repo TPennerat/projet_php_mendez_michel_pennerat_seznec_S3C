@@ -31,7 +31,7 @@ class VueParticipant {
 END;
   }
 
-  private function afficherListe($Liste){
+  private function afficherListe($liste){
     $app = Slim::getInstance();
     $html = "<div id=\"mainpage\"><h2>Liste</h2></div><div id=\"reste\">";
     $l = Liste::find($liste["no"]);
