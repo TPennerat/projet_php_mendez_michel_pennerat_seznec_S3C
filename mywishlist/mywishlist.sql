@@ -1,9 +1,9 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  mar. 17 déc. 2019 à 09:57
+-- Généré le :  jeu. 19 déc. 2019 à 17:39
 -- Version du serveur :  5.5.64-MariaDB
 -- Version de PHP :  7.0.33
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `mendezpo1u`
+-- Base de données :  `michel412u`
 --
 
 -- --------------------------------------------------------
@@ -51,34 +51,35 @@ CREATE TABLE `Item` (
   `nom` text NOT NULL,
   `descr` text,
   `img` text,
-  `url` text,
-  `tarif` decimal(5,2) DEFAULT NULL
+  `tarif` decimal(5,2) DEFAULT NULL,
+  `etatCagnotte` tinyint(1) NOT NULL,
+  `valCagnotte` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `Item`
 --
 
-INSERT INTO `Item` (`id`, `nom`, `descr`, `img`, `url`, `tarif`) VALUES
-(1, 'Champagne', 'Bouteille de champagne + flutes + jeux à gratter', 'champagne.jpg', '', '20.00'),
-(2, 'Musique', 'Partitions de piano à 4 mains', 'musique.jpg', '', '25.00'),
-(3, 'Exposition', 'Visite guidée de l’exposition ‘REGARDER’ à la galerie Poirel', 'poirelregarder.jpg', '', '14.00'),
-(4, 'Goûter', 'Goûter au FIFNL', 'gouter.jpg', '', '20.00'),
-(5, 'Projection', 'Projection courts-métrages au FIFNL', 'film.jpg', '', '10.00'),
-(6, 'Bouquet', 'Bouquet de roses et Mots de Marion Renaud', 'rose.jpg', '', '16.00'),
-(7, 'Diner Stanislas', 'Diner à La Table du Bon Roi Stanislas (Apéritif /Entrée / Plat / Vin / Dessert / Café / Digestif)', 'bonroi.jpg', '', '60.00'),
-(8, 'Origami', 'Baguettes magiques en Origami en buvant un thé', 'origami.jpg', '', '12.00'),
-(9, 'Livres', 'Livre bricolage avec petits-enfants + Roman', 'bricolage.jpg', '', '24.00'),
-(10, 'Diner  Grand Rue ', 'Diner au Grand’Ru(e) (Apéritif / Entrée / Plat / Vin / Dessert / Café)', 'grandrue.jpg', '', '59.00'),
-(11, 'Visite guidée', 'Visite guidée personnalisée de Saint-Epvre jusqu’à Stanislas', 'place.jpg', '', '11.00'),
-(12, 'Bijoux', 'Bijoux de manteau + Sous-verre pochette de disque + Lait après-soleil', 'bijoux.jpg', '', '29.00'),
-(19, 'Jeu contacts', 'Jeu pour échange de contacts', 'contact.png', '', '5.00'),
-(22, 'Concert', 'Un concert à Nancy', 'concert.jpg', '', '17.00'),
-(23, 'Appart Hotel', 'Appart’hôtel Coeur de Ville, en plein centre-ville', 'apparthotel.jpg', '', '56.00'),
-(24, 'Hôtel d\'Haussonville', 'Hôtel d\'Haussonville, au coeur de la Vieille ville à deux pas de la place Stanislas', 'hotel_haussonville_logo.jpg', '', '169.00'),
-(25, 'Boite de nuit', 'Discothèque, Boîte tendance avec des soirées à thème & DJ invités', 'boitedenuit.jpg', '', '32.00'),
-(26, 'Planètes Laser', 'Laser game : Gilet électronique et pistolet laser comme matériel, vous voilà équipé.', 'laser.jpg', '', '15.00'),
-(27, 'Fort Aventure', 'Découvrez Fort Aventure à Bainville-sur-Madon, un site Accropierre unique en Lorraine ! Des Parcours Acrobatiques pour petits et grands, Jeu Mission Aventure, Crypte de Crapahute, Tyrolienne, Saut à l\'élastique inversé, Toboggan géant... et bien plus encore.', 'fort.jpg', '', '25.00');
+INSERT INTO `Item` (`id`, `nom`, `descr`, `img`, `tarif`, `etatCagnotte`, `valCagnotte`) VALUES
+(1, 'Champagne', 'Bouteille de champagne + flutes + jeux à gratter', 'champagne.jpg', '20.00', 0, '0.00'),
+(2, 'Musique', 'Partitions de piano à 4 mains', 'musique.jpg', '25.00', 0, '0.00'),
+(3, 'Exposition', 'Visite guidée de l’exposition ‘REGARDER’ à la galerie Poirel', 'poirelregarder.jpg', '14.00', 0, '0.00'),
+(4, 'Goûter', 'Goûter au FIFNL', 'gouter.jpg', '20.00', 0, '0.00'),
+(5, 'Projection', 'Projection courts-métrages au FIFNL', 'film.jpg', '10.00', 0, '0.00'),
+(6, 'Bouquet', 'Bouquet de roses et Mots de Marion Renaud', 'rose.jpg', '16.00', 0, '0.00'),
+(7, 'Diner Stanislas', 'Diner à La Table du Bon Roi Stanislas (Apéritif /Entrée / Plat / Vin / Dessert / Café / Digestif)', 'bonroi.jpg', '60.00', 0, '0.00'),
+(8, 'Origami', 'Baguettes magiques en Origami en buvant un thé', 'origami.jpg', '12.00', 0, '0.00'),
+(9, 'Livres', 'Livre bricolage avec petits-enfants + Roman', 'bricolage.jpg', '24.00', 0, '0.00'),
+(10, 'Diner  Grand Rue ', 'Diner au Grand’Ru(e) (Apéritif / Entrée / Plat / Vin / Dessert / Café)', 'grandrue.jpg', '59.00', 0, '0.00'),
+(11, 'Visite guidée', 'Visite guidée personnalisée de Saint-Epvre jusqu’à Stanislas', 'place.jpg', '11.00', 0, '0.00'),
+(12, 'Bijoux', 'Bijoux de manteau + Sous-verre pochette de disque + Lait après-soleil', 'bijoux.jpg', '29.00', 0, '0.00'),
+(19, 'Jeu contacts', 'Jeu pour échange de contacts', 'contact.png', '5.00', 0, '0.00'),
+(22, 'Concert', 'Un concert à Nancy', 'concert.jpg', '17.00', 0, '0.00'),
+(23, 'Appart Hotel', 'Appart’hôtel Coeur de Ville, en plein centre-ville', 'apparthotel.jpg', '56.00', 0, '0.00'),
+(24, 'Hôtel d\'Haussonville', 'Hôtel d\'Haussonville, au coeur de la Vieille ville à deux pas de la place Stanislas', 'hotel_haussonville_logo.jpg', '169.00', 0, '0.00'),
+(25, 'Boite de nuit', 'Discothèque, Boîte tendance avec des soirées à thème & DJ invités', 'boitedenuit.jpg', '32.00', 0, '0.00'),
+(26, 'Planètes Laser', 'Laser game : Gilet électronique et pistolet laser comme matériel, vous voilà équipé.', 'laser.jpg', '15.00', 0, '0.00'),
+(27, 'Fort Aventure', 'Découvrez Fort Aventure à Bainville-sur-Madon, un site Accropierre unique en Lorraine ! Des Parcours Acrobatiques pour petits et grands, Jeu Mission Aventure, Crypte de Crapahute, Tyrolienne, Saut à l\'élastique inversé, Toboggan géant... et bien plus encore.', 'fort.jpg', '25.00', 0, '0.00');
 
 -- --------------------------------------------------------
 
@@ -126,6 +127,7 @@ INSERT INTO `item_liste` (`item_id`, `liste_no`, `reserve`, `loginReserv`) VALUE
 
 CREATE TABLE `List` (
   `no` int(11) NOT NULL,
+  `createur` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `titre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `expiration` date DEFAULT NULL,
@@ -136,11 +138,11 @@ CREATE TABLE `List` (
 -- Déchargement des données de la table `List`
 --
 
-INSERT INTO `List` (`no`, `titre`, `description`, `expiration`, `token`) VALUES
-(1, 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1'),
-(2, 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2'),
-(3, 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3'),
-(4, 'f', 'e', NULL, NULL);
+INSERT INTO `List` (`no`, `createur`, `titre`, `description`, `expiration`, `token`) VALUES
+(1, 'tom', 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1'),
+(2, 'tom', 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2'),
+(3, 'tom', 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3'),
+(4, 'tom', 'f', 'e', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -154,9 +156,6 @@ CREATE TABLE `message` (
   `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `message` varchar(200) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
--- --------------------------------------------------------
 
 --
 -- Index pour les tables déchargées
@@ -175,10 +174,17 @@ ALTER TABLE `Item`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `item_liste`
+--
+ALTER TABLE `item_liste`
+  ADD PRIMARY KEY (`item_id`,`liste_no`);
+
+--
 -- Index pour la table `List`
 --
 ALTER TABLE `List`
-  ADD PRIMARY KEY (`no`);
+  ADD PRIMARY KEY (`no`),
+  ADD KEY `FK_createur_account` (`createur`);
 
 --
 -- Index pour la table `message`
@@ -187,8 +193,6 @@ ALTER TABLE `message`
   ADD PRIMARY KEY (`id`,`no`,`login`),
   ADD KEY `FK_no_Liste` (`no`),
   ADD KEY `FK_login_Compte` (`login`);
-
-
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -206,10 +210,15 @@ ALTER TABLE `Item`
 ALTER TABLE `List`
   MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
-
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `List`
+--
+ALTER TABLE `List`
+  ADD CONSTRAINT `FK_createur_account` FOREIGN KEY (`createur`) REFERENCES `Account` (`login`);
 
 --
 -- Contraintes pour la table `message`
@@ -218,8 +227,6 @@ ALTER TABLE `message`
   ADD CONSTRAINT `FK_id_Item` FOREIGN KEY (`id`) REFERENCES `Item` (`id`),
   ADD CONSTRAINT `FK_login_Compte` FOREIGN KEY (`login`) REFERENCES `Account` (`login`),
   ADD CONSTRAINT `FK_no_Liste` FOREIGN KEY (`no`) REFERENCES `List` (`no`);
-
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
