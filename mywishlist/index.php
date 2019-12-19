@@ -1,6 +1,7 @@
 <?php
 
 /*https://webetu.iutnc.univ-lorraine.fr/www/mendezpo1u/mywishlist/*/
+session_start();
 
 use \Illuminate\Database\Capsule\Manager as DB;
 use \mywishlist\controleur\ControleurAffichage;
@@ -31,13 +32,13 @@ $app->get('/afficherLesListes/token/', function () {
 })->name('getListes');
 
 //affichage d'une liste de souhaits
-$app->get('/afficherListe/token/:id', function ($no) {
+$app->get('/afficherListe/:token/:id', function ($token, $no) {
   $c = new ControleurAffichage();
-  $c->afficherListe($no);
+  $c->afficherListe($token, $no);
 })->name('getListe');
 
 //affichage d'une liste de souhaits
-$app->get('/afficherItem/token/:id', function ($id) {
+$app->get('/afficherItem/:id', function ($id) {
   $c = new ControleurAffichage();
   $c->afficherItem($id);
 })->name('getItem');
@@ -85,5 +86,15 @@ $app->post('/inscription', function (){
     $c = new ControleurConnexion();
     $c->sInscrire();
 })->name('inscrit');
+
+$app->get('/deconnexion', function (){
+    $c = new ControleurConnexion();
+    $c->afficherInterfaceDeconnexion();
+})->name('deconnexion');
+
+$app->post('/deconnexion', function(){
+  $c = new ControleurConnexion();
+  $c->seDeconnecter();
+})->name('deconnecte');
 
 $app->run();

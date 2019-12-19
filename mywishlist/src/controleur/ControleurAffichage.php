@@ -8,6 +8,7 @@ use const mywishlist\vue\AFFICHER_ITEM;
 use const mywishlist\vue\AFFICHER_LISTE;
 use const mywishlist\vue\AFFICHER_LISTES;
 use const mywishlist\vue\AFFICHER_RACINE;
+use const mywishlist\vue\BAD_TOKEN;
 
 class ControleurAffichage{
 
@@ -17,10 +18,15 @@ class ControleurAffichage{
         $vue->render(AFFICHER_LISTES);
     }
 
-    public function afficherListe($no){
-        $Liste = Liste::find($no);
-        $vue = new VueParticipant([$Liste]);
-        $vue->render(AFFICHER_LISTE);
+    public function afficherListe($token, $no){
+        if($token!=Liste::find($no)->token){
+          $vue = new VueParticipant();
+          $vue->render(BAD_TOKEN);
+        }else{
+          $Liste = Liste::find($no);
+          $vue = new VueParticipant([$Liste]);
+          $vue->render(AFFICHER_LISTE);
+        }
     }
 
     public function afficherItem($id){

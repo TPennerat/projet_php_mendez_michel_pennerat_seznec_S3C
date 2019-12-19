@@ -17,7 +17,7 @@ class VueConnexion {
 
     private function afficherInterfaceInscription(){
         return <<<END
-<div align="center" class="inscription">
+<div align="center" class="connect">
     <form id="f3" method="post" action="inscription" enctype="multipart/form-data">
         <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
         <br>
@@ -33,7 +33,7 @@ END;
 
     private function afficherInterfaceMauvaiseInscription(){
         return <<<END
-<div align="center" class="inscription">
+<div align="center" class="connect">
     <p style='color : red'>$this->arr</p>
     <form id="f3" method="post" action="inscription" enctype="multipart/form-data">
         <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">

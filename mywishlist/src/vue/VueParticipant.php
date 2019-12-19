@@ -8,7 +8,7 @@ const AFFICHER_LISTES = 1;
 const AFFICHER_LISTE = 2;
 const AFFICHER_ITEM = 3;
 const AFFICHER_RACINE = 4;
-
+const BAD_TOKEN = 5;
 
 class VueParticipant {
   public $arr;
@@ -21,7 +21,7 @@ class VueParticipant {
     $app= Slim::getInstance();
     $content="<div id=\"mainpage\"><h2>Listes</h2></div><div id=\"reste\">";
     foreach($this->arr as $l){
-      $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+      $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
     }
 
     $content.="</div>";
@@ -64,12 +64,17 @@ END;
 
   private function racine(){
     $app = Slim::getInstance();
+
     $html = "<div id=\"mainpage\"><h2>Bienvenue sur MyWishList !</h2></div>" ;
-    $html .= '<div id="reste"><p>Accès aux Listes : <a href="'.$app->urlFor('getListes').'">Listes</a></p>';
-    $html .= '<p>Ajout d\'une Liste : <a href="'.$app->urlFor('creerListe').'">Liste</a></p>';
-    $html .= '<p>Ajout d\'un item : <a href="'.$app->urlFor('creerItem').'">item</a></p></div>';
+    $html .= '<div id="reste"><a id="box" href="'.$app->urlFor('getListes').'">Accès aux Listes</a>';
+    $html .= '<a id="box" href="'.$app->urlFor('creerListe').'">Ajout d\'une Liste</a>';
+    $html .= '<a id="box" href="'.$app->urlFor('creerItem').'">Ajout d\'un item</a></div>';
 
     return $html;
+  }
+
+  private function erreur_token(){
+    return '<h2 style="color:red">mauvais token : cette liste n\'est pas publique</h2>'; //DEBUG style dans le HTML
   }
 
   public function render($selecteur){
@@ -92,11 +97,22 @@ END;
         $content = $this->racine();
         break;
       }
+      case BAD_TOKEN : {
+        $content = $this->erreur_token();
+        break;
+      }
     }
     $urlRacine=$app->urlFor('racine');
     $urlCSS=$app->request->getRootURI().'/web/style.css';
     $urlConnexion=$app->urlFor('connexion');
     $urlInscription=$app->urlFor('inscription');
+    $urlDeco=$app->urlFor('deconnexion');
+    if(isset($_SESSION['id_connect'])){
+      $hautDroite='<form id="deco" method="post" action="deconnexion"><button type=submit name="valider">Se deconnecter</button></form>';
+    }else{
+      $hautDroite="<span><a id=\"conn\" href=\"$urlInscription\">Inscription</a></span>";
+      $hautDroite.="<span><a id=\"conn\" href=\"$urlConnexion\">Connexion</a></span>";
+    }
     $html = <<<END
 <!DOCTYPE html>
 <html lang="fr">
@@ -107,12 +123,7 @@ END;
 <body>
   <div class="header">
     <h1><a id="mywishlist" href="$urlRacine">MyWishList</a></h1>
-    <span>
-    <a id="conn" href="$urlInscription">Inscription</a>
-    </span>
-    <span>
-    <a id="conn" href="$urlConnexion">Connexion</a>
-    </span>
+    $hautDroite
   </div>
   <div class="content">
    $content

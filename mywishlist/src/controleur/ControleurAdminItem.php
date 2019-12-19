@@ -22,24 +22,20 @@ class ControleurAdminItem {
           $nom=filter_var($app->request()->post('nomItem'),FILTER_SANITIZE_STRING);
           $item->nom=$nom;
           $item->descr=filter_var($app->request()->post('descr'),FILTER_SANITIZE_STRING);
-          if(0==0){//tester si le champ est renseigné et OK DEBUG
+          if(is_uploaded_file($_FILES['image']['tmp_name'])){ //A SECURISER DEBUG
             $nomImage=$_FILES['image']['name'];
-            if(!file_exists('/web/img/'.$nomImage)){
-                echo 'pas d image encore'; //DEBUG DEBUG DEBUG
-                $uploaddir = '/web/img/';
+            if(!file_exists('web/img/'.$nomImage)){
+                $uploaddir = 'web/img/';
                 $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-                echo $uploadfile;
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)) {echo 'ok';}
-                //move_uploaded_file($nomImage, $app->request->getRootURI().'/web/img/'.$nomImage); //A tester
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
             }
             $item->img=$nomImage;
           }else{
             $item->img='default.jpg';
           }
-
-          //$item->Liste_id=filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT);
           $item->save();
           $i = Item::select('id')->where('nom','=',$nom)->get();
+          $item->liste()->attach([filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT)]);
           $app->redirect($app->request->getRootURI().'/afficherItem/token/'.$i['0']['id']);
       }
   }
