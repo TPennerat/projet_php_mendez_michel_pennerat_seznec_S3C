@@ -51,7 +51,7 @@ class ControleurConnexion{
             $mdp=filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
             $login=Account::select("login")->where('login','=',"$id")->count();
             if($login==1 and password_verify($mdp,Account::select("password")->where('login','=',"$id")->get()->toArray()[0]["password"])){
-                $_SESSION['token']=bin2hex(random_bytes(32));
+                $_SESSION['id_connect']=Account::select("login")->where('login','=',"$id")->first()->login;
                 $app->redirect($app->request->getRootUri());
             } else {
                 $vue = new VueConnexion(null);
@@ -62,7 +62,7 @@ class ControleurConnexion{
 
     public function seDeconnecter(){
       $app= Slim::getInstance();
-      $_SESSION['token']=null;
+      $_SESSION['id_connect']=null;
       $vue = new VueConnexion(null);
       $app->redirect($app->urlFor('racine'));
     }

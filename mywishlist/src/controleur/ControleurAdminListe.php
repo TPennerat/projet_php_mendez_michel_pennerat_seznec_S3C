@@ -23,9 +23,9 @@ class ControleurAdminListe {
                 $liste = new Liste();
                 $liste->titre = $nom;
                 $liste->description = filter_var($app->request()->post('descr'), FILTER_SANITIZE_STRING);
+                $liste->token=bin2hex(random_bytes(8));
                 $liste->save();
                 $l = Liste::select('no')->where('titre', '=', $nom)->get();
-                $liste->token="nosecure".$l['0']['no'];
                 $i=array();
                 foreach (Item::all() as $item) {
                     if (isset($_POST["$item->id"])){
@@ -34,7 +34,7 @@ class ControleurAdminListe {
 
                 }
                 $liste->save();
-                $app->redirect($app->request->getRootUri()."/afficherListe/token/" . $l['0']['no']);
+                $app->redirect($app->urlFor('getListe', ['token'=>$liste->token, 'id'=>$liste->no]));
             }
             else {
                 $iteml = Item::all();

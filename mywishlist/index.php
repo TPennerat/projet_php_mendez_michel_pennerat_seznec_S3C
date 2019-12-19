@@ -32,13 +32,13 @@ $app->get('/afficherLesListes/token/', function () {
 })->name('getListes');
 
 //affichage d'une liste de souhaits
-$app->get('/afficherListe/token/:id', function ($no) {
+$app->get('/afficherListe/:token/:id', function ($token, $no) {
   $c = new ControleurAffichage();
-  $c->afficherListe($no);
+  $c->afficherListe($token, $no);
 })->name('getListe');
 
 //affichage d'une liste de souhaits
-$app->get('/afficherItem/token/:id', function ($id) {
+$app->get('/afficherItem/:id', function ($id) {
   $c = new ControleurAffichage();
   $c->afficherItem($id);
 })->name('getItem');
