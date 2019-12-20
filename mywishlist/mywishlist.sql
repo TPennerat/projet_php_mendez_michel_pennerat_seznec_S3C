@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  jeu. 19 déc. 2019 à 17:39
+-- Généré le :  ven. 20 déc. 2019 à 10:37
 -- Version du serveur :  5.5.64-MariaDB
 -- Version de PHP :  7.0.33
 
@@ -30,15 +30,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `Account` (
   `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL
+  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `droit` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `Account`
 --
 
-INSERT INTO `Account` (`login`, `password`) VALUES
-('tom', '$2y$12$WAkZ7u7Hb9KY65EvH8DjmewJZOpMfkCdlM9q/a9uJbEZMDZ6yxmy6');
+INSERT INTO `Account` (`login`, `password`, `droit`) VALUES
+('tom', '$2y$12$WAkZ7u7Hb9KY65EvH8DjmewJZOpMfkCdlM9q/a9uJbEZMDZ6yxmy6', 0);
 
 -- --------------------------------------------------------
 
