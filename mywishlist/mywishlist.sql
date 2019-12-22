@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  Dim 22 déc. 2019 à 12:17
+-- Généré le :  Dim 22 déc. 2019 à 13:09
 -- Version du serveur :  5.5.64-MariaDB
 -- Version de PHP :  7.0.33
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `Account` (
   `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `droit` tinyint(4) NOT NULL DEFAULT '0'
+  `droit` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -128,22 +128,23 @@ INSERT INTO `item_liste` (`item_id`, `liste_no`, `reserve`, `loginReserv`) VALUE
 
 CREATE TABLE `List` (
   `no` int(11) NOT NULL,
-  `createur` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `createur` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `titre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `expiration` date DEFAULT NULL,
-  `token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `publique` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `List`
 --
 
-INSERT INTO `List` (`no`, `createur`, `titre`, `description`, `expiration`, `token`) VALUES
-(1, 'tom', 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1'),
-(2, 'tom', 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2'),
-(3, 'tom', 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3'),
-(4, 'tom', 'f', 'e', NULL, NULL);
+INSERT INTO `List` (`no`, `createur`, `titre`, `description`, `expiration`, `token`, `publique`) VALUES
+(1, 'tom', 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1', 0),
+(2, 'tom', 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2', 0),
+(3, 'tom', 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3', 0),
+(4, 'tom', 'f', 'e', NULL, '', 0);
 
 -- --------------------------------------------------------
 
