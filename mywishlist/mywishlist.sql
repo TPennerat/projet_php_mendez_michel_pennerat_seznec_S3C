@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  ven. 20 déc. 2019 à 10:37
+-- Généré le :  Dim 22 déc. 2019 à 12:09
 -- Version du serveur :  5.5.64-MariaDB
 -- Version de PHP :  7.0.33
 
@@ -92,33 +92,33 @@ CREATE TABLE `item_liste` (
   `item_id` int(11) NOT NULL,
   `liste_no` int(11) NOT NULL,
   `reserve` tinyint(1) DEFAULT '0',
-  `loginReserv` varchar(30) DEFAULT 'null'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `loginReserv` varchar(30) COLLATE utf8_unicode_ci DEFAULT 'null'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `item_liste`
 --
 
 INSERT INTO `item_liste` (`item_id`, `liste_no`, `reserve`, `loginReserv`) VALUES
-(1, 2, 0, 'null'),
-(2, 2, 0, 'null'),
-(3, 2, 0, 'null'),
-(4, 3, 0, 'null'),
-(5, 3, 0, 'null'),
-(6, 2, 0, 'null'),
-(7, 2, 0, 'null'),
-(8, 3, 0, 'null'),
-(9, 3, 0, 'null'),
-(10, 2, 0, 'null'),
-(11, 0, 0, 'null'),
-(12, 2, 0, 'null'),
-(19, 0, 0, 'null'),
-(22, 0, 0, 'null'),
-(23, 1, 0, 'null'),
-(24, 2, 0, 'null'),
-(25, 1, 0, 'null'),
-(26, 1, 0, 'null'),
-(27, 1, 0, 'null');
+(1, 3, 0, NULL),
+(2, 3, 0, NULL),
+(3, 3, 0, NULL),
+(4, 4, 0, NULL),
+(5, 4, 0, NULL),
+(6, 3, 0, NULL),
+(7, 3, 0, NULL),
+(8, 4, 0, NULL),
+(9, 4, 0, NULL),
+(10, 3, 0, NULL),
+(11, 1, 0, NULL),
+(12, 3, 0, NULL),
+(19, 1, 0, NULL),
+(22, 1, 0, NULL),
+(23, 2, 0, NULL),
+(24, 3, 0, NULL),
+(25, 2, 0, NULL),
+(26, 2, 0, NULL),
+(27, 2, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -178,7 +178,9 @@ ALTER TABLE `Item`
 -- Index pour la table `item_liste`
 --
 ALTER TABLE `item_liste`
-  ADD PRIMARY KEY (`item_id`,`liste_no`);
+  ADD PRIMARY KEY (`item_id`,`liste_no`),
+  ADD KEY `FK_loginReserv_account` (`loginReserv`),
+  ADD KEY `FK_listNo_liste` (`liste_no`);
 
 --
 -- Index pour la table `List`
@@ -214,6 +216,14 @@ ALTER TABLE `List`
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `item_liste`
+--
+ALTER TABLE `item_liste`
+  ADD CONSTRAINT `FK_itemId_item` FOREIGN KEY (`item_id`) REFERENCES `Item` (`id`),
+  ADD CONSTRAINT `FK_listNo_liste` FOREIGN KEY (`liste_no`) REFERENCES `List` (`no`),
+  ADD CONSTRAINT `FK_loginReserv_account` FOREIGN KEY (`loginReserv`) REFERENCES `Account` (`login`);
 
 --
 -- Contraintes pour la table `List`
