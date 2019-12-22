@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  Dim 22 déc. 2019 à 12:09
+-- Généré le :  Dim 22 déc. 2019 à 12:17
 -- Version du serveur :  5.5.64-MariaDB
 -- Version de PHP :  7.0.33
 
@@ -152,11 +152,18 @@ INSERT INTO `List` (`no`, `createur`, `titre`, `description`, `expiration`, `tok
 --
 
 CREATE TABLE `message` (
-  `id` int(11) NOT NULL,
+  `idMessage` int(11) NOT NULL,
   `no` int(11) NOT NULL,
   `login` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `message` varchar(200) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`idMessage`, `no`, `login`, `message`) VALUES
+(1, 1, 'tom', 'Merci d\'acheter tout ce que je veux les esclaves !');
 
 --
 -- Index pour les tables déchargées
@@ -193,7 +200,7 @@ ALTER TABLE `List`
 -- Index pour la table `message`
 --
 ALTER TABLE `message`
-  ADD PRIMARY KEY (`id`,`no`,`login`),
+  ADD PRIMARY KEY (`idMessage`),
   ADD KEY `FK_no_Liste` (`no`),
   ADD KEY `FK_login_Compte` (`login`);
 
@@ -212,6 +219,12 @@ ALTER TABLE `Item`
 --
 ALTER TABLE `List`
   MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pour la table `message`
+--
+ALTER TABLE `message`
+  MODIFY `idMessage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
@@ -235,7 +248,6 @@ ALTER TABLE `List`
 -- Contraintes pour la table `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `FK_id_Item` FOREIGN KEY (`id`) REFERENCES `Item` (`id`),
   ADD CONSTRAINT `FK_login_Compte` FOREIGN KEY (`login`) REFERENCES `Account` (`login`),
   ADD CONSTRAINT `FK_no_Liste` FOREIGN KEY (`no`) REFERENCES `List` (`no`);
 COMMIT;
