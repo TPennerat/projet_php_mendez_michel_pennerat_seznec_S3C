@@ -11,4 +11,8 @@ class Liste extends Model{
         return $this->belongsToMany('\mywishlist\models\Item','item_liste','liste_no')
             ->withPivot('reserve', 'loginReserv');
     }
+
+    public function messages() {
+        return $this->hasMany('\mywishlist\models\Message','no');
+    }
 }
