@@ -36,7 +36,7 @@ class ControleurAdminItem {
           $item->save();
           $i = Item::select('id')->where('nom','=',$nom)->get();
           $item->liste()->attach([filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT)]);
-          $app->redirect($app->request->getRootURI().'/afficherItem/token/'.$i['0']['id']);
+          $app->redirect($app->request->getRootURI().'/afficherItem/'.$i['0']['id']);
       }
   }
 }

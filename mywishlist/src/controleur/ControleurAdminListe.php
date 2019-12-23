@@ -23,10 +23,18 @@ class ControleurAdminListe {
                 $liste = new Liste();
                 $liste->titre = $nom;
                 $liste->description = filter_var($app->request()->post('descr'), FILTER_SANITIZE_STRING);
-                $liste->token=bin2hex(random_bytes(8));
+                try {
+                    $token = bin2hex(random_bytes(8));
+                    while (Liste::all()->where('token','=',$token)->count()==1) {
+                        $token = bin2hex(random_bytes(8));
+                    }
+                    $liste->token = $token;
+                } catch (\Exception $e) {
+                    //try catch ?
+                }
                 $liste->save();
                 $l = Liste::select('no')->where('titre', '=', $nom)->get();
-                $i=array();
+                $i = array();
                 foreach (Item::all() as $item) {
                     if (isset($_POST["$item->id"])){
                         $liste->items()->attach($item->id);
@@ -42,5 +50,9 @@ class ControleurAdminListe {
                 $vue->render(FORMUALIRE_LISTE_INCORRECT);
             }
         }
+    }
+
+    public function supprimerListe($token){
+
     }
 }

@@ -92,4 +92,14 @@ $app->post('/deconnexion', function(){
   $c->seDeconnecter();
 })->name('deconnexion');
 
+$app->get('/suppressionListe/:token', function ($token){
+    $c = new ControleurAdminListe();
+    $c->supprimerListe($token);
+})->name('suppression');
+
+$app->post('/suppressionListe/:token', function ($token){
+    $c = new ControleurAdminListe();
+    $c->supprimerListe($token);
+})->name('supprimer');
+
 $app->run();

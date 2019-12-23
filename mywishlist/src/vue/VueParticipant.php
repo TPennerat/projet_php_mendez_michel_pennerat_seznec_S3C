@@ -45,6 +45,7 @@ END;
       $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
       $html .= '</li>';
     }
+      $html.='<div align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression").'">Supprimer cette liste !</a></div>';
     $html.="</div>";
     return $html;
   }
@@ -108,7 +109,7 @@ END;
     $urlInscription=$app->urlFor('inscription');
     $urlDeco=$app->urlFor('deconnexion');
     if(isset($_SESSION['id_connect'])){
-      $hautDroite='<form id="deco" method="post" action="deconnexion"><button type=submit name="valider">Se deconnecter</button></form>';
+      $hautDroite='<span><form id="deco" method="post" action="deconnexion"><button type=submit name="valider">Se deconnecter</button></form></span>';
     }else{
       $hautDroite="<span><a id=\"conn\" href=\"$urlInscription\">Inscription</a></span>";
       $hautDroite.="<span><a id=\"conn\" href=\"$urlConnexion\">Connexion</a></span>";
