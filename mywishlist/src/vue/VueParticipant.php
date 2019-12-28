@@ -67,7 +67,7 @@ END;
     $app = Slim::getInstance();
 
     $html = "<div id=\"mainpage\"><h2>Bienvenue sur MyWishList !</h2></div>" ;
-    $html .= '<div id="reste"><a id="box" href="'.$app->urlFor('getListes').'">Accès aux Listes</a>';
+    $html .= '<div class="reste"><a id="box" href="'.$app->urlFor('getListes').'">Accès aux Listes</a>';
     $html .= '<a id="box" href="'.$app->urlFor('creerListe').'">Ajout d\'une Liste</a>';
     $html .= '<a id="box" href="'.$app->urlFor('creerItem').'">Ajout d\'un item</a></div>';
 
