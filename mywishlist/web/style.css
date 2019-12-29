@@ -98,13 +98,11 @@ a:hover {
 	position: absolute;
 	background-color: #fff099;
 	width: 100%;
+	height: 65%;
 }
 
 #reste a {
 	text-decoration: none;
-	display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 5%;
 }
 
@@ -126,9 +124,19 @@ a:hover {
     margin: 5%;
 }
 
-#box {
-	display: inline-block;
-	background-color: black;
+#choix {
+	display: flex;
+	justify-content: space-between;
+	width: 80%;
+	margin-top: 8%;
+	margin-bottom: 12%;
+}
+
+#choix a {
+	width: 200px;
+	height: 80px;
+	background-color: white;
+	border: 2px solid #ab7933;
 }
 
 .content p {
