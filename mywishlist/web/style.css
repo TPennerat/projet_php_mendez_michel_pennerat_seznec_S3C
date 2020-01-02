@@ -128,15 +128,20 @@ a:hover {
 	display: flex;
 	justify-content: space-between;
 	width: 80%;
-	margin-top: 8%;
+	margin-top: 10%;
 	margin-bottom: 12%;
 }
 
 #choix a {
 	width: 200px;
-	height: 80px;
+	height: 60px;
 	background-color: white;
 	border: 2px solid #ab7933;
+}
+
+#choix a:hover {
+	background-color: #ecede4;
+	color: #ab7933;
 }
 
 .content p {

@@ -15,8 +15,8 @@ class VueFormulaire {
     }
 
     private function formulaireListeIncorrect(){
-        $html="<h2>Création d'une liste</h2>";
-        $html.='<div align="center">';
+        $html="<div id=\"mainpage\"><h2>Création d'une liste</h2></div>";
+        $html.='<div class="reste" align="center">';
         $html .='<form id="f1" method="post" action="creerListe">';
         $html .= '<p style="color: red">Nom de liste déjà existant</p>';
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la liste">';
@@ -32,8 +32,8 @@ class VueFormulaire {
     }
 
     private function formulaireListe(){
-        $html="<h2>Création d'une Liste</h2>";
-        $html.='<div align="center">';
+        $html="<div id=\"mainpage\"><h2>Création d'une Liste</h2></div>";
+        $html.='<div class="reste" align="center">';
         $html .='<form id="f1" method="post" action="creerListe">';
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
@@ -48,7 +48,8 @@ class VueFormulaire {
     }
 
     private function formulaireItem(){
-        $html="<h2>Création d'un item</h2>";
+        $html="<div id=\"mainpage\"><h2>Création d'un item</h2></div>";
+        $html .='<div class="reste" align="center">';
         $html .='<form id="f2" method="post" action="creerItem" enctype="multipart/form-data">';
         $html .= '<input type="text" name="nomItem" required placeholder="Nom de l\'item">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
@@ -61,6 +62,7 @@ class VueFormulaire {
         $html .= '<input type="file" name="image">';
         $html .= '<input type=submit name="valider">';
         $html .='</form>';
+        $html .='</div>';
 
         return $html;
     }
