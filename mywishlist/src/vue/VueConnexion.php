@@ -7,6 +7,9 @@ const INTERFACE_CONNEXION = 1;
 const INTERFACE_MAUVAISE_COMBINAISON = 2;
 const INTERFACE_INSCRIPTION = 3;
 const INTERFACE_MAUVAISE_INSCRIPTION = 4;
+const INTERFACE_CHANGEMENT_MDP = 5;
+const INTERFACE_CHANGEMENT_MDP_INCORRECT_LOGIN = 6;
+const INTERFACE_CHANGEMENT_MDP_INCORRECT_MDP = 7;
 
 class VueConnexion {
     public $arr;
@@ -51,6 +54,7 @@ END;
     private function afficherInterfaceConnexion(){
         $app=Slim::getInstance();
         $urlInscription = $app->urlFor('inscription');
+        $urlModifMdp = $app->urlFor('modifmdp');
         return <<<END
 <div align="center" class="connect">
     <form id="f2" method="post" action="connexion" enctype="multipart/form-data">
@@ -58,6 +62,7 @@ END;
         <br>
         <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
         <p><a href="$urlInscription">Pas de compte ? S'inscrire</a></p>
+        <p><a href="$urlModifMdp">Mot de passe oublié ?</a></p>
         <br>
         <button type=submit name="valider">Se Connecter</button>
     </form>
@@ -69,6 +74,7 @@ END;
     {
         $app = Slim::getInstance();
         $urlInscription = $app->urlFor('inscription');
+        $urlModifMdp = $app->urlFor('modifmdp');
         return <<<END
 <div align="center" class="connect">
     <form id="f2" method="post" action="connexion" enctype="multipart/form-data">
@@ -77,12 +83,76 @@ END;
         <br>
         <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
         <p><a href="$urlInscription">Pas de compte ? S'inscrire</a></p>
+        <p><a href="$urlModifMdp">Mot de passe oublié ?</a></p>
         <br>
         <button type=submit name="valider">Se Connecter</button>
     </form>
 </div>
 END;
     }
+
+    private function afficherInterfaceMotDePasse()
+    {
+        $app = Slim::getInstance();
+        $urlInscription = $app->urlFor('inscription');
+        $urlModif =$app->urlFor('modifMDPOk');
+        return <<<END
+<div align="center" class="connect">
+    <form id="f5" method="post" action="$urlModif" enctype="multipart/form-data">
+        <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
+        <br>
+        <p>Nouveau mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
+        <p>Confirmer nouveau mot de passe</p><input type="password" name="mdpconf" required placeholder="Mot de passe">
+        <p><a href="$urlInscription">Pas de compte ? S'inscrire</a></p>
+        <br>
+        <button type=submit name="valider">Changer le mot de passe</button>
+    </form>
+</div>
+END;
+    }
+
+    private function afficherInterfaceMotDePasseIncorrectLogin()
+    {
+        $app = Slim::getInstance();
+        $urlInscription = $app->urlFor('inscription');
+        $urlModif =$app->urlFor('modifMDPOk');
+        return <<<END
+<div align="center" class="connect">
+    <form id="f5" method="post" action="$urlModif" enctype="multipart/form-data">
+    <p style='color : red'>Login inconnu</p>
+        <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
+        <br>
+        <p>Nouveau mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
+        <p>Confirmer nouveau mot de passe</p><input type="password" name="mdpconf" required placeholder="Mot de passe">
+        <p><a href="$urlInscription">Pas de compte ? S'inscrire</a></p>
+        <br>
+        <button type=submit name="valider">Changer le mot de passe</button>
+    </form>
+</div>
+END;
+    }
+
+    private function afficherInterfaceMotDePasseIncorrectMDP()
+    {
+        $app = Slim::getInstance();
+        $urlInscription = $app->urlFor('inscription');
+        $urlModif =$app->urlFor('modifMDPOk');
+        return <<<END
+<div align="center" class="connect">
+    <form id="f5" method="post" action="$urlModif" enctype="multipart/form-data">
+    <p style='color : red'>Les mots de passes sont différents</p>
+        <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
+        <br>
+        <p>Nouveau mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
+        <p>Confirmer nouveau mot de passe</p><input type="password" name="mdpconf" required placeholder="Mot de passe">
+        <p><a href="$urlInscription">Pas de compte ? S'inscrire</a></p>
+        <br>
+        <button type=submit name="valider">Changer le mot de passe</button>
+    </form>
+</div>
+END;
+    }
+
 
     public function render($selecteur){
         $app = Slim::getInstance();
@@ -103,6 +173,18 @@ END;
             }
             case INTERFACE_MAUVAISE_INSCRIPTION : {
                 $content = $this->afficherInterfaceMauvaiseInscription();
+                break;
+            }
+            case INTERFACE_CHANGEMENT_MDP : {
+                $content = $this->afficherInterfaceMotDePasse();
+                break;
+            }
+            case INTERFACE_CHANGEMENT_MDP_INCORRECT_LOGIN : {
+                $content = $this->afficherInterfaceMotDePasseIncorrectLogin();
+                break;
+            }
+            case INTERFACE_CHANGEMENT_MDP_INCORRECT_MDP: {
+                $content = $this->afficherInterfaceMotDePasseIncorrectMDP();
                 break;
             }
         }

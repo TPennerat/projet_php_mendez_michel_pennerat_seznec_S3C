@@ -5,6 +5,10 @@ namespace mywishlist\controleur;
 use mywishlist\models\Account;
 use mywishlist\vue\VueConnexion;
 use Slim\Slim;
+use const mywishlist\vue\INTERFACE_CHANGEMENT_MDP;
+use const mywishlist\vue\INTERFACE_CHANGEMENT_MDP_INCORRECT;
+use const mywishlist\vue\INTERFACE_CHANGEMENT_MDP_INCORRECT_LOGIN;
+use const mywishlist\vue\INTERFACE_CHANGEMENT_MDP_INCORRECT_MDP;
 use const mywishlist\vue\INTERFACE_CONNEXION;
 use const mywishlist\vue\INTERFACE_INSCRIPTION;
 use const mywishlist\vue\INTERFACE_MAUVAISE_COMBINAISON;
@@ -73,5 +77,36 @@ class ControleurConnexion{
         $hash = password_hash($mdp, PASSWORD_DEFAULT, ['cost' => 12]);
         $compte->password = $hash;
         $compte->save();
+    }
+
+    private function modifUser($login,$mdp){
+        $compte = Account::find($login);
+        $hash = password_hash($mdp, PASSWORD_DEFAULT, ['cost' => 12]);
+        $compte->password = $hash;
+        $compte->update();
+    }
+
+    public function afficherModifierMotDePasse(){
+        $vue = new VueConnexion(null);
+        $vue->render(INTERFACE_CHANGEMENT_MDP);
+    }
+
+    public function modifierMotDePasseUser(){
+        if (isset($_POST['identifiant']) and isset($_POST['mdp']) and isset($_POST['mdpconf'])){
+            $id = filter_var($_POST['identifiant'],FILTER_SANITIZE_STRING);
+            $pass = filter_var($_POST['mdp'],FILTER_SANITIZE_STRING);
+            $confpass = filter_var($_POST['mdpconf'],FILTER_SANITIZE_STRING);
+            if ($pass==$confpass){
+                $user = Account::find($id);
+                if ($user != null){
+                    $this->modifUser($id,$pass);
+                    Slim::getInstance()->redirect(Slim::getInstance()->urlFor('connexion'));
+                }
+                $vue = new VueConnexion(null);
+                $vue->render(INTERFACE_CHANGEMENT_MDP_INCORRECT_LOGIN);
+            }
+            $vue = new VueConnexion(null);
+            $vue->render(INTERFACE_CHANGEMENT_MDP_INCORRECT_MDP);
+        }
     }
 }

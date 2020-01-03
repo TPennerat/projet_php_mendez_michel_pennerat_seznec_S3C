@@ -102,4 +102,14 @@ $app->post('/suppressionListe/:token/:id', function ($token,$id){
     $c->supprimerListe($id);
 })->name('supprimer');
 
+$app->get('/modificationMotDePasse', function(){
+    $c = new ControleurConnexion();
+    $c->afficherModifierMotDePasse();
+})->name('modifmdp');
+
+$app->post('/modificationMotDePasse', function(){
+    $c = new ControleurConnexion();
+    $c->modifierMotDePasseUser();
+})->name('modifMDPOk');
+
 $app->run();
