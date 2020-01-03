@@ -42,7 +42,7 @@ class ControleurAdminListe {
                 $i = array();
                 foreach (Item::all() as $item) {
                     if (isset($_POST["$item->id"])){
-                        $liste->items()->attach($item->id);
+                        $liste->items()->attach($item->id,["loginReserv"=>null]);
                     }
 
                 }
