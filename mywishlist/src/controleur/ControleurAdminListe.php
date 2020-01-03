@@ -33,6 +33,9 @@ class ControleurAdminListe {
                 } catch (\Exception $e) {
                     //try catch ?
                 }
+                if(isset($_POST["publique"])){
+                  $liste->publique = 1;
+                }
                 $liste->save();
                 $l = Liste::select('no')->where('titre', '=', $nom)->get();
                 $i = array();
