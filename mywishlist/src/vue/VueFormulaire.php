@@ -108,8 +108,9 @@ class VueFormulaire {
         $urlCSS=$app->request->getRootURI().'/web/style.css';
         $urlConnexion=$app->urlFor('connexion');
         $urlInscription=$app->urlFor('inscription');
+        $urlDeconnexion = $app->urlFor('deconnexion');
         if(isset($_SESSION['id_connect'])){
-            $hautDroite='<span><form id="deco" method="post" action="deconnexion"><button type=submit name="valider">Se deconnecter</button></form></span>';
+            $hautDroite="<span><form id='deco' method='post' action=\"$urlDeconnexion\"><button type=submit name='valider'>Se deconnecter</button></form></span>";
         }else{
             $hautDroite="<span><a id=\"conn\" href=\"$urlInscription\">Inscription</a></span>";
             $hautDroite.="<span><a id=\"conn\" href=\"$urlConnexion\">Connexion</a></span>";
