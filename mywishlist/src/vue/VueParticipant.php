@@ -21,7 +21,11 @@ class VueParticipant {
     $app= Slim::getInstance();
     $content="<div id=\"mainpage\"><h2>Listes</h2></div><div id=\"reste\">";
     foreach($this->arr as $l){
-      $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+      if($l->createur==$_SESSION['id_connect']){
+        $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+      }else if($l->publique==1){
+        $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+      }
     }
 
     $content.="</div>";

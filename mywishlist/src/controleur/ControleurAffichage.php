@@ -14,7 +14,8 @@ class ControleurAffichage{
 
     public function afficherLesListes(){
         $listl = Liste::all();
-        $vue= new VueParticipant($listl->toArray());
+        //suppression de "toArray" sur $listl Damien
+        $vue= new VueParticipant($listl);
         $vue->render(AFFICHER_LISTES);
     }
 

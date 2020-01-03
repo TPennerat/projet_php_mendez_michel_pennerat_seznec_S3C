@@ -23,7 +23,7 @@ class VueFormulaire {
         $html .= '<p style="color: red">Nom de liste déjà existant</p>';
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
-        $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'publique'.'">';
+        $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'">';
         foreach($this->arr as $i){
             $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></p>';
         }
@@ -40,7 +40,7 @@ class VueFormulaire {
         $html .='<form id="f1" method="post" action="creerListe">';
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
-        $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'publique'.'">';
+        $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'">';
         foreach($this->arr as $i){
             $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></p>';
         }

@@ -34,7 +34,7 @@ class ControleurAdminListe {
                 } catch (\Exception $e) {
                     //try catch ?
                 }
-                if(isset($_POST["publique"])){
+                if(isset($_POST['Publique'])){
                   $liste->publique = 1;
                 }
                 $liste->save();
