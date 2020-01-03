@@ -8,8 +8,7 @@ class Liste extends Model{
   public $timestamps = false ;
 
     public function items() {
-        return $this->belongsToMany('\mywishlist\models\Item','item_liste','liste_no')
-            ->withPivot('reserve', 'loginReserv');
+        return $this->belongsToMany('\mywishlist\models\Item','item_liste','liste_no');
     }
 
     public function messages() {

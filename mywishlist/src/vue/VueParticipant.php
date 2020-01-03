@@ -19,14 +19,18 @@ class VueParticipant {
 
   private function afficherLesListes(){
     $app= Slim::getInstance();
-    $content="<div id=\"mainpage\"><h2>Listes</h2></div><div id=\"reste\">";
+    $content="<div id=\"mainpage\"><h2>Listes</h2></div><div id=\"reste\"><p>Mes listes :</p><br>";
     foreach($this->arr as $l){
-      if($l->createur==$_SESSION['id_connect']){
-        $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
-      }else if($l->publique==1){
+      if(isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect']){
         $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
       }
     }
+    $content.="<p>Listes publiques :</p><br>";
+    foreach($this->arr as $l){
+           if($l->publique==1){
+              $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></brli>";
+          }
+      }
 
     $content.="</div>";
 
@@ -49,7 +53,7 @@ END;
       $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
       $html .= '</li>';
     }
-    if ($l->publique==0)
+    if ($l->publique==0 or (isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect']))
       $html.='<div align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression",["token"=>$l->token,"id"=>$l->no]).'">Supprimer cette liste !</a></div>';
     $html.="</div>";
     return $html;
