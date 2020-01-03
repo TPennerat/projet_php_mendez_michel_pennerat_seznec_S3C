@@ -76,8 +76,8 @@ class VueFormulaire {
         $url = Slim::getInstance()->urlFor('racine');
         $urlSuppr = Slim::getInstance()->urlFor('supprimer',["token"=>$token,"id"=>$id]);
         $html = "<div align='center'>Voulez vraiment supprimer la liste $titre ?";
-        $html .= "<form method='post' action='$urlSuppr' enctype='multipart/form-data'><input type='submit' value='oui' /></form><form method='get'
-                    action='$url'><input type='submit' value='non' /></form></div>";
+        $html .= "<form method='post' action='$urlSuppr' enctype='multipart/form-data'><input type='submit' value='oui' /></form>
+    <a href='$url'><input type='submit' value='non' /></a></div>";
         return $html;
     }
 

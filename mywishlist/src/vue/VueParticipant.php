@@ -45,6 +45,7 @@ END;
       $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
       $html .= '</li>';
     }
+    if ($l->publique==0)
       $html.='<div align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression",["token"=>$l->token,"id"=>$l->no]).'">Supprimer cette liste !</a></div>';
     $html.="</div>";
     return $html;

@@ -23,6 +23,7 @@ class ControleurAdminListe {
             if (Liste::select('*')->where('titre','=',$nom)->count()==0) {
                 $liste = new Liste();
                 $liste->titre = $nom;
+                $liste->createur = $_SESSION['id_connect'];
                 $liste->description = filter_var($app->request()->post('descr'), FILTER_SANITIZE_STRING);
                 try {
                     $token = bin2hex(random_bytes(8));
