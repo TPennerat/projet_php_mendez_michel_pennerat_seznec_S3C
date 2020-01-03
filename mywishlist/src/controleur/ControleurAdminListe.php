@@ -6,6 +6,7 @@ use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
 use const mywishlist\vue\FORMUALIRE_LISTE_INCORRECT;
 use const mywishlist\vue\FORMULAIRE_LISTE;
+use const mywishlist\vue\FORMULAIRE_SUPPRESSION_LISTE;
 
 class ControleurAdminListe {
 
@@ -52,7 +53,16 @@ class ControleurAdminListe {
         }
     }
 
-    public function supprimerListe($token){
+    public function afficherSuppressionListe($token,$id){
+        $vue = new VueFormulaire(["0"=>$token,"1"=>$id]);
+        $vue->render(FORMULAIRE_SUPPRESSION_LISTE);
+    }
 
+    public function supprimerListe($id){
+        $liste_a_supp = Liste::find($id);
+        $liste_a_supp->items()->detach();
+        $liste_a_supp->delete();
+        $app = Slim::getInstance();
+        $app->redirect($app->request->getRootUri());
     }
 }

@@ -38,14 +38,14 @@ END;
     $html .= "<h3>".$l->titre."</h3>";
     $html .= "<p>".$l->description."<p>";
     $items=$l->items()->get();
+    $URI = Slim::getInstance()->request->getRootURI();
     foreach ($items as $item) {
       $html .= '<li>';
-      $URI = Slim::getInstance()->request->getRootURI();
       $html .= "<img src=\"$URI/web/img/{$item->img}\" width=\"60\" height=\"60\" alt=\"{$item->descr}\">";
       $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
       $html .= '</li>';
     }
-      $html.='<div align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression").'">Supprimer cette liste !</a></div>';
+      $html.='<div align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression",["token"=>$l->token,"id"=>$l->no]).'">Supprimer cette liste !</a></div>';
     $html.="</div>";
     return $html;
   }
@@ -107,7 +107,6 @@ END;
     $urlCSS=$app->request->getRootURI().'/web/style.css';
     $urlConnexion=$app->urlFor('connexion');
     $urlInscription=$app->urlFor('inscription');
-    $urlDeco=$app->urlFor('deconnexion');
     if(isset($_SESSION['id_connect'])){
       $hautDroite='<span><form id="deco" method="post" action="deconnexion"><button type=submit name="valider">Se deconnecter</button></form></span>';
     }else{

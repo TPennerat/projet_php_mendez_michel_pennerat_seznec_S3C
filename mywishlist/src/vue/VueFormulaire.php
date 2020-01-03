@@ -2,10 +2,12 @@
 
 namespace mywishlist\vue;
 
+use mywishlist\models\Liste;
 use Slim\Slim;
 const FORMULAIRE_LISTE = 1;
 const FORMULAIRE_ITEM = 2;
 const FORMUALIRE_LISTE_INCORRECT = 3;
+const FORMULAIRE_SUPPRESSION_LISTE = 4;
 
 class VueFormulaire {
     public $arr;
@@ -67,6 +69,18 @@ class VueFormulaire {
         return $html;
     }
 
+    private function formulaireSuppressionListe($token,$id){
+        $l = Liste::find($id)->toArray();
+        $titre = $l['titre'];
+        $titre = strtolower($titre);
+        $url = Slim::getInstance()->urlFor('racine');
+        $urlSuppr = Slim::getInstance()->urlFor('supprimer',["token"=>$token,"id"=>$id]);
+        $html = "<div align='center'>Voulez vraiment supprimer la liste $titre ?";
+        $html .= "<form method='post' action='$urlSuppr' enctype='multipart/form-data'><input type='submit' value='oui' /></form><form method='get'
+                    action='$url'><input type='submit' value='non' /></form></div>";
+        return $html;
+    }
+
     public function render($selecteur){
         $app = Slim::getInstance();
         $content = "";
@@ -83,9 +97,21 @@ class VueFormulaire {
                 $content = $this->formulaireListeIncorrect();
                 break;
             }
+            case FORMULAIRE_SUPPRESSION_LISTE: {
+                $content = $this->formulaireSuppressionListe($this->arr[0],$this->arr[1]);
+                break;
+            }
         }
         $urlRacine=$app->urlFor('racine');
         $urlCSS=$app->request->getRootURI().'/web/style.css';
+        $urlConnexion=$app->urlFor('connexion');
+        $urlInscription=$app->urlFor('inscription');
+        if(isset($_SESSION['id_connect'])){
+            $hautDroite='<span><form id="deco" method="post" action="deconnexion"><button type=submit name="valider">Se deconnecter</button></form></span>';
+        }else{
+            $hautDroite="<span><a id=\"conn\" href=\"$urlInscription\">Inscription</a></span>";
+            $hautDroite.="<span><a id=\"conn\" href=\"$urlConnexion\">Connexion</a></span>";
+        }
         $html = <<<END
 <!DOCTYPE html>
 <html lang="fr">
@@ -96,6 +122,7 @@ class VueFormulaire {
 <body>
   <div class="header">
     <h1><a id="mywishlist" href="$urlRacine">MyWishList</a></h1>
+    $hautDroite
   </div>
   <div class="content">
    $content

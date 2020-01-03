@@ -63,7 +63,7 @@ class ControleurConnexion{
     public function seDeconnecter(){
       $app= Slim::getInstance();
       $_SESSION['id_connect']=null;
-      $vue = new VueConnexion(null);
+      session_destroy();
       $app->redirect($app->urlFor('racine'));
     }
 
