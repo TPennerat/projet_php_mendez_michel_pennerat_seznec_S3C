@@ -4,16 +4,23 @@ use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
-use const mywishlist\vue\FORMUALIRE_LISTE_INCORRECT;
+use const mywishlist\vue\FORMULAIRE_LISTE_INCORRECT;
+use const mywishlist\vue\FORMULAIRE_LISTE_PAS_CO;
 use const mywishlist\vue\FORMULAIRE_LISTE;
 use const mywishlist\vue\FORMULAIRE_SUPPRESSION_LISTE;
 
 class ControleurAdminListe {
 
     public function afficherFormulaire(){
-        $iteml = Item::all();
-        $vue = new VueFormulaire($iteml->toArray());
-        $vue->render(FORMULAIRE_LISTE);
+        if (isset($_SESSION['id_connect'])) {
+            $iteml = Item::all();
+            $vue = new VueFormulaire($iteml->toArray());
+            $vue->render(FORMULAIRE_LISTE);
+        } else {
+            $iteml = null;
+            $vue = new VueFormulaire($iteml);
+            $vue->render(FORMULAIRE_LISTE_PAS_CO);
+        }
     }
 
     public function ajouterListeBD(){
@@ -52,7 +59,7 @@ class ControleurAdminListe {
             else {
                 $iteml = Item::all();
                 $vue = new VueFormulaire($iteml->toArray());
-                $vue->render(FORMUALIRE_LISTE_INCORRECT);
+                $vue->render(FORMULAIRE_LISTE_INCORRECT);
             }
         }
     }

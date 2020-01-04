@@ -6,8 +6,10 @@ use mywishlist\models\Liste;
 use Slim\Slim;
 const FORMULAIRE_LISTE = 1;
 const FORMULAIRE_ITEM = 2;
-const FORMUALIRE_LISTE_INCORRECT = 3;
+const FORMULAIRE_LISTE_INCORRECT = 3;
 const FORMULAIRE_SUPPRESSION_LISTE = 4;
+const FORMULAIRE_LISTE_PAS_CO = 5;
+const FORMULAIRE_ITEM_PAS_CO = 6;
 
 class VueFormulaire {
     public $arr;
@@ -53,6 +55,15 @@ class VueFormulaire {
         return $html;
     }
 
+    private function formulaireListePasCo() {
+        $html="<div id=\"mainpage\"><h2>Création d'une Liste</h2></div>";
+        $html.='<div class="reste" align="center">';
+        $urlCreerListe = Slim::getInstance()->urlFor('creerListe');
+        $html .="<p>Vous devez vous connecter pour pouvoir créer une liste.</p>";
+
+        return $html;
+    }
+
     private function formulaireItem(){
         $html="<div id=\"mainpage\"><h2>Création d'un item</h2></div>";
         $html .='<div class="reste" align="center">';
@@ -70,6 +81,15 @@ class VueFormulaire {
         $html .= '<br><button type=submit name="valider">Valider</button>';
         $html .='</form>';
         $html .='</div>';
+
+        return $html;
+    }
+
+    private function formulaireItemPasCo() {
+        $html="<div id=\"mainpage\"><h2>Création d'un item</h2></div>";
+        $html .='<div class="reste" align="center">';
+        $urlCreerItem = Slim::getInstance()->urlFor('creerItem');
+        $html .="<p>Vous devez vous connecter pour pouvoir créer un item.</p>";
 
         return $html;
     }
@@ -98,12 +118,20 @@ class VueFormulaire {
                 $content = $this->formulaireItem();
                 break;
             }
-            case FORMUALIRE_LISTE_INCORRECT: {
+            case FORMULAIRE_LISTE_INCORRECT: {
                 $content = $this->formulaireListeIncorrect();
                 break;
             }
             case FORMULAIRE_SUPPRESSION_LISTE: {
                 $content = $this->formulaireSuppressionListe($this->arr[0],$this->arr[1]);
+                break;
+            }
+            case FORMULAIRE_LISTE_PAS_CO: {
+                $content = $this->formulaireListePasCo();
+                break;
+            }
+            case FORMULAIRE_ITEM_PAS_CO: {
+                $content = $this->formulaireItemPasCo();
                 break;
             }
         }

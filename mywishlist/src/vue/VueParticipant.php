@@ -71,7 +71,7 @@ END;
         $html .= '<h3>'.$item["nom"].'</h3>';
         $html .= '<p>'.$item["descr"].'</p>';
         $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
-        $html .= "<p align='center'><a href=\"$urlReserv\">Réservez cet item ?</a></p>";
+        $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
         $html .= "</div></div>";
 
         return $html;
@@ -89,7 +89,7 @@ END;
     }
 
     private function erreur_token(){
-        return '<h2 style="color:red">mauvais token : cette liste n\'est pas publique</h2>'; //DEBUG style dans le HTML
+        return '<h2 style="color:red">Mauvais token : cette liste n\'est pas publique</h2>'; //DEBUG style dans le HTML
     }
 
     public function render($selecteur){

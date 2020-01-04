@@ -6,6 +6,7 @@ use mywishlist\models\Liste;
 use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
 use const mywishlist\vue\FORMULAIRE_ITEM;
+use const mywishlist\vue\FORMULAIRE_ITEM_PAS_CO;
 
 class ControleurAdminItem {
 
@@ -14,11 +15,13 @@ class ControleurAdminItem {
         if (isset($_SESSION['id_connect'])) {
             $nom = $_SESSION['id_connect'];
             $iteml = Liste::whereRaw("`createur` = '$nom' or `publique` = 1")->get();
+            $vue = new VueFormulaire($iteml);
+            $vue->render(FORMULAIRE_ITEM);
         } else {
             $iteml = null;
+            $vue = new VueFormulaire($iteml);
+            $vue->render(FORMULAIRE_ITEM_PAS_CO);
         }
-        $vue = new VueFormulaire($iteml);
-        $vue->render(FORMULAIRE_ITEM);
     }
 
     public function ajouterItemBD(){
