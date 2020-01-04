@@ -23,11 +23,11 @@ class VueFormulaire {
         $html .= '<p style="color: red">Nom de liste déjà existant</p>';
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
-        $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'">';
+        $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'"></label><br>';
         foreach($this->arr as $i){
-            $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></p>';
+            $html .= '<div><p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></label></p></div>';
         }
-        $html .= '<button type=submit name="valider">Valider</button>';
+        $html .= '<br><button type=submit name="valider">Valider</button>';
         $html .='</form>';
         $html.='</div>';
 
@@ -40,11 +40,11 @@ class VueFormulaire {
         $html .='<form id="f1" method="post" action="creerListe">';
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
-        $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'">';
+        $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'"></label><br>';
         foreach($this->arr as $i){
-            $html .= '<p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></p>';
+            $html .= '<div><p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></label></p></div>';
         }
-        $html .= '<button type=submit name="valider">Valider</button>';
+        $html .= '<br><button type=submit name="valider">Valider</button>';
         $html .='</form>';
         $html.='</div>';
 
@@ -55,16 +55,16 @@ class VueFormulaire {
         $html="<div id=\"mainpage\"><h2>Création d'un item</h2></div>";
         $html .='<div class="reste" align="center">';
         $html .='<form id="f2" method="post" action="creerItem" enctype="multipart/form-data">';
-        $html .= '<input type="text" name="nomItem" required placeholder="Nom de l\'item">';
-        $html .= '<input type="text" name="descr" placeholder="Description">';
-        $html .= '<select name="select">';
+        $html .= '<div><input type="text" name="nomItem" required placeholder="Nom de l\'item"></div>';
+        $html .= '<div><input type="text" name="descr" placeholder="Description"></div>';
+        $html .= '<div><select name="select">';
         foreach($this->arr as $i){
             $html .= '<option value="'.$i['no'].'">'.$i['no']." ".$i['titre'].'</option>';
         }
-        $html.='</select><br>';
+        $html.='</select></div>';
         //$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000">';
-        $html .= '<input type="file" name="image">';
-        $html .= '<input type=submit name="valider">';
+        $html .= '<div><input type="file" name="image"></div>';
+        $html .= '<br><button type=submit name="valider">Valider</button>';
         $html .='</form>';
         $html .='</div>';
 

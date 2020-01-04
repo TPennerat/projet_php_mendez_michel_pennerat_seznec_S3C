@@ -19,16 +19,16 @@ class VueParticipant {
 
   private function afficherLesListes(){
     $app= Slim::getInstance();
-    $content="<div id=\"mainpage\"><h2>Listes</h2></div><div id=\"reste\"><p>Mes listes :</p><br>";
+    $content="<div id=\"mainpage\"><h2>Listes</h2></div><div id=\"reste\"><p>Mes listes :</p>";
     foreach($this->arr as $l){
       if(isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect']){
-        $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+        $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
       }
     }
-    $content.="<p>Listes publiques :</p><br>";
+    $content.="<br><p>Listes publiques :</p>";
     foreach($this->arr as $l){
            if($l->publique==1){
-              $content.="<li>".$l["no"].' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></brli>";
+              $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
           }
       }
 
@@ -41,33 +41,33 @@ END;
 
   private function afficherListe($liste){
     $app = Slim::getInstance();
-    $html = "<div id=\"mainpage\"><h2>Liste</h2></div><div id=\"reste\">";
+    $html = "<div id=\"mainpage\"><h2>Liste</h2></div><div id=\"reste\" style=\"position : relative;\"><div class=\"liste\">";
     $l = Liste::find($liste["no"]);
     $html .= "<h3>".$l->titre."</h3>";
     $html .= "<p>".$l->description."<p>";
     $items=$l->items()->get();
     $URI = Slim::getInstance()->request->getRootURI();
     foreach ($items as $item) {
-      $html .= '<li>';
+      $html .= '<div>';
       $html .= "<img src=\"$URI/web/img/{$item->img}\" width=\"60\" height=\"60\" alt=\"{$item->descr}\">";
       $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
-      $html .= '</li>';
+      $html .= '</div>';
     }
     if ($l->publique==0 or (isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect']))
-      $html.='<div align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression",["token"=>$l->token,"id"=>$l->no]).'">Supprimer cette liste !</a></div>';
-    $html.="</div>";
+      $html.='<p id="suppr" align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression",["token"=>$l->token,"id"=>$l->no]).'">Supprimer cette liste !</a></p>';
+    $html.="</div></div>";
     return $html;
   }
 
   private function afficherItem($item){
-    $html="<div id=\"mainpage\"><h2>Item</h2></div><div id=\"reste\">";
+    $html="<div id=\"mainpage\"><h2>Item</h2></div><div id=\"reste\"><div class=\"liste\">";
     $nomitem=$item["img"];
     $URI = Slim::getInstance()->request->getRootURI();
     $descr=$item["descr"];
     $html .= "<img src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\" alt=\"$descr\">";
-    $html .= $item["nom"].' - ';
-    $html .= $item["descr"];
-    $html .= "</div>";
+    $html .= '<h3>'.$item["nom"].'</h3>';
+    $html .= '<p>'.$item["descr"].'</p>';
+    $html .= "</div></div>";
 
     return $html;
   }

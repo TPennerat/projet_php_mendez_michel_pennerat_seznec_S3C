@@ -173,6 +173,7 @@ a:hover {
 
 #mywishlist{
     text-decoration: none;
+    color: white;
 }
 
 #mywishlist:visited{
@@ -187,4 +188,58 @@ a:hover {
 
 #conn:visited{
 	text-decoration: none;
+}
+
+#f1 {
+	margin-top: 2%;
+}
+
+#f1 div {
+	display: inline-block;
+	width: 33%;
+}
+
+#f1 input {
+	margin-right: 2%;
+}
+
+#f2 {
+	margin-top: 4%;
+}
+
+#f2 div {
+	margin-bottom: 15%;
+}
+
+.liste {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 80%;
+	padding-top: 1%;
+}
+
+.liste p {
+	padding-left: 0px;
+}
+
+.liste #suppr {
+	width: 200px;
+}
+
+.liste div {
+	width: 30%;
+	height: 60px;
+	background-color: white;
+	border: 1px solid #91672c;
+	margin-bottom: 20px;
+	display: flex;
+}
+
+.liste img {
+	width: 200px;
+	height: 200px;
+	border: 2px solid #91672c;
 }
