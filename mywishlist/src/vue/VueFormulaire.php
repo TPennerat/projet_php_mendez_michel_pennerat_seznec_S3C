@@ -19,7 +19,8 @@ class VueFormulaire {
     private function formulaireListeIncorrect(){
         $html="<div id=\"mainpage\"><h2>Création d'une liste</h2></div>";
         $html.='<div class="reste" align="center">';
-        $html .='<form id="f1" method="post" action="creerListe">';
+        $urlCreerListe = Slim::getInstance()->urlFor('creerListe');
+        $html .="<form id=\"f1\" method=\"post\" action=\"$urlCreerListe\">";
         $html .= '<p style="color: red">Nom de liste déjà existant</p>';
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
@@ -37,7 +38,8 @@ class VueFormulaire {
     private function formulaireListe(){
         $html="<div id=\"mainpage\"><h2>Création d'une Liste</h2></div>";
         $html.='<div class="reste" align="center">';
-        $html .='<form id="f1" method="post" action="creerListe">';
+        $urlCreerListe = Slim::getInstance()->urlFor('creerListe');
+        $html .="<form id=\"f1\" method=\"post\" action=\"$urlCreerListe\" enctype='multipart/form-data'>";
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
         $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'"></label><br>';
@@ -54,7 +56,8 @@ class VueFormulaire {
     private function formulaireItem(){
         $html="<div id=\"mainpage\"><h2>Création d'un item</h2></div>";
         $html .='<div class="reste" align="center">';
-        $html .='<form id="f2" method="post" action="creerItem" enctype="multipart/form-data">';
+        $urlCreerItem = Slim::getInstance()->urlFor('creerItem');
+        $html .="<form id=\"f2\" method=\"post\" action=\"$urlCreerItem\" enctype=\"multipart/form-data\">";
         $html .= '<div><input type="text" name="nomItem" required placeholder="Nom de l\'item"></div>';
         $html .= '<div><input type="text" name="descr" placeholder="Description"></div>';
         $html .= '<div><select name="select">';

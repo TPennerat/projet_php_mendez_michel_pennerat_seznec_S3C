@@ -8,6 +8,7 @@ use \mywishlist\controleur\ControleurAffichage;
 use \mywishlist\controleur\ControleurAdminListe;
 use \mywishlist\controleur\ControleurAdminItem;
 use mywishlist\controleur\ControleurConnexion;
+use mywishlist\controleur\ControleurReservation;
 use Slim\Slim;
 
 require_once('vendor/autoload.php');
@@ -111,5 +112,15 @@ $app->post('/modificationMotDePasse', function(){
     $c = new ControleurConnexion();
     $c->modifierMotDePasseUser();
 })->name('modifMDPOk');
+
+$app->get('/reservationItem/:id', function($id){
+    $c = new ControleurReservation();
+    $c->afficherInterfaceReserv($id);
+})->name('reserv');
+
+$app->post('/reservationItem/:id', function($id){
+    $c = new ControleurReservation();
+    $c->reserverItem($id);
+})->name('reservOK');
 
 $app->run();
