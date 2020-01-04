@@ -64,7 +64,7 @@ END;
     $nomitem=$item["img"];
     $URI = Slim::getInstance()->request->getRootURI();
     $descr=$item["descr"];
-    $html .= "<img src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\" alt=\"$descr\">";
+    $html .= "<img id='itemimg' src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\" alt=\"$descr\">";
     $html .= '<h3>'.$item["nom"].'</h3>';
     $html .= '<p>'.$item["descr"].'</p>';
     $html .= "</div></div>";
