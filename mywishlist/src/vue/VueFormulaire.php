@@ -59,7 +59,7 @@ class VueFormulaire {
         $html .= '<input type="text" name="descr" placeholder="Description">';
         $html .= '<select name="select">';
         foreach($this->arr as $i){
-            $html .= '<option value="'.$i['no'].'">'.$i['titre'].'</option>';
+            $html .= '<option value="'.$i['no'].'">'.$i['no']." ".$i['titre'].'</option>';
         }
         $html.='</select><br>';
         //$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000">';
