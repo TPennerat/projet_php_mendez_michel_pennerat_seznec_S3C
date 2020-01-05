@@ -144,6 +144,7 @@ class VueFormulaire {
         }
         $urlRacine=$app->urlFor('racine');
         $urlCSS=$app->request->getRootURI().'/web/style.css';
+        $urlFavicon = $app->request->getRootUri().'/web/favicon.png';
         $urlConnexion=$app->urlFor('connexion');
         $urlInscription=$app->urlFor('inscription');
         $urlDeconnexion = $app->urlFor('deconnexion');
@@ -158,6 +159,7 @@ class VueFormulaire {
 <html lang="fr">
 <head>
   <title>MyWishList</title>
+  <link REL="SHORTCUT ICON" href="$urlFavicon">
   <link rel="stylesheet" type="text/css" href="$urlCSS">
 </head>
 <body>
