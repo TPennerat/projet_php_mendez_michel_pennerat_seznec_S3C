@@ -60,9 +60,6 @@ END;
     }
 
     private function afficherItem($item){
-        $url = Slim::getInstance()->request->getPath();
-        $url = explode("/",$url);
-        setcookie("token_liste_reserv",$url[sizeof($url)-2]);
         $html="<div id=\"mainpage\"><h2>Item</h2></div><div id=\"reste\"><div class=\"liste\">";
         $nomitem=$item["img"];
         $URI = Slim::getInstance()->request->getRootURI();
@@ -70,8 +67,23 @@ END;
         $html .= "<img id='itemimg' src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\" alt=\"$descr\">";
         $html .= '<h3>'.$item["nom"].'</h3>';
         $html .= '<p>'.$item["descr"].'</p>';
-        $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
-        $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
+        $l = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
+        $login=null;
+        foreach ($l->items as $log) {
+            if ($log['id']==$item['id']){
+                $login = $log->pivot->loginReserv;
+            }
+        }
+        if ($login == null and $l['createur']!=$_SESSION['id_connect']) {
+            $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
+            $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
+        } else if ($l['createur']!=$_SESSION['id_connect']) {
+            $html .= "<p align='center'>Réservé par $login</p>";
+        } else if ($l['createur']==$_SESSION['id_connect'] and $login!=null) {
+            $html .= "<p align='center'>Réservé !</p>";
+        } else {
+            $html .= "<p align='center'>Pas encore réservé !</p>";
+        }
         $html .= "</div></div>";
 
         return $html;

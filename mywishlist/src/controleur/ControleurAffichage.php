@@ -4,6 +4,7 @@ namespace mywishlist\controleur;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use mywishlist\vue\VueParticipant;
+use Slim\Slim;
 use const mywishlist\vue\AFFICHER_ITEM;
 use const mywishlist\vue\AFFICHER_LISTE;
 use const mywishlist\vue\AFFICHER_LISTES;
@@ -24,6 +25,7 @@ class ControleurAffichage{
           $vue = new VueParticipant();
           $vue->render(BAD_TOKEN);
         }else{
+            setcookie("token_liste_reserv",serialize($no),0,"/");
           $Liste = Liste::find($no);
           $vue = new VueParticipant([$Liste]);
           $vue->render(AFFICHER_LISTE);
