@@ -45,7 +45,11 @@ class VueFormulaire {
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
         $html .= '<label for="exp">Date d\'expiration :</label>
-        <input type="date" id="exp" name="expListe">';
+        <input type="date" id="exp" name="expListe">
+        <script>
+        var ajd = new Date().toISOString().split(\'T\')[0];
+        document.getElementsByName("expListe")[0].setAttribute(\'min\', ajd);
+        </script>';
         $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'"></label><br>';
 
         foreach($this->arr as $i){
