@@ -44,7 +44,10 @@ class VueFormulaire {
         $html .="<form id=\"f1\" method=\"post\" action=\"$urlCreerListe\" enctype='multipart/form-data'>";
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
+        $html .= '<label for="exp">Date d\'expiration :</label>
+        <input type="date" id="exp" name="expListe">';
         $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'"></label><br>';
+
         foreach($this->arr as $i){
             $html .= '<div><p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></label></p></div>';
         }

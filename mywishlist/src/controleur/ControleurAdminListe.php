@@ -32,6 +32,7 @@ class ControleurAdminListe {
                 $liste->titre = $nom;
                 $liste->createur = $_SESSION['id_connect'];
                 $liste->description = filter_var($app->request()->post('descr'), FILTER_SANITIZE_STRING);
+                $liste->expiration = $app->request()->post('expListe');
                 try {
                     $token = bin2hex(random_bytes(8));
                     while (Liste::all()->where('token','=',$token)->count()==1) {
