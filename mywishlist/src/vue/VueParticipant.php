@@ -55,7 +55,22 @@ END;
         }
         if ($l->publique==0 or (isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect']))
             $html.='<p id="suppr" align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression",["token"=>$l->token,"id"=>$l->no]).'">Supprimer cette liste !</a></p>';
+
+        $messages = $l->messages()->get();
+        foreach ($messages as $message) {
+          $html.='<p>'."$message->login".'</p>';
+          $html.='<p>'."$message->message".'</p>';
+        }
+
+        $html .='<div>';
+        $urlAjouterMessage = Slim::getInstance()->urlFor('ajouterMessage');
+        $html .="<form method=\"post\" action=\"$urlAjouterMessage\" enctype=\"multipart/form-data\">";
+        $html .= '<div><input type="text" name="message" required placeholder="message"></div>';
+        $html .= '<br><button type=submit name="valider">Envoyer</button>';
+
         $html.="</div></div>";
+
+
         return $html;
     }
 
