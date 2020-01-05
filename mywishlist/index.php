@@ -8,6 +8,7 @@ use \mywishlist\controleur\ControleurAffichage;
 use \mywishlist\controleur\ControleurAdminListe;
 use \mywishlist\controleur\ControleurAdminItem;
 use mywishlist\controleur\ControleurConnexion;
+use mywishlist\controleur\ControleurMessage;
 use mywishlist\controleur\ControleurReservation;
 use Slim\Slim;
 
@@ -27,7 +28,7 @@ $app->get('/',function () {
 })->name('racine');
 
 //affichage de la liste des listes souhaits
-$app->get('/afficherLesListes/token/', function () {
+$app->get('/afficherLesListes', function () {
  $c = new ControleurAffichage();
  $c->afficherLesListes();
 })->name('getListes');
@@ -122,5 +123,10 @@ $app->post('/reservationItem/:id', function($id){
     $c = new ControleurReservation();
     $c->reserverItem($id);
 })->name('reservOK');
+
+$app->post('/afficherListe/:token/:id', function($token,$id){
+    $c = new ControleurMessage();
+    $c->posterMessage($token,$id);
+})->name('ajouterMessage');
 
 $app->run();

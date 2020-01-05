@@ -58,17 +58,16 @@ END;
 
         $messages = $l->messages()->get();
         foreach ($messages as $message) {
-          $html.='<p>'."$message->login".'</p>';
-          $html.='<p>'."$message->message".'</p>';
+          $html.='<p>'."$message->login : $message->message".'</p>';
         }
 
-        $html .='<div>';
-        $urlAjouterMessage = Slim::getInstance()->urlFor('ajouterMessage');
+        $html .='</div><div align="center">';
+        $urlAjouterMessage = Slim::getInstance()->urlFor('ajouterMessage',["token"=>$liste->token,"id"=>$liste->no]);
         $html .="<form method=\"post\" action=\"$urlAjouterMessage\" enctype=\"multipart/form-data\">";
-        $html .= '<div><input type="text" name="message" required placeholder="message"></div>';
+        $html .= '<div><input type="text" name="message" required placeholder="Message"></div>';
         $html .= '<br><button type=submit name="valider">Envoyer</button>';
 
-        $html.="</div></div>";
+        $html.="</div>";
 
 
         return $html;
