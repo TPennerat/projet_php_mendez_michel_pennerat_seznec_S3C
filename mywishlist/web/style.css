@@ -142,6 +142,7 @@ a:hover {
 
 .content p {
 	padding-left: 2%;
+	font-size: 120%;
 }
 
 .content li {
@@ -215,6 +216,7 @@ a:hover {
 	flex-direction: column;
 	height: 80%;
 	padding-top: 1%;
+	margin-bottom: 2%;
 }
 
 .liste p {
