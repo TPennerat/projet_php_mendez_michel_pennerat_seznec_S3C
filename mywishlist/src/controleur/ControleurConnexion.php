@@ -56,6 +56,10 @@ class ControleurConnexion{
             $login=Account::select("login")->where('login','=',"$id")->count();
             if($login==1 and password_verify($mdp,Account::select("password")->where('login','=',"$id")->get()->toArray()[0]["password"])){
                 $_SESSION['id_connect']=$id;
+                setcookie('nomUser',base64_encode($id),time()+60*60*24*30*12,'/');
+                if (isset($_POST['ssdm'])){
+                    setcookie("ssdm","",time()+60*60*24*30,'/');
+                }
                 $app->redirect($app->request->getRootUri());
             } else {
                 $vue = new VueConnexion(null);
@@ -64,9 +68,17 @@ class ControleurConnexion{
         }
     }
 
+    public static function seConnecterViaId($id){
+        $id = base64_decode($id);
+        $_SESSION['id_connect']=$id;
+        setcookie('nomUser',$id,time()*60*24*30*12,'/');
+    }
+
     public function seDeconnecter(){
       $app= Slim::getInstance();
       $_SESSION['id_connect']=null;
+      setcookie('ssdm');
+      unset($_COOKIE['ssdm']);
       $app->redirect($app->urlFor('racine'));
     }
 
