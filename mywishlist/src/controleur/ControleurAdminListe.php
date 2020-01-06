@@ -2,6 +2,7 @@
 namespace mywishlist\controleur;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
+use mywishlist\models\Message;
 use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
 use const mywishlist\vue\FORMULAIRE_LISTE_INCORRECT;
@@ -71,6 +72,10 @@ class ControleurAdminListe {
     }
 
     public function supprimerListe($id){
+        $message_a_supp = Message::whereRaw("`no`=$id")->get();
+        foreach ($message_a_supp as $mess) {
+            $mess->delete();
+        }
         $liste_a_supp = Liste::find($id);
         $liste_a_supp->items()->detach();
         $liste_a_supp->delete();

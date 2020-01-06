@@ -8,6 +8,7 @@ const AFFICHER_LISTES = 1;
 const AFFICHER_LISTE = 2;
 const AFFICHER_ITEM = 3;
 const AFFICHER_RACINE = 4;
+const AFFICHER_LISTE_NO_CO =6;
 const BAD_TOKEN = 5;
 
 class VueParticipant {
@@ -103,6 +104,41 @@ END;
         return $html;
     }
 
+    private function afficherListePasCo($liste){
+        $app = Slim::getInstance();
+        $html = "<div id=\"mainpage\"><h2>Liste</h2></div><div id=\"reste\" style=\"position : relative;\"><div class=\"liste\">";
+        $l = Liste::find($liste["no"]);
+        $html.="<p style='color: red'>Veuillez-vous connecter pour poster un message</p>";
+        $html .= "<h3>".$l->titre."</h3>";
+        $html .= "<p>".$l->description."<p>";
+        $items=$l->items()->get();
+        $URI = Slim::getInstance()->request->getRootURI();
+        foreach ($items as $item) {
+            $html .= '<div>';
+            $html .= "<img src=\"$URI/web/img/{$item->img}\" width=\"60\" height=\"60\" alt=\"{$item->descr}\">";
+            $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
+            $html .= '</div>';
+        }
+        if ($l->publique==0 or (isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect']))
+            $html.='<p id="suppr" align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression",["token"=>$l->token,"id"=>$l->no]).'">Supprimer cette liste !</a></p>';
+
+        $messages = $l->messages()->get();
+        foreach ($messages as $message) {
+            $html.='<p>'."$message->login : $message->message".'</p>';
+        }
+
+        $html .='</div><div align="center">';
+        $urlAjouterMessage = Slim::getInstance()->urlFor('ajouterMessage',["token"=>$liste->token,"id"=>$liste->no]);
+        $html .="<form method=\"post\" action=\"$urlAjouterMessage\" enctype=\"multipart/form-data\">";
+        $html .= '<div><input type="text" name="message" required placeholder="Message"></div>';
+        $html .= '<br><button type=submit name="valider">Envoyer</button>';
+
+        $html.="</div>";
+
+
+        return $html;
+    }
+
     private function racine(){
         $app = Slim::getInstance();
 
@@ -140,6 +176,10 @@ END;
             }
             case BAD_TOKEN : {
                 $content = $this->erreur_token();
+                break;
+            }
+            case AFFICHER_LISTE_NO_CO : {
+                $content = $this->afficherListePasCo($this->arr);
                 break;
             }
         }
