@@ -5,9 +5,10 @@ namespace mywishlist\vue;
 
 use mywishlist\models\Liste;
 use Slim\Slim;
-const AFFICHER_CREER_CAGNOTTE_ITEM = 1;
-const AFFICHER_CAGNOTTE_ITEM = 0;
-const AFFICHER_CAGNOTTE_ITEM_INCORRECT = 1;
+const AFFICHER_CREER_CAGNOTTE_ITEM = 0;
+const AFFICHER_CAGNOTTE_ITEM = 1;
+const AFFICHER_CAGNOTTE_ITEM_INCORRECT = 2;
+const AFFICHER_ITEM_RESERVE = 3;
 
 class VueCagnotte{
     public $arr;
@@ -72,8 +73,12 @@ Combien voulez-vous ajouter à la cagnotte?
 </div>
 END;
 
-      $html.='<div align="center">Valeur incorrecte, la valeur de la cagnotte ne doit pas excéder le tarif de l\'objet</div>';
+      $html.='<div align="center" style="color:red">Valeur incorrecte, la valeur de la cagnotte ne doit pas excéder le tarif de l\'objet</div>';
       return $html;
+    }
+
+    private function afficherErreurItemReserve(){
+      return '<div align="center" style="color:red">Création de la cagnotte impossible : cet item est réservé </div>';
     }
 
     public function render($selecteur){
@@ -92,6 +97,9 @@ END;
             }
             case AFFICHER_CAGNOTTE_ITEM_INCORRECT:{
                 $content = $this->afficherErreur();
+            }
+            case AFFICHER_ITEM_RESERVE:{
+                $content = $this->afficherErreurItemReserve();
             }
         }
         $urlRacine = $app->urlFor('racine');
