@@ -10,6 +10,7 @@ use \mywishlist\controleur\ControleurAdminItem;
 use mywishlist\controleur\ControleurConnexion;
 use mywishlist\controleur\ControleurMessage;
 use mywishlist\controleur\ControleurReservation;
+use mywishlist\controleur\ControleurCagnotte;
 use Slim\Slim;
 
 require_once('vendor/autoload.php');
@@ -123,6 +124,22 @@ $app->post('/reservationItem/:id', function($id){
     $c = new ControleurReservation();
     $c->reserverItem($id);
 })->name('reservOK');
+
+$app->get('/CagnotteItem/:id', function($id){
+    $c = new ControleurCagnotte();
+    $c->afficherInterfaceCagnotte($id);
+})->name('Cagnotte');
+
+$app->post('/creerCagnotteItem/:id', function($id){
+    $c = new ControleurCagnotte();
+    $c->creerCagnotte($id);
+})->name('creerCagnotte');
+
+$app->post('/monterCagnotte/:id', function($id){
+    $c = new ControleurCagnotte();
+    $c->monterCagnotte($id);
+})->name('monterCagnotte');
+
 
 $app->post('/afficherListe/:token/:id', function($token,$id){
     $c = new ControleurMessage();

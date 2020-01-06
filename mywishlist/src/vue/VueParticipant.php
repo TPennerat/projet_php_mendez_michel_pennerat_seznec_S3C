@@ -91,7 +91,9 @@ END;
         }
         if ($login == null and $l['createur']!=$_SESSION['id_connect']) {
             $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
+            $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
             $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
+            $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item?</a></p>";
         } else if ($l['createur']!=$_SESSION['id_connect']) {
             $html .= "<p align='center'>Réservé par $login</p>";
         } else if ($l['createur']==$_SESSION['id_connect'] and $login!=null) {
