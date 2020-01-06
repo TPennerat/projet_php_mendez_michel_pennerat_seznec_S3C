@@ -89,7 +89,7 @@ END;
                 $login = $log->pivot->loginReserv;
             }
         }
-        if ($login == null and $l['createur']!=$_SESSION['id_connect']) {
+        if (!isset($_SESSION['id_connect']) or($login == null and $l['createur']!=$_SESSION['id_connect'])) {
             $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
             $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
             $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
