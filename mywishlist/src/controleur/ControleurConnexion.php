@@ -35,7 +35,7 @@ class ControleurConnexion{
                 if ($mdp==filter_var($_POST['mdpconf'],FILTER_SANITIZE_STRING)) {
                     $_SESSION['token']=bin2hex(random_bytes(32));
                     $this->creerUser($id,$mdp);
-                    $app->redirect($app->request->getRootUri());
+                    $app->redirect($app->urlFor("connexion"));
                 } else {
                     $vue = new VueConnexion("Mot de passe incorrect");
                     $vue->render(INTERFACE_MAUVAISE_INSCRIPTION);
@@ -58,7 +58,7 @@ class ControleurConnexion{
                 $_SESSION['id_connect']=$id;
                 setcookie('nomUser',base64_encode($id),time()+60*60*24*30*12,'/');
                 if (isset($_POST['ssdm'])){
-                    setcookie("ssdm","",time()+60*60*24*30,'/');
+                    setcookie("ssdm",base64_encode("ouissdmsvp"),time()+60*60*24*30,'/');
                 }
                 $app->redirect($app->request->getRootUri());
             } else {
@@ -71,7 +71,7 @@ class ControleurConnexion{
     public static function seConnecterViaId($id){
         $id = base64_decode($id);
         $_SESSION['id_connect']=$id;
-        setcookie('nomUser',$id,time()*60*24*30*12,'/');
+        setcookie('nomUser',$id,time()+60*24*30*12,'/');
     }
 
     public function seDeconnecter(){

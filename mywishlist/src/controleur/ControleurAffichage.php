@@ -39,7 +39,7 @@ class ControleurAffichage{
     }
 
     public function racine(){
-        if (isset($_COOKIE['ssdm']) and isset($_COOKIE['nomUser'])){
+        if (isset($_COOKIE['ssdm']) and isset($_COOKIE['nomUser']) and base64_decode($_COOKIE['ssdm'])=="ouissdmsvp"){
             ControleurConnexion::seConnecterViaId($_COOKIE['nomUser']);
         }
         $vue= new VueParticipant(null);
