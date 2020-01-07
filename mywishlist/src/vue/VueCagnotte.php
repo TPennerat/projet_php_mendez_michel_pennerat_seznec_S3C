@@ -9,6 +9,9 @@ const AFFICHER_CREER_CAGNOTTE_ITEM = 0;
 const AFFICHER_CAGNOTTE_ITEM = 1;
 const AFFICHER_CAGNOTTE_ITEM_INCORRECT = 2;
 const AFFICHER_ITEM_RESERVE = 3;
+const AFFICHER_CAGNOTTE_ITEM_FINI = 4;
+
+use mywishlist\models\Item;
 
 class VueCagnotte{
     public $arr;
@@ -29,7 +32,7 @@ class VueCagnotte{
         $html .= <<<END
 <div align="center"> <form id="formCagnotte" method="post" action="$urlCreation" enctype="multipart/form-data">
 Voulez-vous créer une cagnotte pour cet item? La réservation deviendra impossible.
-<input name="Créer cagnotte" type="submit" />
+<input name="Créer cagnotte" type="submit"/>
 </div>
 END;
 
@@ -40,15 +43,25 @@ END;
     private function afficherCagnotteItem(){
       $app = Slim::getInstance();
       $html = "<div id=\"mainpage\"><h2>Cagnotte de l'item</h2></div><div id=\"reste\">";
-      $urlModif = $app->urlFor("creerCagnotte",["id"=>$this->arr]);
+      $urlModif = $app->urlFor("monterCagnotte",["id"=>$this->arr]);
       $log="";
       if (isset($_SESSION['id_connect'])){
           $log = $_SESSION['id_connect'];
       }
+      $id = $this->arr[0];
+      $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
+      foreach ($liste->items as $i) {
+          if ($i['id']==$id){
+              $val = $i->pivot->valCagnotte;
+          }
+      }
+      $tarif = Item::find($id)->tarif;
+
       $html .= <<<END
 <div align="center"> <form id="formCagnotte" method="post" action="$urlModif" enctype="multipart/form-data">
-Combien voulez-vous ajouter à la cagnotte?
-<input type="number" name="val" required placeholder="Valeur">
+<h2>Etat de la cagnotte : $val / $tarif</h2>
+<p>Combien voulez-vous ajouter à la cagnotte?</p>
+<input type="number" step="0.01" name="val" required placeholder="Valeur">
 <input name="Ajouter" type="submit" />
 </div>
 END;
@@ -58,20 +71,7 @@ END;
     }
 
     private function afficherErreur(){
-      $app = Slim::getInstance();
-      $html = "<div id=\"mainpage\"><h2>Cagnotte de l'item</h2></div><div id=\"reste\">";
-      $urlModif = $app->urlFor("creerCagnotte",["id"=>$this->arr]);
-      $log="";
-      if (isset($_SESSION['id_connect'])){
-          $log = $_SESSION['id_connect'];
-      }
-      $html .= <<<END
-<div align="center"> <form id="formCagnotte" method="post" action="$urlModif" enctype="multipart/form-data">
-Combien voulez-vous ajouter à la cagnotte?
-<input type="number" name="val" required placeholder="Valeur">
-<input name="Ajouter" type="submit" />
-</div>
-END;
+      $html = $this->afficherCagnotteItem();
 
       $html.='<div align="center" style="color:red">Valeur incorrecte, la valeur de la cagnotte ne doit pas excéder le tarif de l\'objet</div>';
       return $html;
@@ -79,6 +79,33 @@ END;
 
     private function afficherErreurItemReserve(){
       return '<div align="center" style="color:red">Création de la cagnotte impossible : cet item est réservé </div>';
+    }
+
+    private function afficherCagnotteFinie(){
+      $app = Slim::getInstance();
+      $html = "<div id=\"mainpage\"><h2>Cagnotte de l'item</h2></div><div id=\"reste\">";
+      $log="";
+      if (isset($_SESSION['id_connect'])){
+          $log = $_SESSION['id_connect'];
+      }
+      $id = $this->arr[0];
+      $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
+      foreach ($liste->items as $i) {
+          if ($i['id']==$id){
+              $val = $i->pivot->valCagnotte;
+          }
+      }
+      $tarif = Item::find($id)->tarif;
+
+      $html .= <<<END
+<div align="center">
+<h2>Etat de la cagnotte : $val / $tarif</h2>
+<p>La cagnotte est complétée, merci à tous!</p>
+</div>
+END;
+
+      $html.="</div>";
+      return $html;
     }
 
     public function render($selecteur){
@@ -97,9 +124,16 @@ END;
             }
             case AFFICHER_CAGNOTTE_ITEM_INCORRECT:{
                 $content = $this->afficherErreur();
+                break;
             }
             case AFFICHER_ITEM_RESERVE:{
                 $content = $this->afficherErreurItemReserve();
+                break;
+            }
+            case AFFICHER_CAGNOTTE_ITEM_FINI:
+            {
+                $content = $this->afficherCagnotteFinie();
+                break;
             }
         }
         $urlRacine = $app->urlFor('racine');

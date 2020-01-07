@@ -12,6 +12,7 @@ use const mywishlist\vue\AFFICHER_CREER_CAGNOTTE_ITEM;
 use const mywishlist\vue\AFFICHER_CAGNOTTE_ITEM;
 use const mywishlist\vue\AFFICHER_CAGNOTTE_ITEM_INCORRECT;
 use const mywishlist\vue\AFFICHER_ITEM_RESERVE;
+use const mywishlist\vue\AFFICHER_CAGNOTTE_ITEM_FINI;
 
 class ControleurCagnotte{
 
@@ -26,7 +27,17 @@ class ControleurCagnotte{
       if($cagnotteExiste==0){
         $vue->render(AFFICHER_CREER_CAGNOTTE_ITEM);
       }else{
-        $vue->render(AFFICHER_CAGNOTTE_ITEM);
+        $item = Item::find($id);
+        foreach ($liste->items as $i) {
+            if ($i['id']==$id){
+                $valCagnotte = $i->pivot->valCagnotte;
+            }
+        }
+        if($valCagnotte==$item->tarif){
+          $vue->render(AFFICHER_CAGNOTTE_ITEM_FINI);
+        }else{
+          $vue->render(AFFICHER_CAGNOTTE_ITEM);
+        }
       }
   }
 
@@ -64,6 +75,8 @@ class ControleurCagnotte{
       }else{
         $vue->render(AFFICHER_CAGNOTTE_ITEM_INCORRECT);
       }
+      $app=Slim::getInstance();
+      $app->redirect($app->urlFor('Cagnotte',['id'=>$id]));
     }
   }
 }
