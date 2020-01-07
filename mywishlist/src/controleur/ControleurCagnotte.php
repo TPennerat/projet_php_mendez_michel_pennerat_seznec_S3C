@@ -16,6 +16,8 @@ use const mywishlist\vue\AFFICHER_CAGNOTTE_ITEM_FINI;
 
 class ControleurCagnotte{
 
+  //DEBUG PB DES CENTIMES A REGLER
+
   public function afficherInterfaceCagnotte($id){
       $vue = new VueCagnotte($id);
       $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
