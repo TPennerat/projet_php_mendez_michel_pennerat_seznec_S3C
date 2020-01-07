@@ -51,7 +51,7 @@ class VueFormulaire {
         $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
         $html .= '<input type="text" name="descr" placeholder="Description">';
         $html .= '<label for="exp">Date d\'expiration :</label>
-        <input type="date" id="exp" name="expListe" max="2050-01-01">
+        <input type="date" id="exp" name="expListe" required max="2050-01-01">
         <script>
         var ajd = new Date().toISOString().split(\'T\')[0];
         document.getElementsByName("expListe")[0].setAttribute(\'min\', ajd);
