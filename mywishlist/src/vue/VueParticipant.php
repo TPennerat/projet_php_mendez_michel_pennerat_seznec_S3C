@@ -28,9 +28,11 @@ class VueParticipant {
         }
         $content.="<br><p>Listes publiques :</p>";
         foreach($this->arr as $l){
+          if (strtotime("now") <= strtotime($l->expiration)) {
             if($l->publique==1){
                 $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
             }
+          }
         }
 
         $content.="</div>";
