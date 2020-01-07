@@ -3,7 +3,7 @@
 
 namespace mywishlist\controleur;
 
-
+use Slim\Slim;
 use mywishlist\models\Account;
 use mywishlist\models\Item;
 use mywishlist\models\Liste;
@@ -14,8 +14,6 @@ use const mywishlist\vue\AFFICHER_CAGNOTTE_ITEM_INCORRECT;
 use const mywishlist\vue\AFFICHER_ITEM_RESERVE;
 
 class ControleurCagnotte{
-
-  //BDD à mettre à jour DEBUG
 
   public function afficherInterfaceCagnotte($id){
       $vue = new VueCagnotte($id);
@@ -33,6 +31,8 @@ class ControleurCagnotte{
   }
 
   public function creerCagnotte($id){
+    $app=Slim::getInstance();
+    $vue = new VueCagnotte($id);
     $item = Item::find($id);
     $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
     foreach ($liste->items as $i) {
@@ -42,7 +42,7 @@ class ControleurCagnotte{
     }
     if($estReserve==0){
       $liste->items()->updateExistingPivot($id,["etatCagnotte"=>1]);
-      $vue->render(AFFICHER_CAGNOTTE_ITEM);
+      $app->redirect($app->urlFor('Cagnotte',['id'=>$id]));
     }else{
       $vue->render(AFFICHER_ITEM_RESERVE);
     }
