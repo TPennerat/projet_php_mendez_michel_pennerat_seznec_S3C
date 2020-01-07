@@ -94,12 +94,8 @@ END;
             $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
             $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
             $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item?</a></p>";
-        } else if ($l['createur']!=$_SESSION['id_connect']) {
+        } else if (isset($_COOKIE['nomUser']) and ($l['createur']!=$_SESSION['id_connect'] or $_COOKIE['nomUser']==$l['createur'])) {
             $html .= "<p align='center'>Réservé par $login</p>";
-        } else if ($l['createur']==$_SESSION['id_connect'] and $login!=null) {
-            $html .= "<p align='center'>Réservé !</p>";
-        } else {
-            $html .= "<p align='center'>Pas encore réservé !</p>";
         }
         $html .= "</div></div>";
 

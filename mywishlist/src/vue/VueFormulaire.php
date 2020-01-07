@@ -80,7 +80,7 @@ class VueFormulaire {
         $html .= '<div><input type="text" name="descr" placeholder="Description"></div>';
         $html .= '<div><select name="select">';
         foreach($this->arr as $i){
-            $html .= '<option value="'.$i['no'].'">'.$i['no']." ".$i['titre'].'</option>';
+            $html .= '<option value="'.$i['no'].'">'.$i['titre'].'</option>';
         }
         $html.='</select></div>';
         //$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000">';
@@ -95,7 +95,6 @@ class VueFormulaire {
     private function formulaireItemPasCo() {
         $html="<div id=\"mainpage\"><h2>Création d'un item</h2></div>";
         $html .='<div class="reste" align="center">';
-        $urlCreerItem = Slim::getInstance()->urlFor('creerItem');
         $html .="<p>Vous devez vous connecter pour pouvoir créer un item.</p>";
 
         return $html;

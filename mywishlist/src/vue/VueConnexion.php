@@ -55,12 +55,17 @@ END;
         $app=Slim::getInstance();
         $urlInscription = $app->urlFor('inscription');
         $urlModifMdp = $app->urlFor('modifmdp');
+        $user ="";
+        if (isset($_COOKIE['nomUser'])){
+            $user = base64_decode($_COOKIE['nomUser']);
+        }
         return <<<END
 <div align="center" class="connect">
     <form id="f2" method="post" action="connexion" enctype="multipart/form-data">
-        <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
+        <p>Identifiant</p><input type="text" name="identifiant" value="$user" required placeholder="Identifiant">
         <br>
         <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
+        <br><br>Se souvenir de moi<input type="checkbox" name="ssdm" />
         <p><a href="$urlInscription">Pas de compte ? S'inscrire</a></p>
         <p><a href="$urlModifMdp">Mot de passe oublié ?</a></p>
         <br>
@@ -75,13 +80,18 @@ END;
         $app = Slim::getInstance();
         $urlInscription = $app->urlFor('inscription');
         $urlModifMdp = $app->urlFor('modifmdp');
+        $user ="";
+        if (isset($_COOKIE['nomUser'])){
+            $user = base64_decode($_COOKIE['nomUser']);
+        }
         return <<<END
 <div align="center" class="connect">
     <form id="f2" method="post" action="connexion" enctype="multipart/form-data">
         <p style='color : red'>Mauvais login/mot de passe</p>
-        <p>Identifiant</p><input type="text" name="identifiant" required placeholder="Identifiant">
+        <p>Identifiant</p><input type="text" name="identifiant" value="$user" required placeholder="Identifiant">
         <br>
         <p>Mot de passe</p><input type="password" name="mdp" required placeholder="Mot de passe">
+        <br><br>Se souvenir de moi<input type="checkbox" name="ssdm" />
         <p><a href="$urlInscription">Pas de compte ? S'inscrire</a></p>
         <p><a href="$urlModifMdp">Mot de passe oublié ?</a></p>
         <br>
