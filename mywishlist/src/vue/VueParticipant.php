@@ -89,13 +89,24 @@ END;
                 $login = $log->pivot->loginReserv;
             }
         }
-        if (!isset($_SESSION['id_connect']) or($login == null and $l['createur']!=$_SESSION['id_connect'])) {
-            $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
-            $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
-            $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
-            $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item?</a></p>";
-        } else if (isset($_COOKIE['nomUser']) and ($l['createur']!=$_SESSION['id_connect'] or $_COOKIE['nomUser']==$l['createur'])) {
-            $html .= "<p align='center'>Réservé par $login</p>";
+        foreach ($l->items as $log) {
+            if ($log['id']==$item['id']){
+                $etatCagnotte = $log->pivot->etatCagnotte;
+            }
+        }
+        $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
+        $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
+        /*if($l['createur']!=$_SESSION['id_connect'] or $_COOKIE['nomUser']==$l['createur']){   DEBUG Cette partie sert à empêcher quelqu'un d'obtenir les informations sur ses listes même une fois déconnecté
+          $html .= "<p align='center'>Vous n'avez pas accès aux cagnottes et aux réservations pour votre liste!</p>";
+        }else*/{
+          if (($login == null)and($etatCagnotte == 0)) {
+              $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
+              $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item?</a></p>";
+          } else if ($login!=null) {
+              $html .= "<p align='center'>Réservé par $login</p>";
+          } else if ($etatCagnotte==1){
+              $html .= "<p align='center'><a href=\"$urlCagnotte\">Accès à la cagnotte</a></p>";
+          }
         }
         $html .= "</div></div>";
 
