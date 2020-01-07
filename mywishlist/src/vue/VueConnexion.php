@@ -190,11 +190,13 @@ END;
         }
         $urlRacine=$app->urlFor('racine');
         $urlCSS=$app->request->getRootURI().'/web/style.css';
+        $urlFavicon = $app->request->getRootUri().'/web/favicon.png';
         $html = <<<END
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <title>MyWishList</title>
+  <link REL="SHORTCUT ICON" href="$urlFavicon">
   <link rel="stylesheet" type="text/css" href="$urlCSS">
 </head>
 <body>

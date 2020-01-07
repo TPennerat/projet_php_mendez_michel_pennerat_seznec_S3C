@@ -62,9 +62,9 @@ END;
 
     private function remerciement(){
         return <<<END
-<div id=\"mainpage\"><h2>Réserver cet item</h2></div><div id=\"reste\">
-<h2>
-Votre réservation à bien été prise en compte !
+<div id=\"reste\">
+<h2 style="color: #ab7933">
+Votre réservation pour l'item à bien été prise en compte !
 </h2>
 </div>
 END;
@@ -91,6 +91,7 @@ END;
         }
         $urlRacine = $app->urlFor('racine');
         $urlCSS = $app->request->getRootURI() . '/web/style.css';
+        $urlFavicon = $app->request->getRootUri().'/web/favicon.png';
         $urlConnexion = $app->urlFor('connexion');
         $urlInscription = $app->urlFor('inscription');
         $urlDeconnexion = $app->urlFor('deconnexion');
@@ -105,6 +106,7 @@ END;
 <html lang="fr">
 <head>
   <title>MyWishList</title>
+  <link REL="SHORTCUT ICON" href="$urlFavicon">
   <link rel="stylesheet" type="text/css" href="$urlCSS">
 </head>
 <body>
