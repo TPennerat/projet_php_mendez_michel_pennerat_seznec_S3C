@@ -98,15 +98,19 @@ END;
         }
         $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
         $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
-        if((isset($_COOKIE['premCo']) and $_COOKIE['premCo']==$l['createur']) or (isset($_COOKIE['nomUser']) and $_COOKIE['nomUser']==$l['createur'])){
+        if((!((isset($_COOKIE['premCo']) and isset($_COOKIE['nomUser'])) and (base64_decode($_COOKIE['nomUser'])!=base64_decode($_COOKIE['premCo'])))
+            and ((isset($_COOKIE['premCo']) and base64_decode($_COOKIE['premCo'])==$l['createur'])
+            or (isset($_COOKIE['nomUser']) and base64_decode($_COOKIE['nomUser'])==$l['createur'])))){
                 $html .= "<p align='center'>Vous n'avez pas accès aux cagnottes et aux réservations pour votre liste !</p>";
         }else{
-          if (($login == null)and($etatCagnotte == 0) and (isset($_COOKIE['nomUser']) and $_COOKIE['nomUser']==$l['createur'])) {
+            if (isset($_SESSION['id_connect']) and $_SESSION['id_connect']==null){
+                $html .= "<p align='center'>Vous n'avez pas accès aux cagnottes et aux réservations pour votre liste !</p>";
+            } else if (($login == null)and($etatCagnotte == 0)) {
               $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
               $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item ?</a></p>";
-          } else if ($login!=null and ((isset($_COOKIE['premCo']) and $_COOKIE['premCo']==$l['createur']) or (isset($_COOKIE['nomUser']) and $_COOKIE['nomUser']==$l['createur']))) {
+          } else if ($login!=null ) {
               $html .= "<p align='center'>Réservé par $login</p>";
-          } else if ($etatCagnotte==1 and (isset($_COOKIE['nomUser']) and $_COOKIE['nomUser']==$l['createur'])){
+          } else if ($etatCagnotte==1 ){
               $html .= "<p align='center'><a href=\"$urlCagnotte\">Accès à la cagnotte</a></p>";
           }
         }

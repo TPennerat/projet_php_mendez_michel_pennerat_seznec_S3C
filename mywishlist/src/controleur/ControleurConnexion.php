@@ -83,7 +83,8 @@ class ControleurConnexion{
     public function seDeconnecter(){
       $app= Slim::getInstance();
       $_SESSION['id_connect']=null;
-      setcookie('ssdm',base64_encode("nonssdmsvp"));
+      if (isset($_COOKIE['ssdm']))
+        setcookie('ssdm',base64_encode("nonssdmsvp"));
       $app->redirect($app->urlFor('racine'));
     }
 
