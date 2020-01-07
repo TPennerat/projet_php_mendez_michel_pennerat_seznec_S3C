@@ -80,7 +80,7 @@ END;
         $URI = Slim::getInstance()->request->getRootURI();
         $descr=$item["descr"];
         $html .= "<img id='itemimg' src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\" alt=\"$descr\">";
-        $html .= '<h3>'.$item["nom"].'</h3>';
+        $html .= '<h3>'.$item["nom"].' : '.$item['tarif'].' €</h3>';
         $html .= '<p>'.$item["descr"].'</p>';
         $l = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
         $login=null;
@@ -96,15 +96,15 @@ END;
         }
         $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
         $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
-        /*if($l['createur']!=$_SESSION['id_connect'] or $_COOKIE['nomUser']==$l['createur']){   DEBUG Cette partie sert à empêcher quelqu'un d'obtenir les informations sur ses listes même une fois déconnecté
-          $html .= "<p align='center'>Vous n'avez pas accès aux cagnottes et aux réservations pour votre liste!</p>";
-        }else*/{
-          if (($login == null)and($etatCagnotte == 0)) {
+        if((isset($_COOKIE['premCo']) and $_COOKIE['premCo']==$l['createur']) or (isset($_COOKIE['nomUser']) and $_COOKIE['nomUser']==$l['createur'])){
+                $html .= "<p align='center'>Vous n'avez pas accès aux cagnottes et aux réservations pour votre liste !</p>";
+        }else{
+          if (($login == null)and($etatCagnotte == 0) and (isset($_COOKIE['nomUser']) and $_COOKIE['nomUser']==$l['createur'])) {
               $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
-              $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item?</a></p>";
-          } else if ($login!=null) {
+              $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item ?</a></p>";
+          } else if ($login!=null and ((isset($_COOKIE['premCo']) and $_COOKIE['premCo']==$l['createur']) or (isset($_COOKIE['nomUser']) and $_COOKIE['nomUser']==$l['createur']))) {
               $html .= "<p align='center'>Réservé par $login</p>";
-          } else if ($etatCagnotte==1){
+          } else if ($etatCagnotte==1 and (isset($_COOKIE['nomUser']) and $_COOKIE['nomUser']==$l['createur'])){
               $html .= "<p align='center'><a href=\"$urlCagnotte\">Accès à la cagnotte</a></p>";
           }
         }

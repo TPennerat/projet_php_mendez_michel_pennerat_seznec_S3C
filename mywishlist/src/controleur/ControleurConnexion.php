@@ -59,8 +59,9 @@ class ControleurConnexion{
                 if (isset($_COOKIE['nomUser']) and !isset($_COOKIE['premCo'])){
                     setcookie('premCo',$_COOKIE['nomUser'],time()+60*60*24*30*12,'/');
                     setcookie('nomUser',base64_encode($id),time()+60*60*24*30*12,'/');
+                } else {
+                    setcookie('nomUser',base64_encode($id),time()+60*60*24*30*12,'/');
                 }
-
                 if (isset($_POST['ssdm'])){
                     setcookie("ssdm",base64_encode("ouissdmsvp"),time()+60*60*24*30,'/');
                 }
