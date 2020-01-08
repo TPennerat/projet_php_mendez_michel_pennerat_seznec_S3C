@@ -78,39 +78,53 @@ END;
         return $html;
     }
 
-    private function afficherItem($item){
-        $html="<div id=\"mainpage\"><h2>Item</h2></div><div id=\"reste\"><div class=\"liste\">";
-        $nomitem=$item["img"];
+    private function afficherItem($item)
+    {
+        $html = "<div id=\"mainpage\"><h2>Item</h2></div><div id=\"reste\"><div class=\"liste\">";
+        $nomitem = $item["img"];
         $URI = Slim::getInstance()->request->getRootURI();
-        $descr=$item["descr"];
+        $descr = $item["descr"];
         $html .= "<img id='itemimg' src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\" alt=\"$descr\">";
-        $html .= '<h3>'.$item["nom"].' : '.$item['tarif'].' €</h3>';
-        $html .= '<p>'.$item["descr"].'</p>';
+        $html .= '<h3>' . $item["nom"] . ' : ' . $item['tarif'] . ' €</h3>';
+        $html .= '<p>' . $item["descr"] . '</p>';
         $l = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
-        $login=null;
+        $login = null;
+        $mess=null;
         foreach ($l->items as $log) {
-            if ($log['id']==$item['id']){
+            if ($log['id'] == $item['id']) {
                 $login = $log->pivot->loginReserv;
+                $mess = $log->pivot->messageReserve;
             }
         }
         foreach ($l->items as $log) {
-            if ($log['id']==$item['id']){
+            if ($log['id'] == $item['id']) {
                 $etatCagnotte = $log->pivot->etatCagnotte;
             }
         }
-        $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
-        $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
-        if(isset($_COOKIE['nomUser']) and base64_decode($_COOKIE['nomUser'])==$l['createur']){
-                $html .= "<p align='center'>Vous n'avez pas accès aux cagnottes et aux réservations pour votre liste !</p>";
+        $urlReserv = Slim::getInstance()->urlFor('reserv', ["id" => $item["id"]]);
+        $urlCagnotte = Slim::getInstance()->urlFor('Cagnotte', ["id" => $item["id"]]);
+        if (isset($_COOKIE['nomUser']) and base64_decode($_COOKIE['nomUser']) == $l['createur']) {
+            if ($login != null) {
+                $html .= "<p align='center'>Réservé</p>";
+            } else if ($etatCagnotte==1 ){
+                $html .= "<p align='center'>Cagnotte en cours</p>";
+            }else{
+                $html .= "<p align='center'>Pas encore réservé</p>";
+            }
         }else{
             if (($login == null)and($etatCagnotte == 0)) {
-              $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
-              $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item ?</a></p>";
-          } else if ($login!=null ) {
-              $html .= "<p align='center'>Réservé par $login</p>";
-          } else if ($etatCagnotte==1 ){
-              $html .= "<p align='center'><a href=\"$urlCagnotte\">Accès à la cagnotte</a></p>";
-          }
+                $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
+                $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item ?</a></p>";
+            } elseif ($login!=null ) {
+                $html .= "<p align='center'>Réservé par $login";
+                if ($mess!=null){
+                    $html.=" avec le message :</p><br><p align='center'>$mess</p>";
+                } else {
+                    $html.="</p>";
+                }
+            } else if ($etatCagnotte==1 ){
+                $html .= "<p align='center'><a href=\"$urlCagnotte\">Accès à la cagnotte</a></p>";
+            }
         }
         $html .= "</div></div>";
 

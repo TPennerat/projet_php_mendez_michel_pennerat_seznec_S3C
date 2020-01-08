@@ -28,9 +28,9 @@ class VueReservation
         }
         $html .= <<<END
 <div align="center"> <form id="formReserv" method="post" action="$urlReserv" enctype="multipart/form-data">
-Réservé par : <input type="text" name="nomReserv" value="$log" placeholder="Nom de la personne" required/>
+Réservé par : <input type="text" name="nomReserv" value="$log" placeholder="Nom de la personne" required/><br>
+Votre message : <input type="text" name="messReserv" placeholder="Votre message mignon" /><br>
 <input type="submit" />
-<p>Attention, vous devez posséder un compte pour réserver un item !</p>
 </div>
 END;
 
@@ -41,18 +41,19 @@ END;
     private function afficherReservItemIncorrect(){
         $app = Slim::getInstance();
         $html = "<div id=\"mainpage\"><h2>Réserver cet item</h2></div><div id=\"reste\">";
-        $urlReserv = $app->urlFor("reservOK",["id"=>$this->arr]);
+        $urlReserv = $app->urlFor("reservOK",["id"=>$this->arr['id']]);
         $log="";
+        $mess=$this->arr['mess'];
         if (isset($_SESSION['id_connect'])){
             $log = $_SESSION['id_connect'];
         }
         $html .= <<<END
 <div align="center">
-<p style="color: red">Login incorrect</p>
+<p style="color: red">$mess</p>
 <form id="formReserv" method="post" action="$urlReserv" enctype="multipart/form-data">
-Réservé par : <input type="text" name="nomReserv" value="$log" placeholder="Nom de la personne" required />
+Réservé par : <input type="text" name="nomReserv" value="$log" placeholder="Nom de la personne" required /><br>
+Votre message : <input type="text" name="messReserv" placeholder="Votre message mignon" /><br>
 <input type="submit" />
-<p>Attention, vous devez posséder un compte pour réserver un item !</p>
 </div>
 END;
 
@@ -61,10 +62,16 @@ END;
     }
 
     private function remerciement(){
+        $urlListe =  "";
+        if (isset($_COOKIE['token_liste_reserv_pub'])) {
+            $tok = Liste::find(unserialize($_COOKIE['token_liste_reserv_pub']))['token'];
+            var_dump($tok);
+            $urlListe = Slim::getInstance()->urlFor("getListe",["token"=>$tok,"id"=>$this->arr]);
+        }
         return <<<END
 <div id=\"reste\">
 <h2 style="color: #ab7933">
-Votre réservation pour l'item à bien été prise en compte !
+<a href="$urlListe">Votre réservation pour l'item à bien été prise en compte !</a>
 </h2>
 </div>
 END;

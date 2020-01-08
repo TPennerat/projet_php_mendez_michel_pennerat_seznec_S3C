@@ -20,18 +20,33 @@ class ControleurReservation
     }
 
     public function reserverItem($id){
-        if (isset($_POST['nomReserv'])){
-            $log = filter_var($_POST['nomReserv'],FILTER_SANITIZE_STRING);
-            $res = Account::find($log);
-            if ($res != null){
-                $no = unserialize($_COOKIE['token_liste_reserv']);
-                $l = Liste::find($no);
-                $l->items()->updateExistingPivot($id,["reserve"=>1,"loginReserv"=>$log]);
-                $vue = new VueReservation($id);
-                $vue->render(REMERCIEMENT);
-            } else {
-                $vue = new VueReservation($id);
+        if (isset($_POST['nomReserv']) and isset($_POST['messReserv'])) {
+            $log = filter_var($_POST['nomReserv'], FILTER_SANITIZE_STRING);
+            $message = filter_var($_POST['messReserv'], FILTER_SANITIZE_STRING);
+            $no = unserialize($_COOKIE['token_liste_reserv']);
+            $l = Liste::find($no);
+            if ($log == " ") {
+                $vue = new VueReservation(["id" => $id, "mess" => "Le nom ne peut pas contenir de caractère spéciaux"]);
                 $vue->render(AFFICHER_RESERVATION_ITEM_INCORRECT);
+            } elseif ($l['createur'] == $log) {
+                $vue = new VueReservation(["id"=>$id,"mess"=>"Le nom ne peut pas être celui du créateur"]);
+                $vue->render(AFFICHER_RESERVATION_ITEM_INCORRECT);
+            }else {
+                $res = 0;
+                foreach ($l->items as $i) {
+                    if ($i['item_id'] == $id) {
+                        $res = $log->pivot->reserve;
+                    }
+                }
+                if ($res== 1) {
+                    $vue = new VueReservation(["id"=>$id,"mess"=>"Item déjà réservé"]);
+                    $vue->render(AFFICHER_RESERVATION_ITEM_INCORRECT);
+                } else {
+                    $l->items()->updateExistingPivot($id,["reserve"=>1,"loginReserv"=>$log,"messageReserve"=>$message]);
+                    $vue = new VueReservation($id);
+                    $vue->render(REMERCIEMENT);
+                }
+
             }
         }
 
