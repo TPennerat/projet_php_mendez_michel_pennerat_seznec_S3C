@@ -22,16 +22,21 @@ class VueParticipant {
     private function afficherLesListes(){
         $app= Slim::getInstance();
         $content="<div id=\"mainpage\"><h2>Listes</h2></div><div id=\"reste\"><p>Mes listes :</p>";
-        foreach($this->arr as $l){
-            if(isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect']){
-                $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]." (Expire le $l->expiration)"."</a></li>";
+
+        $lListes = $this->arr->toArray();
+        usort($lListes, "triParDateExpiration");
+
+        foreach($lListes as $l){
+            if(isset($_SESSION['id_connect']) and $l['createur']==$_SESSION['id_connect']){
+                $content.="<li>".'<a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]." (Expire le {$l['expiration']})"."</a></li>";
             }
         }
         $content.="<br><p>Listes publiques :</p>";
-        foreach($this->arr as $l){
-          if (strtotime("now") < strtotime("$l->expiration+1 day")) {
-            if($l->publique==1){
-                $content.="<li>".' <a href="'.$app->urlFor('getListePartage', ['tokenPartage'=>$l['tokenPartage'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+
+        foreach($lListes as $l){
+          if (strtotime("now") < strtotime("{$l['expiration']}+1 day")) {
+            if($l['publique']==1){
+                $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
             }
           }
         }

@@ -22,6 +22,10 @@ $db->addConnection(parse_ini_file('src/conf/conf.ini'));
 $db->setAsGlobal();
 $db->bootEloquent();
 
+function triParDateExpiration($a, $b) {
+    return strtotime($a["expiration"]) - strtotime($b["expiration"]);
+}
+
 //affichage de la racine
 $app->get('/',function () {
  $c = new ControleurAffichage();
