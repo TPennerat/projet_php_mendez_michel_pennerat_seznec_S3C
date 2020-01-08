@@ -19,4 +19,4 @@ On justifie ce choix car une grande majoritié des cadeaux sont communs à beauc
 Cette fois, nous avons éstimé que c'est au participant de gérér cet aspect et pas à la personne qui crée la liste.
 
 
-Fonctionnalités 5 7 11 14 15 16 20 25 26 27 28 à faire
+Fonctionnalités 4 7 16 (25 26 27 28) à faire
