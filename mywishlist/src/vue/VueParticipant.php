@@ -24,14 +24,16 @@ class VueParticipant {
         $content="<div id=\"mainpage\"><h2>Listes</h2></div><div id=\"reste\"><p>Mes listes :</p>";
         foreach($this->arr as $l){
             if(isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect']){
-                $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+                $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]." (Expire le $l->expiration)"."</a></li>";
             }
         }
         $content.="<br><p>Listes publiques :</p>";
         foreach($this->arr as $l){
+          if (strtotime("now") < strtotime("$l->expiration+1 day")) {
             if($l->publique==1){
                 $content.="<li>".' <a href="'.$app->urlFor('getListePartage', ['tokenPartage'=>$l['tokenPartage'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
             }
+          }
         }
 
         $content.="</div>";
@@ -82,7 +84,7 @@ END;
         $URI = Slim::getInstance()->request->getRootURI();
         $descr=$item["descr"];
         $html .= "<img id='itemimg' src=\"$URI/web/img/$nomitem\" width=\"60\" height=\"60\" alt=\"$descr\">";
-        $html .= '<h3>'.$item["nom"].'</h3>';
+        $html .= '<h3>'.$item["nom"].' : '.$item['tarif'].' €</h3>';
         $html .= '<p>'.$item["descr"].'</p>';
         $l = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
         $login=null;
@@ -91,13 +93,24 @@ END;
                 $login = $log->pivot->loginReserv;
             }
         }
-        if (!isset($_SESSION['id_connect']) or($login == null and $l['createur']!=$_SESSION['id_connect'])) {
-            $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
-            $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
-            $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
-            $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item?</a></p>";
-        } else if (isset($_COOKIE['nomUser']) and ($l['createur']!=$_SESSION['id_connect'] or $_COOKIE['nomUser']==$l['createur'])) {
-            $html .= "<p align='center'>Réservé par $login</p>";
+        foreach ($l->items as $log) {
+            if ($log['id']==$item['id']){
+                $etatCagnotte = $log->pivot->etatCagnotte;
+            }
+        }
+        $urlReserv = Slim::getInstance()->urlFor('reserv',["id"=>$item["id"]]);
+        $urlCagnotte= Slim::getInstance()->urlFor('Cagnotte',["id"=>$item["id"]]);
+        if(isset($_COOKIE['nomUser']) and base64_decode($_COOKIE['nomUser'])==$l['createur']){
+                $html .= "<p align='center'>Vous n'avez pas accès aux cagnottes et aux réservations pour votre liste !</p>";
+        }else{
+            if (($login == null)and($etatCagnotte == 0)) {
+              $html .= "<p align='center'><a href=\"$urlReserv\">Réserver cet item ?</a></p>";
+              $html .= "<p align='center'><a href=\"$urlCagnotte\">Créer une cagnotte pour l'item ?</a></p>";
+          } else if ($login!=null ) {
+              $html .= "<p align='center'>Réservé par $login</p>";
+          } else if ($etatCagnotte==1 ){
+              $html .= "<p align='center'><a href=\"$urlCagnotte\">Accès à la cagnotte</a></p>";
+          }
         }
         $html .= "</div></div>";
 

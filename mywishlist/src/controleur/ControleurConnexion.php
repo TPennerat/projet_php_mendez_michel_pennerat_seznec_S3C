@@ -71,14 +71,14 @@ class ControleurConnexion{
     public static function seConnecterViaId($id){
         $id = base64_decode($id);
         $_SESSION['id_connect']=$id;
-        setcookie('nomUser',$id,time()+60*24*30*12,'/');
+        setcookie('nomUser',$id,time()+60*60*24*30*12,'/');
     }
 
     public function seDeconnecter(){
       $app= Slim::getInstance();
       $_SESSION['id_connect']=null;
-      setcookie('ssdm');
-      unset($_COOKIE['ssdm']);
+      if (isset($_COOKIE['ssdm']))
+        setcookie('ssdm',base64_encode("nonssdmsvp"));
       $app->redirect($app->urlFor('racine'));
     }
 
