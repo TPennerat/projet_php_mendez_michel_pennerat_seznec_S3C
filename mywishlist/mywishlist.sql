@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mar. 07 jan. 2020 à 09:06
+-- Généré le :  mer. 08 jan. 2020 à 11:10
 -- Version du serveur :  10.4.8-MariaDB
 -- Version de PHP :  7.3.11
 
@@ -40,6 +40,7 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`login`, `password`, `droit`) VALUES
 ('admin', '$2y$12$3lBKYzKgqkzOtWE6QlVcquWtD84J7njCehKOL.GTUJFMUE04kvNAC', 0),
+('damien', '$2y$12$6eftspvrfAUOD.17b6wn8.yBNjLtMGlfWKRKC956c.qtXnLYf9KuS', 0),
 ('tom', '$2y$12$WAkZ7u7Hb9KY65EvH8DjmewJZOpMfkCdlM9q/a9uJbEZMDZ6yxmy6', 0);
 
 -- --------------------------------------------------------
@@ -105,12 +106,8 @@ INSERT INTO `item_liste` (`item_id`, `liste_no`, `reserve`, `loginReserv`, `mess
 (1, 3, 0, NULL, NULL, 0, '0.00'),
 (2, 3, 0, NULL, NULL, 0, '0.00'),
 (3, 3, 0, NULL, NULL, 0, '0.00'),
-(4, 4, 0, NULL, NULL, 0, '0.00'),
-(5, 4, 0, NULL, NULL, 0, '0.00'),
 (6, 3, 0, NULL, NULL, 0, '0.00'),
 (7, 3, 0, NULL, NULL, 0, '0.00'),
-(8, 4, 0, NULL, NULL, 0, '0.00'),
-(9, 4, 0, NULL, NULL, 0, '0.00'),
 (10, 3, 0, NULL, NULL, 0, '0.00'),
 (11, 1, 0, NULL, NULL, 0, '0.00'),
 (12, 3, 0, NULL, NULL, 0, '0.00'),
@@ -136,22 +133,23 @@ CREATE TABLE `list` (
   `description` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `expiration` date DEFAULT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `publique` tinyint(1) NOT NULL DEFAULT 0
+  `publique` tinyint(1) NOT NULL DEFAULT 0,
+  `tokenPartage` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `list`
 --
 
-INSERT INTO `list` (`no`, `createur`, `titre`, `description`, `expiration`, `token`, `publique`) VALUES
-(1, 'tom', 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1', 0),
-(2, 'tom', 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2', 0),
-(3, 'tom', 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3', 0),
-(4, 'tom', 'f', 'e', NULL, '', 0),
-(16, 'admin', 'testx', 'grgr', NULL, 'f6d6ebe085825d68', 1),
-(17, 'admin', 'test', 'test', NULL, 'e0ce1c45b9fde27f', 1),
-(18, 'admin', 'fezfez', 'fefz', NULL, '9ef964956f60f8b7', 0),
-(19, 'admin', 'testxfbdfbdf', 'gregere', NULL, '094ae5563d1e7199', 1);
+INSERT INTO `list` (`no`, `createur`, `titre`, `description`, `expiration`, `token`, `publique`, `tokenPartage`) VALUES
+(1, 'tom', 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1', 0, 'token1'),
+(2, 'tom', 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2', 0, 'token2'),
+(3, 'tom', 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3', 0, 'token3'),
+(16, 'admin', 'testx', 'grgr', NULL, 'f6d6ebe085825d68', 1, 'token4'),
+(17, 'admin', 'test', 'test', NULL, 'e0ce1c45b9fde27f', 1, 'token5'),
+(18, 'admin', 'fezfez', 'fefz', NULL, '9ef964956f60f8b7', 0, 'token6'),
+(19, 'admin', 'testxfbdfbdf', 'gregere', NULL, '094ae5563d1e7199', 0, '484ae5563d1e7199'),
+(20, 'admin', 'Liste de noel', 'pour mon cousin', '2045-12-12', '5dac65793fdc4085', 1, '60c4f060cbee21bc');
 
 -- --------------------------------------------------------
 
@@ -196,7 +194,6 @@ ALTER TABLE `item`
 --
 ALTER TABLE `item_liste`
   ADD PRIMARY KEY (`item_id`,`liste_no`),
-  ADD KEY `FK_loginReserv_account` (`loginReserv`),
   ADD KEY `FK_listNo_liste` (`liste_no`);
 
 --
@@ -228,7 +225,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT pour la table `list`
 --
 ALTER TABLE `list`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `message`
