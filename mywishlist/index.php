@@ -146,4 +146,9 @@ $app->post('/afficherListe/:token/:id', function($token,$id){
     $c->posterMessage($token,$id);
 })->name('ajouterMessage');
 
+$app->get('/afficherListePartage/:tokenPartage/:id', function($token, $no){
+    $c = new ControleurAffichage();
+    $c->afficherListe($token, $no);
+})->name('getListePartage');
+
 $app->run();

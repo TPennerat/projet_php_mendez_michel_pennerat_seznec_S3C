@@ -40,6 +40,11 @@ class ControleurAdminListe {
                         $token = bin2hex(random_bytes(8));
                     }
                     $liste->token = $token;
+                    $tokenPartage = bin2hex(random_bytes(8));
+                    while (Liste::all()->where('token','=',$tokenPartage)->count()==1) {
+                        $tokenPartage = bin2hex(random_bytes(8));
+                    }
+                    $liste->tokenPartage = $tokenPartage;
                 } catch (\Exception $e) {
                     //try catch ?
                 }

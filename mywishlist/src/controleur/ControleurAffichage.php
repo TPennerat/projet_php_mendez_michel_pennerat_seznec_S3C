@@ -9,26 +9,31 @@ use const mywishlist\vue\AFFICHER_ITEM;
 use const mywishlist\vue\AFFICHER_LISTE;
 use const mywishlist\vue\AFFICHER_LISTES;
 use const mywishlist\vue\AFFICHER_RACINE;
+use const mywishlist\vue\AFFICHER_LISTE_PARTAGE;
 use const mywishlist\vue\BAD_TOKEN;
 
 class ControleurAffichage{
 
     public function afficherLesListes(){
         $listl = Liste::all();
-        //suppression de "toArray" sur $listl Damien
         $vue= new VueParticipant($listl);
         $vue->render(AFFICHER_LISTES);
     }
 
     public function afficherListe($token, $no){
-        if($token!=Liste::find($no)->token){
-          $vue = new VueParticipant();
-          $vue->render(BAD_TOKEN);
-        }else{
-            setcookie("token_liste_reserv",serialize($no),0,"/");
+        if($token==Liste::find($no)->token){
+          //setcookie("token_liste_reserv",serialize($no),0,"/");
           $Liste = Liste::find($no);
           $vue = new VueParticipant([$Liste]);
           $vue->render(AFFICHER_LISTE);
+        }else if($token==Liste::find($no)->tokenPartage){
+          setcookie("token_liste_reserv",serialize($no),0,"/");
+          $Liste = Liste::find($no);
+          $vue = new VueParticipant([$Liste]);
+          $vue->render(AFFICHER_LISTE_PARTAGE);
+        }else{
+          $vue = new VueParticipant();
+          $vue->render(BAD_TOKEN);
         }
     }
 

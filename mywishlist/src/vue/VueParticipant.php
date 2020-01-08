@@ -9,6 +9,7 @@ const AFFICHER_LISTE = 2;
 const AFFICHER_ITEM = 3;
 const AFFICHER_RACINE = 4;
 const AFFICHER_LISTE_NO_CO =6;
+const AFFICHER_LISTE_PARTAGE = 7;
 const BAD_TOKEN = 5;
 
 class VueParticipant {
@@ -29,7 +30,7 @@ class VueParticipant {
         $content.="<br><p>Listes publiques :</p>";
         foreach($this->arr as $l){
             if($l->publique==1){
-                $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+                $content.="<li>".' <a href="'.$app->urlFor('getListePartage', ['tokenPartage'=>$l['tokenPartage'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
             }
         }
 
@@ -54,9 +55,10 @@ END;
             $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
             $html .= '</div>';
         }
-        if ($l->publique==0 or (isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect']))
+        if ($l->publique==0 or (isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect'])){
+            $html.="<p align='center' style=\'color: red\'>Url de partage : localhost$URI/afficherListePartage/$l->tokenPartage/$l->no</p>";
             $html.='<p id="suppr" align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression",["token"=>$l->token,"id"=>$l->no]).'">Supprimer cette liste !</a></p>';
-
+        }
         $messages = $l->messages()->get();
         foreach ($messages as $message) {
           $html.='<p>'."$message->login : $message->message".'</p>';
@@ -137,6 +139,37 @@ END;
         return $html;
     }
 
+    private function afficherListePartage($liste){
+        $app = Slim::getInstance();
+        $html = "<div id=\"mainpage\"><h2>Liste</h2></div><div id=\"reste\" style=\"position : relative;\"><div class=\"liste\">";
+        $l = Liste::find($liste["no"]);
+        $html .= "<h3>".$l->titre."</h3>";
+        $html .= "<p>".$l->description."<p>";
+        $items=$l->items()->get();
+        $URI = Slim::getInstance()->request->getRootURI();
+        foreach ($items as $item) {
+            $html .= '<div>';
+            $html .= "<img src=\"$URI/web/img/{$item->img}\" width=\"60\" height=\"60\" alt=\"{$item->descr}\">";
+            $html .= '<a href="'.$app->urlFor('getItem', ['id'=>$item["id"]]).'">'.$item->nom.'</a>';
+            $html .= '</div>';
+        }
+        $messages = $l->messages()->get();
+        foreach ($messages as $message) {
+          $html.='<p>'."$message->login : $message->message".'</p>';
+        }
+
+        $html .='</div><div align="center">';
+        $urlAjouterMessage = Slim::getInstance()->urlFor('ajouterMessage',["token"=>$liste->token,"id"=>$liste->no]);
+        $html .="<form method=\"post\" action=\"$urlAjouterMessage\" enctype=\"multipart/form-data\">";
+        $html .= '<div><input type="text" name="message" required placeholder="Message"></div>';
+        $html .= '<br><button type=submit name="valider">Envoyer</button>';
+
+        $html.="</div>";
+
+
+        return $html;
+    }
+
     private function racine(){
         $app = Slim::getInstance();
 
@@ -162,6 +195,10 @@ END;
             }
             case AFFICHER_LISTE : {
                 $content = $this->afficherListe($this->arr[0]);
+                break;
+            }
+            case AFFICHER_LISTE_PARTAGE : {
+                $content = $this->afficherListePartage($this->arr[0]);
                 break;
             }
             case AFFICHER_ITEM: {
