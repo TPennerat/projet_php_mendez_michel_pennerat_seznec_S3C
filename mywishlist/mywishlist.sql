@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mer. 08 jan. 2020 à 11:10
+-- Généré le :  lun. 13 jan. 2020 à 21:09
 -- Version du serveur :  10.4.8-MariaDB
 -- Version de PHP :  7.3.11
 
@@ -149,7 +149,10 @@ INSERT INTO `list` (`no`, `createur`, `titre`, `description`, `expiration`, `tok
 (17, 'admin', 'test', 'test', NULL, 'e0ce1c45b9fde27f', 1, 'token5'),
 (18, 'admin', 'fezfez', 'fefz', NULL, '9ef964956f60f8b7', 0, 'token6'),
 (19, 'admin', 'testxfbdfbdf', 'gregere', NULL, '094ae5563d1e7199', 0, '484ae5563d1e7199'),
-(20, 'admin', 'Liste de noel', 'pour mon cousin', '2045-12-12', '5dac65793fdc4085', 1, '60c4f060cbee21bc');
+(20, 'admin', 'Liste de noel', 'pour mon cousin', '2045-12-12', '5dac65793fdc4085', 1, '60c4f060cbee21bc'),
+(30, 'damien', 'saloperie', 'massarza', '2020-03-19', '0e0a7aad4b25e811', 1, '87228b3e048e6cd8'),
+(31, 'damien', 'eeger', 'gregrege', '2020-02-14', '5f252ea53a84d66a', 1, 'cab0598bd3a9ba78'),
+(32, 'damien', 'ListeMegaBien', 'ElleEstSuper', '2020-02-20', '1c9c205a73b3d4de', 1, '06be3ab741f2b512');
 
 -- --------------------------------------------------------
 
@@ -225,7 +228,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT pour la table `list`
 --
 ALTER TABLE `list`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT pour la table `message`
