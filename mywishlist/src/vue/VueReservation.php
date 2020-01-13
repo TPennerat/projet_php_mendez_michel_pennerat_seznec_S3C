@@ -65,7 +65,6 @@ END;
         $urlListe =  "";
         if (isset($_COOKIE['token_liste_reserv_pub'])) {
             $tok = Liste::find(unserialize($_COOKIE['token_liste_reserv_pub']))['token'];
-            var_dump($tok);
             $urlListe = Slim::getInstance()->urlFor("getListe",["token"=>$tok,"id"=>$this->arr]);
         }
         return <<<END

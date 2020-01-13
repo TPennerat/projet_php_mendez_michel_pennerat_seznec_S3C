@@ -28,6 +28,7 @@ class ControleurAffichage{
           $vue->render(AFFICHER_LISTE);
         }else if($token==Liste::find($no)->tokenPartage){
           setcookie("token_liste_reserv_pub",serialize($no),0,"/");
+            setcookie("token_liste_reserv",serialize($no),0,"/");
           $Liste = Liste::find($no);
           $vue = new VueParticipant([$Liste]);
           $vue->render(AFFICHER_LISTE_PARTAGE);
