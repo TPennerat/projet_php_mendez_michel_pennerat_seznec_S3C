@@ -46,7 +46,6 @@ class ControleurCagnotte{
   public function creerCagnotte($id){
     $app=Slim::getInstance();
     $vue = new VueCagnotte($id);
-    $item = Item::find($id);
     $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
     foreach ($liste->items as $i) {
         if ($i['id']==$id){

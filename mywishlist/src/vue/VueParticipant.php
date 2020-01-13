@@ -103,9 +103,13 @@ END;
                 $mess = $log->pivot->messageReserve;
             }
         }
+        $valCagnotte=0;
         foreach ($l->items as $log) {
             if ($log['id'] == $item['id']) {
                 $etatCagnotte = $log->pivot->etatCagnotte;
+                if ($item['tarif']==$log->pivot->valCagnotte){
+                    $valCagnotte=$log->pivot->valCagnotte;
+                }
             }
         }
         $urlReserv = Slim::getInstance()->urlFor('reserv', ["id" => $item["id"]]);
@@ -113,7 +117,10 @@ END;
         if (isset($_COOKIE['nomUser']) and base64_decode($_COOKIE['nomUser']) == $l['createur']) {
             if ($login != null) {
                 $html .= "<p align='center'>Réservé</p>";
-            } else if ($etatCagnotte==1 ){
+            } elseif ($valCagnotte!=0){
+                $html .= "<p align='center'>Cagnotte terminée</p>";
+            }
+            else if ($etatCagnotte==1 ){
                 $html .= "<p align='center'>Cagnotte en cours</p>";
             }else{
                 $html .= "<p align='center'>Pas encore réservé</p>";
