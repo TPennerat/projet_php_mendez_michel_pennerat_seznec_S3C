@@ -120,9 +120,9 @@ class VueFormulaire {
     }
 
     private function modifierItem(){
-      $html="<div id=\"mainpage\"><h2>Modification de l'item $this->id</h2></div>";
+      $html="<div id=\"mainpage\"><h2>Modification de l'item $this->arr</h2></div>";
       $html .='<div class="reste" align="center">';
-      $html .="<form id=\"f2\" method=\"post\" action=\"$urlCreerItem\" enctype=\"multipart/form-data\">";
+      $html .="<form id=\"f2\" method=\"post\" action=\"\" enctype=\"multipart/form-data\">";
       $html .= '<div><input type="text" name="nomItem" required placeholder="Nom de l\'item"></div>';
       $html .= '<div><input type="text" name="descr" placeholder="Description"></div>';
       $html .= '<div><select name="select">';
