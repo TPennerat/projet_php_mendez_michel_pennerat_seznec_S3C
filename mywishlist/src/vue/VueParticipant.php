@@ -36,7 +36,7 @@ class VueParticipant {
         foreach($lListes as $l){
           if (strtotime("now") < strtotime("{$l['expiration']}+1 day")) {
             if($l['publique']==1){
-                $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['token'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+                $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['tokenPartage'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
             }
           }
         }
