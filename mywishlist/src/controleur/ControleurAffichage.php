@@ -21,19 +21,19 @@ class ControleurAffichage{
     }
 
     public function afficherListe($token, $no){
-        if($token==Liste::find($no)->token){
+        if($token==Liste::find($no)['token']){
           setcookie("token_liste_reserv",serialize($no),0,"/");
           $Liste = Liste::find($no);
           $vue = new VueParticipant([$Liste]);
           $vue->render(AFFICHER_LISTE);
-        }else if($token==Liste::find($no)->tokenPartage){
+        }else if($token==Liste::find($no)['tokenPartage']){
           setcookie("token_liste_reserv_pub",serialize($no),0,"/");
-            setcookie("token_liste_reserv",serialize($no),0,"/");
+          setcookie("token_liste_reserv",serialize($no),0,"/");
           $Liste = Liste::find($no);
           $vue = new VueParticipant([$Liste]);
           $vue->render(AFFICHER_LISTE_PARTAGE);
         }else{
-          $vue = new VueParticipant();
+          $vue = new VueParticipant(null);
           $vue->render(BAD_TOKEN);
         }
     }
