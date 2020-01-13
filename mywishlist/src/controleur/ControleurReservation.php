@@ -46,9 +46,7 @@ class ControleurReservation
                     $vue = new VueReservation($id);
                     $vue->render(REMERCIEMENT);
                 }
-
             }
         }
-
     }
 }

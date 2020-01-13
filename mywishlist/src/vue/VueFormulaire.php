@@ -83,15 +83,16 @@ class VueFormulaire {
         $html .='<div class="reste" align="center">';
         $urlCreerItem = Slim::getInstance()->urlFor('creerItem');
         $html .="<form id=\"f2\" method=\"post\" action=\"$urlCreerItem\" enctype=\"multipart/form-data\">";
-        $html .= '<div><input type="text" name="nomItem" required placeholder="Nom de l\'item"></div>';
-        $html .= '<div><input type="text" name="descr" placeholder="Description"></div>';
-        $html .= '<div><select name="select">';
+        $html .= '<div>Nom : <input type="text" name="nomItem" required placeholder="Nom de l\'item"></div>';
+        $html .= '<div>Description : <input type="text" name="descr" placeholder="Description"></div>';
+        $html .= '<div>Liste à laquelle ajouter l\'item : <select name="select">';
         foreach($this->arr as $i){
             $html .= '<option value="'.$i['no'].'">'.$i['titre'].'</option>';
         }
         $html.='</select></div>';
         //$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000">';
         $html .= '<div><input type="file" name="image"></div>';
+        $html .= '<div>Tarif : <input type="text" name="tarif" placeholder="00" required></div>';
         $html .= '<br><button type=submit name="valider">Valider</button>';
         $html .='</form>';
         $html .='</div>';
@@ -120,16 +121,16 @@ class VueFormulaire {
     }
 
     private function modifierItem(){
-      $html="<div id=\"mainpage\"><h2>Modification de l'item $this->arr</h2></div>";
+        $id= $this->arr['id'];
+        $nom=$this->arr['nom'];
+        $descr=$this->arr['descr'];
+        $routeModif=Slim::getInstance()->urlFor('modifierItem',["id"=>$id]);
+      $html="<div id=\"mainpage\"><h2>Modification de l'item $id</h2></div>";
       $html .='<div class="reste" align="center">';
-      $html .="<form id=\"f2\" method=\"post\" action=\"\" enctype=\"multipart/form-data\">";
-      $html .= '<div><input type="text" name="nomItem" required placeholder="Nom de l\'item"></div>';
-      $html .= '<div><input type="text" name="descr" placeholder="Description"></div>';
-      $html .= '<div><select name="select">';
-      foreach($this->arr as $i){
-          $html .= '<option value="'.$i['no'].'">'.$i['titre'].'</option>';
-      }
-      $html.='</select></div>';
+      $html .="<form id=\"f2\" method=\"post\" action=\"$routeModif\" enctype=\"multipart/form-data\">";
+      $html .= "<div>Nom de l'item : $nom</div>";
+      $html .= "<div>Description : <input type=\"text\" name=\"descr\" placeholder=\"$descr\"></div>";
+      $html .= "<div>Prix : <input type='text' name='tarif' placeholder='00' required></div>";
       //$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000">';
       $html .= '<div><input type="file" name="image"></div>';
       $html .= '<br><button type=submit name="valider">Valider</button>';

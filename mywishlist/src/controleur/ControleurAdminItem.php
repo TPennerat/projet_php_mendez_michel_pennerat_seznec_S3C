@@ -25,36 +25,57 @@ class ControleurAdminItem {
         }
     }
 
-    public function modifierItem($id){
-      $item = Item::find($id);
-      $vue = new VueFormulaire($item);
-      $vue->render(MODIF_ITEM);
+    public function afficherModifierItem($id){
+        $item = Item::find($id);
+        $vue = new VueFormulaire($item);
+        $vue->render(MODIF_ITEM);
     }
 
-    public function ajouterItemBD(){
+    public function modifierItem($id){
         $app= Slim::getInstance();
-        if (isset($_POST['nomItem']) && isset($_POST['descr']) && isset($_POST['select'])) {
-            $item=new Item();
-            $nom=filter_var($app->request()->post('nomItem'),FILTER_SANITIZE_STRING);
-            $item->nom=$nom;
-            $item->descr=filter_var($app->request()->post('descr'),FILTER_SANITIZE_STRING);
-            if(is_uploaded_file($_FILES['image']['tmp_name'])){ //A SECURISER DEBUG
-                $nomImage=$_FILES['image']['name'];
-                if(!file_exists('web/img/'.$nomImage)){
-                    $uploaddir = 'web/img/';
-                    $uploadfile = $uploaddir . basename($_FILES['image']['name']);
-                    move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
-                }
-                $item->img=$nomImage;
-            }else{
-                $item->img='default.jpg';
-            }
-            $item->etatCagnotte=0;
-            $item->valCagnotte=0;
-            $item->save();
-            $i = Item::select('id')->where('nom','=',$nom)->get();
-            $item->liste()->attach([filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT)],["loginReserv"=>null]);
-            $app->redirect($app->request->getRootURI().'/afficherItem/'.$i['0']['id']);
+        $item=Item::find($id);
+        if (isset($_POST['descr'])) {
+            $item->descr = filter_var($app->request()->post('descr'), FILTER_SANITIZE_STRING);
         }
+        if(is_uploaded_file($_FILES['image']['tmp_name'])){ //A SECURISER DEBUG
+            $nomImage=$_FILES['image']['name'];
+            if(!file_exists('web/img/'.$nomImage)){
+                $uploaddir = 'web/img/';
+                $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
+            }
+            $item->img=$nomImage;
+        }
+        if (isset($_POST['tarif'])) {
+            $item->tarif=filter_var($_POST['tarif'],FILTER_SANITIZE_NUMBER_FLOAT);
+        }
+        $item->update();
+        $app->redirect($app->request->getRootURI().'/afficherItem/'.$id);
     }
+
+public function ajouterItemBD(){
+    $app= Slim::getInstance();
+    if (isset($_POST['nomItem']) && isset($_POST['descr']) && isset($_POST['select'])) {
+        $item=new Item();
+        $nom=filter_var($app->request()->post('nomItem'),FILTER_SANITIZE_STRING);
+        $item->nom=$nom;
+        $item->descr=filter_var($app->request()->post('descr'),FILTER_SANITIZE_STRING);
+        if(is_uploaded_file($_FILES['image']['tmp_name'])){ //A SECURISER DEBUG
+            $nomImage=$_FILES['image']['name'];
+            if(!file_exists('web/img/'.$nomImage)){
+                $uploaddir = 'web/img/';
+                $uploadfile = $uploaddir . basename($_FILES['image']['name']);
+                move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile);
+            }
+            $item->img=$nomImage;
+        }else{
+            $item->img='default.jpg';
+        }
+        $item->tarif=filter_var($_POST['tarif'],FILTER_SANITIZE_NUMBER_FLOAT);
+        $item->save();
+        $i = Item::select('id')->where('nom','=',$nom)->get();
+        $item->liste()->attach(filter_var($app->request()->post('select'),FILTER_SANITIZE_NUMBER_INT),["loginReserv"=>null,"etatCagnotte"=>0,"valCagnotte"=>0]);
+        $app->redirect($app->request->getRootURI().'/afficherItem/'.$item['id']);
+    }
+}
 }

@@ -104,6 +104,7 @@ END;
             }
         }
         $valCagnotte=0;
+        $etatCagnotte=0;
         foreach ($l->items as $log) {
             if ($log['id'] == $item['id']) {
                 $etatCagnotte = $log->pivot->etatCagnotte;
@@ -140,7 +141,8 @@ END;
                 $html .= "<p align='center'><a href=\"$urlCagnotte\">Accès à la cagnotte</a></p>";
             }
         }
-        $html.='<a href="'.$app->urlFor('modifierItem', ['id'=>$item["id"]]).'">'."modifier l'item".'</a>';
+        if ($login==null and !$etatCagnotte==1){
+        $html.='<a href="'.$app->urlFor('afficherModItem', ['id'=>$item["id"]]).'">'."Modifier l'item ?".'</a>';}
         $html .= "</div></div>";
 
         return $html;

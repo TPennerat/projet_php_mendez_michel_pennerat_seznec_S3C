@@ -157,7 +157,13 @@ $app->get('/afficherListePartage/:tokenPartage/:id', function($token, $no){
 
 $app->get('/modifierItem/:id', function($id){
     $c = new ControleurAdminItem();
+    $c->afficherModifierItem($id);
+})->name('afficherModItem');
+
+$app->post('/modifierItem/:id', function($id){
+    $c = new ControleurAdminItem();
     $c->modifierItem($id);
 })->name('modifierItem');
+
 
 $app->run();
