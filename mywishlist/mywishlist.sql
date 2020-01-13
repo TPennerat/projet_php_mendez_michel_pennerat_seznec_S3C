@@ -245,8 +245,7 @@ ALTER TABLE `message`
 --
 ALTER TABLE `item_liste`
   ADD CONSTRAINT `FK_itemId_item` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
-  ADD CONSTRAINT `FK_listNo_liste` FOREIGN KEY (`liste_no`) REFERENCES `list` (`no`),
-  ADD CONSTRAINT `FK_loginReserv_account` FOREIGN KEY (`loginReserv`) REFERENCES `account` (`login`);
+  ADD CONSTRAINT `FK_listNo_liste` FOREIGN KEY (`liste_no`) REFERENCES `list` (`no`);
 
 --
 -- Contraintes pour la table `list`

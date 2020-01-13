@@ -48,7 +48,7 @@ END;
       if (isset($_SESSION['id_connect'])){
           $log = $_SESSION['id_connect'];
       }
-      $id = $this->arr[0];
+      $id = $this->arr;
       $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
       foreach ($liste->items as $i) {
           if ($i['id']==$id){
@@ -56,7 +56,6 @@ END;
           }
       }
       $tarif = Item::find($id)->tarif;
-
       $html .= <<<END
 <div align="center"> <form id="formCagnotte" method="post" action="$urlModif" enctype="multipart/form-data">
 <h2>Etat de la cagnotte : $val / $tarif</h2>
@@ -88,7 +87,7 @@ END;
       if (isset($_SESSION['id_connect'])){
           $log = $_SESSION['id_connect'];
       }
-      $id = $this->arr[0];
+      $id = $this->arr;
       $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
       foreach ($liste->items as $i) {
           if ($i['id']==$id){
