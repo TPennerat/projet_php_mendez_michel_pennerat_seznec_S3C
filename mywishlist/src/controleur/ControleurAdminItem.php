@@ -7,6 +7,7 @@ use \mywishlist\vue\VueFormulaire;
 use Slim\Slim;
 use const mywishlist\vue\FORMULAIRE_ITEM;
 use const mywishlist\vue\FORMULAIRE_ITEM_PAS_CO;
+use const mywishlist\vue\MODIF_ITEM;
 
 class ControleurAdminItem {
 
@@ -22,6 +23,12 @@ class ControleurAdminItem {
             $vue = new VueFormulaire($iteml);
             $vue->render(FORMULAIRE_ITEM_PAS_CO);
         }
+    }
+
+    public function modifierItem($id){
+      $item = Item::find($id);
+      $vue = new VueFormulaire($item);
+      $vue->render(MODIF_ITEM);
     }
 
     public function ajouterItemBD(){

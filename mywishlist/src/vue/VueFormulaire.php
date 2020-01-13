@@ -10,6 +10,7 @@ const FORMULAIRE_LISTE_INCORRECT = 3;
 const FORMULAIRE_SUPPRESSION_LISTE = 4;
 const FORMULAIRE_LISTE_PAS_CO = 5;
 const FORMULAIRE_ITEM_PAS_CO = 6;
+const MODIF_ITEM = 7;
 
 class VueFormulaire {
     public $arr;
@@ -118,6 +119,26 @@ class VueFormulaire {
         return $html;
     }
 
+    private function modifierItem(){
+      $html="<div id=\"mainpage\"><h2>Modification de l'item $this->id</h2></div>";
+      $html .='<div class="reste" align="center">';
+      $html .="<form id=\"f2\" method=\"post\" action=\"$urlCreerItem\" enctype=\"multipart/form-data\">";
+      $html .= '<div><input type="text" name="nomItem" required placeholder="Nom de l\'item"></div>';
+      $html .= '<div><input type="text" name="descr" placeholder="Description"></div>';
+      $html .= '<div><select name="select">';
+      foreach($this->arr as $i){
+          $html .= '<option value="'.$i['no'].'">'.$i['titre'].'</option>';
+      }
+      $html.='</select></div>';
+      //$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000">';
+      $html .= '<div><input type="file" name="image"></div>';
+      $html .= '<br><button type=submit name="valider">Valider</button>';
+      $html .='</form>';
+      $html .='</div>';
+
+      return $html;
+    }
+
     public function render($selecteur){
         $app = Slim::getInstance();
         $content = "";
@@ -144,6 +165,10 @@ class VueFormulaire {
             }
             case FORMULAIRE_ITEM_PAS_CO: {
                 $content = $this->formulaireItemPasCo();
+                break;
+            }
+            case MODIF_ITEM: {
+                $content = $this->modifierItem();
                 break;
             }
         }

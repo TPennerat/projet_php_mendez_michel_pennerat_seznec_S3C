@@ -56,7 +56,6 @@ END;
         $html .= "<p>".$l->description."<p>";
         $items=$l->items()->get();
         $URI = Slim::getInstance()->request->getRootURI();
-        $base=Slim::getInstance()->request->getUrl().$URI;
         foreach ($items as $item) {
             $html .= '<div>';
             $html .= "<img src=\"$URI/web/img/{$item->img}\" width=\"60\" height=\"60\" alt=\"{$item->descr}\">";
@@ -65,7 +64,7 @@ END;
         }
         if ($l->publique==0 or (isset($_SESSION['id_connect']) and $l->createur==$_SESSION['id_connect'])){
             $html.="<p align='center' style=\'color: red\'>Url de partage :</p>";
-            $html.="<p align='center' class='listePartage'>$base/afficherListePartage/$l->tokenPartage/$l->no</p>";
+            $html.="<p align='center' style=\'color: red\'>localhost$URI/afficherListePartage/$l->tokenPartage/$l->no</p>";
             $html.='<p id="suppr" align=\'center\' style=\'color: red\'><a href="'.$app->urlFor("suppression",["token"=>$l->token,"id"=>$l->no]).'">Supprimer cette liste !</a></p>';
         }
         $messages = $l->messages()->get();
@@ -87,6 +86,7 @@ END;
 
     private function afficherItem($item)
     {
+        $app = Slim::getInstance();
         $html = "<div id=\"mainpage\"><h2>Item</h2></div><div id=\"reste\"><div class=\"liste\">";
         $nomitem = $item["img"];
         $URI = Slim::getInstance()->request->getRootURI();
@@ -133,6 +133,7 @@ END;
                 $html .= "<p align='center'><a href=\"$urlCagnotte\">Accès à la cagnotte</a></p>";
             }
         }
+        $html.='<a href="'.$app->urlFor('modifierItem', ['id'=>$item["id"]]).'">'."modifier l'item".'</a>';
         $html .= "</div></div>";
 
         return $html;

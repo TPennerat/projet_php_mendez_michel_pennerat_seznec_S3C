@@ -64,8 +64,8 @@ END;
     private function remerciement(){
         $urlListe =  "";
         if (isset($_COOKIE['token_liste_reserv_pub'])) {
-            $tok = Liste::find(unserialize($_COOKIE['token_liste_reserv_pub']))['tokenPartage'];
-            $urlListe = Slim::getInstance()->urlFor("getListe",["token"=>$this->arr['token'],"id"=>$this->arr['id']]);
+            $tok = Liste::find(unserialize($_COOKIE['token_liste_reserv_pub']))['token'];
+            $urlListe = Slim::getInstance()->urlFor("getListe",["token"=>$tok,"id"=>$this->arr]);
         }
         return <<<END
 <div id=\"reste\">
@@ -93,7 +93,6 @@ END;
             }
             case AFFICHER_RESERVATION_ITEM_INCORRECT:{
                 $content = $this->afficherReservItemIncorrect();
-                break;
             }
         }
         $urlRacine = $app->urlFor('racine');

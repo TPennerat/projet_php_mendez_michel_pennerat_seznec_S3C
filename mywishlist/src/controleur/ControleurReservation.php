@@ -43,7 +43,7 @@ class ControleurReservation
                     $vue->render(AFFICHER_RESERVATION_ITEM_INCORRECT);
                 } else {
                     $l->items()->updateExistingPivot($id,["reserve"=>1,"loginReserv"=>$log,"messageReserve"=>$message]);
-                    $vue = new VueReservation(['id'=>$l['no'],'token'=>$l['tokenPartage']]);
+                    $vue = new VueReservation($id);
                     $vue->render(REMERCIEMENT);
                 }
 
