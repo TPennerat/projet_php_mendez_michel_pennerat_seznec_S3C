@@ -165,5 +165,15 @@ $app->post('/modifierItem/:id', function($id){
     $c->modifierItem($id);
 })->name('modifierItem');
 
+$app->get('/modifierListe/:token/:no', function($token,$no){
+    $c = new ControleurAdminListe();
+    $c->afficherModificationListe($token,$no);
+})->name('afficherModListe');
+
+$app->post('/modifierListe/:token/:no', function($token,$no){
+    $c = new ControleurAdminListe();
+    $c->modifierListeBD($token,$no);
+})->name('modifierListe');
+
 
 $app->run();

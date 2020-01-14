@@ -33,7 +33,7 @@ class ControleurAffichage{
             $vue = new VueParticipant([$Liste]);
             $vue->render(AFFICHER_LISTE_PARTAGE);
         }else{
-            $vue = new VueParticipant();
+            $vue = new VueParticipant(null);
             $vue->render(BAD_TOKEN);
         }
     }

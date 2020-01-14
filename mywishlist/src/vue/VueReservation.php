@@ -64,8 +64,8 @@ END;
     private function remerciement(){
         $urlListe =  "";
         if (isset($_COOKIE['token_liste_reserv_pub'])) {
-            $tok = Liste::find(unserialize($_COOKIE['token_liste_reserv_pub']))['token'];
-            $urlListe = Slim::getInstance()->urlFor("getListe",["token"=>$tok,"id"=>$this->arr]);
+            $tok = Liste::find(unserialize($_COOKIE['token_liste_reserv_pub']))['tokenPartage'];
+            $urlListe = Slim::getInstance()->urlFor("getListe",["token"=>$tok,"id"=>unserialize($_COOKIE['token_liste_reserv_pub'])]);
         }
         return <<<END
 <div id=\"reste\">

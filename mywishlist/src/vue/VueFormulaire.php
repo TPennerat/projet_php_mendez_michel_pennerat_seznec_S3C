@@ -2,6 +2,7 @@
 
 namespace mywishlist\vue;
 
+use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use Slim\Slim;
 const FORMULAIRE_LISTE = 1;
@@ -11,6 +12,7 @@ const FORMULAIRE_SUPPRESSION_LISTE = 4;
 const FORMULAIRE_LISTE_PAS_CO = 5;
 const FORMULAIRE_ITEM_PAS_CO = 6;
 const MODIF_ITEM = 7;
+const MODIF_LISTE= 8;
 
 class VueFormulaire {
     public $arr;
@@ -49,8 +51,8 @@ class VueFormulaire {
         $html.='<div class="reste" align="center">';
         $urlCreerListe = Slim::getInstance()->urlFor('creerListe');
         $html .="<form id=\"f1\" method=\"post\" action=\"$urlCreerListe\" enctype='multipart/form-data'>";
-        $html .= '<input type="text" name="nomListe" required placeholder="Nom de la Liste">';
-        $html .= '<input type="text" name="descr" placeholder="Description">';
+        $html .= 'Nom de liste : <input type="text" name="nomListe" required placeholder="Nom de la Liste">';
+        $html .= 'Description : <input type="text" name="descr" placeholder="Description">';
         $html .= '<label for="exp">Date d\'expiration :</label>
         <input type="date" id="exp" name="expListe" required max="2050-01-01">
         <script>
@@ -61,6 +63,55 @@ class VueFormulaire {
 
         foreach($this->arr as $i){
             $html .= '<div><p><label>'.$i['nom'].'<input type="checkbox" name="'.$i['id'].'" id="'.$i['id'].'"></label></p></div>';
+        }
+        $html .= '<br><button type=submit name="valider">Valider</button>';
+        $html .='</form>';
+        $html.='</div>';
+
+        return $html;
+    }
+
+    private function formulaireModListe(){
+        $l = Liste::find($this->arr['no']);
+        $publique=$l['publique'];
+        $nom=$l['titre'];
+        $descr=$l['description'];
+        $date=$l['expiration'];
+        $html="<div id=\"mainpage\"><h2>Modification d'une Liste</h2></div>";
+        $html.='<div class="reste" align="center">';
+        $urlCreerListe = Slim::getInstance()->urlFor('modifierListe',['token'=>$this->arr['token'],'no'=>$this->arr['no']]);
+        $html .="<form id=\"f7\" method=\"post\" action=\"$urlCreerListe\" enctype='multipart/form-data'>";
+        $html .= "Nom de liste : <input type=\"text\" name=\"nomListe\"  value=\"$nom\">";
+        $html .= "Description : <input type=\"text\" name=\"descr\" value=\"$descr\">";
+        $html .= "<label for=\"exp\">Date d'expiration :</label>
+        <input type=\"date\" id=\"exp\" name=\"expListe\" max=\"2050-01-01\" value=\"$date\">
+        <script>
+        var ajd = new Date().toISOString().split('T')[0];
+        document.getElementsByName(\"expListe\")[0].setAttribute('min', ajd);
+        </script>";
+        if ($publique==0){
+            $html .= '<label>'."Publique".'<input type="checkbox" name="'."Publique".'" id="'.'Publique'.'"></label><br>';
+        } else {
+            $html .= '<label>'."Privé".'<input type="checkbox" name="'."prive".'" id="'.'Publique'.'"></label><br>';
+        }
+
+        $html .="<p align='center'>Sélectionnez des items à supprimer</p>";
+        foreach($l->items as $i){
+            if ($i->pivot->reserve == 0) {
+                $html .= '<div><p><label>' . $i['nom'] . '<input type="checkbox" name="' . $i['id'] . '" id="' . $i['id'] . '"></label></p></div>';
+            }
+        }
+        $html .="<br><p align='center'>Sélectionnez des items à ajouter</p>";
+        foreach (Item::all() as $item) {
+            $ok=0;
+            foreach ($l->items as $mesItems){
+                if ($mesItems['id']==$item['id']) {
+                    $ok=1;
+                }
+            }
+            if ($ok==0) {
+                $html .= '<div><p><label>' . $item['nom'] . '<input type="checkbox" name="' . $item['id'] . '" id="' . $item['id'] . '"></label></p></div>';
+            }
         }
         $html .= '<br><button type=submit name="valider">Valider</button>';
         $html .='</form>';
@@ -170,6 +221,10 @@ class VueFormulaire {
             }
             case MODIF_ITEM: {
                 $content = $this->modifierItem();
+                break;
+            }
+            case MODIF_LISTE : {
+                $content = $this->formulaireModListe();
                 break;
             }
         }

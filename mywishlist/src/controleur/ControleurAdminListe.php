@@ -4,11 +4,15 @@ use mywishlist\models\Item;
 use mywishlist\models\Liste;
 use mywishlist\models\Message;
 use \mywishlist\vue\VueFormulaire;
+use mywishlist\vue\VueParticipant;
 use Slim\Slim;
+use const mywishlist\vue\AFFICHER_LISTE;
+use const mywishlist\vue\BAD_TOKEN;
 use const mywishlist\vue\FORMULAIRE_LISTE_INCORRECT;
 use const mywishlist\vue\FORMULAIRE_LISTE_PAS_CO;
 use const mywishlist\vue\FORMULAIRE_LISTE;
 use const mywishlist\vue\FORMULAIRE_SUPPRESSION_LISTE;
+use const mywishlist\vue\MODIF_LISTE;
 
 class ControleurAdminListe {
 
@@ -58,7 +62,6 @@ class ControleurAdminListe {
                     if (isset($_POST["$item->id"])){
                         $liste->items()->attach($item->id,["loginReserv"=>null,"etatCagnotte"=>0,"valCagnotte"=>0.0]);
                     }
-
                 }
                 $liste->save();
                 $app->redirect($app->urlFor('getListe', ['token'=>$liste->token, 'id'=>$liste->no]));
@@ -74,6 +77,62 @@ class ControleurAdminListe {
     public function afficherSuppressionListe($token,$id){
         $vue = new VueFormulaire(["0"=>$token,"1"=>$id]);
         $vue->render(FORMULAIRE_SUPPRESSION_LISTE);
+    }
+
+    public function afficherModificationListe($token,$no){
+        if (Liste::find($no)['token']==$token) {
+            $vue = new VueFormulaire(["token"=>$token,"no"=>$no]);
+            $vue->render(MODIF_LISTE);
+        } else {
+            $vue = new VueFormulaire(null);
+            $vue->render(BAD_TOKEN);
+        }
+
+    }
+
+    public function modifierListeBD($token,$no){
+        $l=Liste::find($no);
+        if ($l['token']==$token) {
+            if (isset($_POST['nomListe'])){
+                $l->titre=filter_var($_POST['nomListe'],FILTER_SANITIZE_STRING);
+            }
+            if (isset($_POST['descr'])){
+                $l->description=filter_var($_POST['descr'],FILTER_SANITIZE_STRING);
+            }
+            if (isset($_POST['expListe'])){
+                $l->expiration=filter_var($_POST['expListe'],FILTER_SANITIZE_STRING);
+            }
+            if (isset($_POST['prive'])){
+                $l->publique=0;
+            } elseif (isset($_POST['Publique'])) {
+                $l->publique=1;
+            }
+            foreach($l->items as $i){
+                $id=$i['id'];
+                if (isset($_POST["$id"])){
+                    $l->items()->detach($id);
+                }
+            }
+            $l->update();
+            foreach (Item::all() as $item) {
+                $ok=0;
+                $id=$item['id'];
+                foreach ($l->items as $mesItems){
+                    if ($mesItems['id']==$item['id']){
+                        $ok=1;
+                    }
+                }
+                if ($ok==0) {
+                    if (isset($_POST["$id"]))
+                        $l->items()->attach($id,["loginReserv"=>null,"etatCagnotte"=>0,"valCagnotte"=>0.0]);
+                }
+            }
+            $l->update();
+            Slim::getInstance()->redirect(Slim::getInstance()->urlFor('getListe', ['token'=>$l->token, 'id'=>$l->no]));
+        } else {
+            $vue = new VueFormulaire(null);
+            $vue->render(BAD_TOKEN);
+        }
     }
 
     public function supprimerListe($id){
