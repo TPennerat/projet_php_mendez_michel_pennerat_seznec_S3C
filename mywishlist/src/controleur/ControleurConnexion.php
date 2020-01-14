@@ -75,11 +75,11 @@ class ControleurConnexion{
     }
 
     public function seDeconnecter(){
-      $app= Slim::getInstance();
-      $_SESSION['id_connect']=null;
-      if (isset($_COOKIE['ssdm']))
-        setcookie('ssdm',base64_encode("nonssdmsvp"),0,'/');
-      $app->redirect($app->urlFor('racine'));
+        $app= Slim::getInstance();
+        $_SESSION['id_connect']=null;
+        if (isset($_COOKIE['ssdm']))
+            setcookie('ssdm',base64_encode("nonssdmsvp"),0,'/');
+        $app->redirect($app->urlFor('racine'));
     }
 
     private function creerUser($login,$mdp){

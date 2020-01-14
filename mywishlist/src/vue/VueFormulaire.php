@@ -125,19 +125,19 @@ class VueFormulaire {
         $nom=$this->arr['nom'];
         $descr=$this->arr['descr'];
         $routeModif=Slim::getInstance()->urlFor('modifierItem',["id"=>$id]);
-      $html="<div id=\"mainpage\"><h2>Modification de l'item $id</h2></div>";
-      $html .='<div class="reste" align="center">';
-      $html .="<form id=\"f2\" method=\"post\" action=\"$routeModif\" enctype=\"multipart/form-data\">";
-      $html .= "<div>Nom de l'item : $nom</div>";
-      $html .= "<div>Description : <input type=\"text\" name=\"descr\" placeholder=\"$descr\"></div>";
-      $html .= "<div>Prix : <input type='text' name='tarif' placeholder='00' required></div>";
-      //$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000">';
-      $html .= '<div><input type="file" name="image"></div>';
-      $html .= '<br><button type=submit name="valider">Valider</button>';
-      $html .='</form>';
-      $html .='</div>';
+        $html="<div id=\"mainpage\"><h2>Modification de l'item $id</h2></div>";
+        $html .='<div class="reste" align="center">';
+        $html .="<form id=\"f2\" method=\"post\" action=\"$routeModif\" enctype=\"multipart/form-data\">";
+        $html .= "<div>Nom de l'item : $nom</div>";
+        $html .= "<div>Description : <input type=\"text\" name=\"descr\" placeholder=\"$descr\"></div>";
+        $html .= "<div>Prix : <input type='text' name='tarif' placeholder='00' required></div>";
+        //$html .= '<input type="hidden" name="MAX_FILE_SIZE" value="30000">';
+        $html .= '<div><input type="file" name="image"></div>';
+        $html .= '<br><button type=submit name="valider">Valider</button>';
+        $html .='</form>';
+        $html .='</div>';
 
-      return $html;
+        return $html;
     }
 
     public function render($selecteur){

@@ -34,11 +34,11 @@ class VueParticipant {
         $content.="<br><p>Listes publiques :</p>";
 
         foreach($lListes as $l){
-          if (strtotime("now") < strtotime("{$l['expiration']}+1 day")) {
-            if($l['publique']==1){
-                $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['tokenPartage'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+            if (strtotime("now") < strtotime("{$l['expiration']}+1 day")) {
+                if($l['publique']==1){
+                    $content.="<li>".' <a href="'.$app->urlFor('getListe', ['token'=>$l['tokenPartage'], 'id'=>$l["no"]]).'">'.$l["titre"]."</a></li>";
+                }
             }
-          }
         }
 
         $content.="</div>";
@@ -69,7 +69,7 @@ END;
         }
         $messages = $l->messages()->get();
         foreach ($messages as $message) {
-          $html.='<p>'."$message->login : $message->message".'</p>';
+            $html.='<p>'."$message->login : $message->message".'</p>';
         }
 
         $html .='</div><div align="center">';
@@ -142,7 +142,7 @@ END;
             }
         }
         if ($login==null and !$etatCagnotte==1){
-        $html.='<a href="'.$app->urlFor('afficherModItem', ['id'=>$item["id"]]).'">'."Modifier l'item ?".'</a>';}
+            $html.='<a href="'.$app->urlFor('afficherModItem', ['id'=>$item["id"]]).'">'."Modifier l'item ?".'</a>';}
         $html .= "</div></div>";
 
         return $html;
@@ -199,7 +199,7 @@ END;
         }
         $messages = $l->messages()->get();
         foreach ($messages as $message) {
-          $html.='<p>'."$message->login : $message->message".'</p>';
+            $html.='<p>'."$message->login : $message->message".'</p>';
         }
 
         $html .='</div><div align="center">';

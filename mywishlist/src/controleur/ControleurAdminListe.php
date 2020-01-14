@@ -49,7 +49,7 @@ class ControleurAdminListe {
                     //try catch ?
                 }
                 if(isset($_POST['Publique'])){
-                  $liste->publique = 1;
+                    $liste->publique = 1;
                 }
                 $liste->save();
                 $l = Liste::select('no')->where('titre', '=', $nom)->get();

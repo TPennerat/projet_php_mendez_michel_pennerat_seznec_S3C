@@ -41,22 +41,22 @@ END;
     }
 
     private function afficherCagnotteItem(){
-      $app = Slim::getInstance();
-      $html = "<div id=\"mainpage\"><h2>Cagnotte de l'item</h2></div><div id=\"reste\">";
-      $urlModif = $app->urlFor("monterCagnotte",["id"=>$this->arr]);
-      $log="";
-      if (isset($_SESSION['id_connect'])){
-          $log = $_SESSION['id_connect'];
-      }
-      $id = $this->arr;
-      $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
-      foreach ($liste->items as $i) {
-          if ($i['id']==$id){
-              $val = $i->pivot->valCagnotte;
-          }
-      }
-      $tarif = Item::find($id)->tarif;
-      $html .= <<<END
+        $app = Slim::getInstance();
+        $html = "<div id=\"mainpage\"><h2>Cagnotte de l'item</h2></div><div id=\"reste\">";
+        $urlModif = $app->urlFor("monterCagnotte",["id"=>$this->arr]);
+        $log="";
+        if (isset($_SESSION['id_connect'])){
+            $log = $_SESSION['id_connect'];
+        }
+        $id = $this->arr;
+        $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
+        foreach ($liste->items as $i) {
+            if ($i['id']==$id){
+                $val = $i->pivot->valCagnotte;
+            }
+        }
+        $tarif = Item::find($id)->tarif;
+        $html .= <<<END
 <div align="center"> <form id="formCagnotte" method="post" action="$urlModif" enctype="multipart/form-data">
 <h2>Etat de la cagnotte : $val / $tarif</h2>
 <p>Combien voulez-vous ajouter à la cagnotte?</p>
@@ -65,46 +65,46 @@ END;
 </div>
 END;
 
-      $html.="</div>";
-      return $html;
+        $html.="</div>";
+        return $html;
     }
 
     private function afficherErreur(){
-      $html = $this->afficherCagnotteItem();
+        $html = $this->afficherCagnotteItem();
 
-      $html.='<div align="center" style="color:red">Valeur incorrecte, la valeur de la cagnotte ne doit pas excéder le tarif de l\'objet</div>';
-      return $html;
+        $html.='<div align="center" style="color:red">Valeur incorrecte, la valeur de la cagnotte ne doit pas excéder le tarif de l\'objet</div>';
+        return $html;
     }
 
     private function afficherErreurItemReserve(){
-      return '<div align="center" style="color:red">Création de la cagnotte impossible : cet item est réservé </div>';
+        return '<div align="center" style="color:red">Création de la cagnotte impossible : cet item est réservé </div>';
     }
 
     private function afficherCagnotteFinie(){
-      $app = Slim::getInstance();
-      $html = "<div id=\"mainpage\"><h2>Cagnotte de l'item</h2></div><div id=\"reste\">";
-      $log="";
-      if (isset($_SESSION['id_connect'])){
-          $log = $_SESSION['id_connect'];
-      }
-      $id = $this->arr;
-      $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
-      foreach ($liste->items as $i) {
-          if ($i['id']==$id){
-              $val = $i->pivot->valCagnotte;
-          }
-      }
-      $tarif = Item::find($id)->tarif;
+        $app = Slim::getInstance();
+        $html = "<div id=\"mainpage\"><h2>Cagnotte de l'item</h2></div><div id=\"reste\">";
+        $log="";
+        if (isset($_SESSION['id_connect'])){
+            $log = $_SESSION['id_connect'];
+        }
+        $id = $this->arr;
+        $liste = Liste::find(unserialize($_COOKIE['token_liste_reserv']));
+        foreach ($liste->items as $i) {
+            if ($i['id']==$id){
+                $val = $i->pivot->valCagnotte;
+            }
+        }
+        $tarif = Item::find($id)->tarif;
 
-      $html .= <<<END
+        $html .= <<<END
 <div align="center">
 <h2>Etat de la cagnotte : $val / $tarif</h2>
 <p>La cagnotte est complétée, merci à tous!</p>
 </div>
 END;
 
-      $html.="</div>";
-      return $html;
+        $html.="</div>";
+        return $html;
     }
 
     public function render($selecteur){
