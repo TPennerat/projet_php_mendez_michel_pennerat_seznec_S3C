@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  lun. 13 jan. 2020 à 21:09
+-- Généré le :  mer. 15 jan. 2020 à 09:50
 -- Version du serveur :  10.4.8-MariaDB
 -- Version de PHP :  7.3.11
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `michel412u`
+-- Base de données :  `projet_php`
 --
 
 -- --------------------------------------------------------
@@ -104,20 +104,29 @@ CREATE TABLE `item_liste` (
 
 INSERT INTO `item_liste` (`item_id`, `liste_no`, `reserve`, `loginReserv`, `messageReserve`, `etatCagnotte`, `valCagnotte`) VALUES
 (1, 3, 0, NULL, NULL, 0, '0.00'),
+(1, 33, 0, NULL, NULL, 0, '0.00'),
 (2, 3, 0, NULL, NULL, 0, '0.00'),
 (3, 3, 0, NULL, NULL, 0, '0.00'),
+(3, 35, 0, NULL, NULL, 0, '0.00'),
 (6, 3, 0, NULL, NULL, 0, '0.00'),
+(6, 34, 0, NULL, NULL, 0, '0.00'),
 (7, 3, 0, NULL, NULL, 0, '0.00'),
+(7, 34, 0, NULL, NULL, 0, '0.00'),
+(8, 35, 0, NULL, NULL, 0, '0.00'),
 (10, 3, 0, NULL, NULL, 0, '0.00'),
 (11, 1, 0, NULL, NULL, 0, '0.00'),
 (12, 3, 0, NULL, NULL, 0, '0.00'),
+(12, 34, 0, NULL, NULL, 0, '0.00'),
 (19, 1, 0, NULL, NULL, 0, '0.00'),
 (22, 1, 0, NULL, NULL, 0, '0.00'),
-(22, 18, 0, NULL, NULL, 0, '0.00'),
+(22, 33, 0, NULL, NULL, 0, '0.00'),
 (23, 2, 0, NULL, NULL, 0, '0.00'),
 (24, 3, 0, NULL, NULL, 0, '0.00'),
+(24, 34, 0, NULL, NULL, 0, '0.00'),
 (25, 2, 0, NULL, NULL, 0, '0.00'),
+(25, 33, 0, NULL, NULL, 0, '0.00'),
 (26, 2, 0, NULL, NULL, 0, '0.00'),
+(26, 35, 0, NULL, NULL, 0, '0.00'),
 (27, 2, 0, NULL, NULL, 0, '0.00');
 
 -- --------------------------------------------------------
@@ -145,14 +154,9 @@ INSERT INTO `list` (`no`, `createur`, `titre`, `description`, `expiration`, `tok
 (1, 'tom', 'Pour fêter le bac !', 'Pour un week-end à Nancy qui nous fera oublier les épreuves. ', '2018-06-27', 'nosecure1', 0, 'token1'),
 (2, 'tom', 'Liste de mariage d\'Alice et Bob', 'Nous souhaitons passer un week-end royal à Nancy pour notre lune de miel :)', '2018-06-30', 'nosecure2', 0, 'token2'),
 (3, 'tom', 'C\'est l\'anniversaire de Charlie', 'Pour lui préparer une fête dont il se souviendra :)', '2017-12-12', 'nosecure3', 0, 'token3'),
-(16, 'admin', 'testx', 'grgr', NULL, 'f6d6ebe085825d68', 1, 'token4'),
-(17, 'admin', 'test', 'test', NULL, 'e0ce1c45b9fde27f', 1, 'token5'),
-(18, 'admin', 'fezfez', 'fefz', NULL, '9ef964956f60f8b7', 0, 'token6'),
-(19, 'admin', 'testxfbdfbdf', 'gregere', NULL, '094ae5563d1e7199', 0, '484ae5563d1e7199'),
-(20, 'admin', 'Liste de noel', 'pour mon cousin', '2045-12-12', '5dac65793fdc4085', 1, '60c4f060cbee21bc'),
-(30, 'damien', 'saloperie', 'massarza', '2020-03-19', '0e0a7aad4b25e811', 1, '87228b3e048e6cd8'),
-(31, 'damien', 'eeger', 'gregrege', '2020-02-14', '5f252ea53a84d66a', 1, 'cab0598bd3a9ba78'),
-(32, 'damien', 'ListeMegaBien', 'ElleEstSuper', '2020-02-20', '1c9c205a73b3d4de', 1, '06be3ab741f2b512');
+(33, 'damien', 'Avant de partir en stage', 'Il faut profiter !', '2020-04-06', 'c1cb480a1a89f210', 0, 'e6258f99951aa684'),
+(34, 'damien', 'Pour ma femme', 'Je souhaite lui faire plaisir', '2020-02-14', '33a0ad42315a1b88', 1, '6ee260e0c2367b7d'),
+(35, 'admin', 'Nouveautés', 'Découvrez nos nouveaux items !', '2020-12-31', '3c91228228ceb7aa', 1, '59463a9ed326b3d3');
 
 -- --------------------------------------------------------
 
@@ -172,9 +176,7 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`idMessage`, `no`, `login`, `message`) VALUES
-(1, 1, 'tom', 'Merci d\'acheter tout ce que je veux les esclaves !'),
-(2, 16, 'admin', 'Salut a tous'),
-(3, 16, 'admin', 'Merci pour les kdos');
+(1, 1, 'tom', 'Merci d\'acheter tout ce que je veux les esclaves !');
 
 --
 -- Index pour les tables déchargées
@@ -228,7 +230,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT pour la table `list`
 --
 ALTER TABLE `list`
-  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT pour la table `message`
