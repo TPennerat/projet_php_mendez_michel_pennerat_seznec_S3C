@@ -20,3 +20,34 @@ Cette fois, nous avons éstimé que c'est au participant de gérér cet aspect e
 
 
 Fonctionnalités  16 (25 26 27 28) à faire
+
+
+
+------------------------------- INSTALLER LE PROJET ------------------------------
+
+Pour installer le projet sur une machine perso, vous devez créer un fichier conf.ini dans src/conf/ (créer le dossier conf aussi)
+Puis creer un fichier .htaccess au même niveau que l'index, comme ceci :
+
+RewriteEngine On
+
+# Pour interdire l'accès aux répertoires contenant du code
+RewriteRule ^sql(/.*|)$ - [NC,F]
+RewriteRule ^src(/.*|)$ - [NC,F]
+RewriteRule ^vendor(/.*|)$ - [NC,F]
+
+#
+# réécriture pour slim
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+
+Ensuite vous devez créer votre propre base de donnée (mySQL de préférence) et y injecter le script mywishlist.sql se trouvant à la racine.
+
+Puis faites composer install dans le dossier mywishlist
+
+Vous voilà maintenant prêt pour lancer le projet en local
+
+--------------------------------------------------------------------------
+
+Lien vers WEBETU : https://webetu.iutnc.univ-lorraine.fr/www/mendezpo1u/mywishlist/
