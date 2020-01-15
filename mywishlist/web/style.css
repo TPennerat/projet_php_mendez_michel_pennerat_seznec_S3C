@@ -17,7 +17,7 @@ body {
  font-family: 'Roboto', serif;
  font-size: 90%;
  color: #ab7933;
- background-color: #fff099;
+ background-color: #EEE8AA;
 }
 
 h1 {
@@ -221,7 +221,7 @@ a:hover {
 
 .liste p {
 	padding-left: 0px;
-	width: 200px;
+	width: 100%;
 	text-align: center;
 }
 
@@ -232,6 +232,10 @@ a:hover {
 .liste #suppr {
 	width: 200px;
 	margin-bottom: 3%;
+}
+
+form {
+	margin-bottom: 20px;
 }
 
 .liste div {
